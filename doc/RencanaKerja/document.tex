@@ -35,7 +35,7 @@
 	\newcommand{\@npm}{6182001029}
 	\newcommand{\@judultopik}{Modularisasi Algoritma Shortest Path pada Perangkat Lunak KIRI Menggunakan Strategy Pattern} % Judul/topik anda
 	\newcommand{\jumpemb}{1} % Jumlah pembimbing, 1 atau 2
-	\newcommand{\tanggal}{01/01/1900}
+	\newcommand{\tanggal}{17/09/2024}
 	
 	% Dokumen hasil template ini harus dicetak bolak-balik !!!!
 	
@@ -46,36 +46,41 @@
 	\section{Deskripsi}
 	Perangkat lunak KIRI adalah perangkat lunak berbasis web yang dirancang untuk membantu pengguna menemukan rute perjalanan menggunakan angkutan kota (angkot). Pada perangkat lunak KIRI, pengguna dapat memasukkan titik awal perjalanan dan titik tujuan. KIRI kemudian akan mencarikan berbagai alternatif rute angkot yang bisa digunakan untuk mencapai tujuan tersebut.
 	
-	Arsitektur aplikasi KIRI terbagi menjadi dua bagian utama. Bagian frontend, yang dinamakan Tirtayasa, dibangun menggunakan bahasa pemrograman PHP dan mengandalkan basis data MySQL untuk menyimpan serta mengelola data. Selain itu, Tirtayasa juga menggunakan framework CodeIgniter. Saat menerima permintaan pencarian, Tirtayasa meneruskannya ke bagian backend, yaitu NewMenjangan. Hasil dari NewMenjangan kemudian diformat agar dapat dibaca dengan baik oleh pengguna. Bagian ini diimplementasikan dalam bahasa pemrograman Java dan berperan penting dalam perhitungan rute optimal.
+	Arsitektur aplikasi KIRI terbagi menjadi dua bagian utama. Bagian frontend, yang dinamakan Tirtayasa, dibangun menggunakan bahasa pemrograman PHP dan mengandalkan basis data MySQL untuk menyimpan serta mengelola data. Selain itu, Tirtayasa juga menggunakan framework CodeIgniter 3. Saat menerima permintaan pencarian, Tirtayasa meneruskannya ke bagian backend, yaitu NewMenjangan. Hasil dari NewMenjangan kemudian diformat agar dapat dibaca dengan baik oleh pengguna. Bagian ini diimplementasikan dalam bahasa pemrograman Java dan berperan penting dalam perhitungan rute optimal.
 
- 	NewMenjangan merupakan program daemon yang berjalan secara otomatis saat server dinyalakan dan terus beroperasi hingga server dimatikan. Pada saat eksekusi, NewMenjangan terhubung ke basis data MySQL untuk mengambil data rute angkot yang tersimpan dalam format LineString. Setiap titik pada LineString merepresentasikan lokasi potensial untuk penumpang naik atau turun. Dari data tersebut, NewMenjangan membangun \textit{weighted graph} dalam memori (RAM) dalam bentuk \textit{adjacency list} dan melakukan prekomputasi. Setiap titik pada LineString menjadi \textit{node}, dan antara titik ke-i dan titik ke-(i+1) dihubungkan dengan \textit{edge}. Jika ada dua titik dari rute angkot berbeda yang berdekatan (jarak di bawah konstanta tertentu), maka dibuatkan juga \textit{edge}, yang menunjukkan kemungkinan seseorang dapat turun dari suatu angkot dan naik ke angkot lainnya untuk meneruskan perjalanan. 
+ 	NewMenjangan merupakan program daemon\footnote{Daemon adalah program komputer yang berjalan di latar belakang dan tidak berinteraksi langsung dengan pengguna.} yang berjalan secara otomatis saat server dinyalakan dan terus beroperasi hingga server dimatikan. Pada saat eksekusi, NewMenjangan terhubung ke basis data MySQL untuk mengambil data rute angkot yang tersimpan dalam format LineString\footnote{LineString adalah tipe data geometri yang digunakan dalam basis data, seperti MySQL, untuk merepresentasikan garis atau rangkaian segmen garis.}. Setiap titik pada LineString merepresentasikan lokasi potensial untuk penumpang naik atau turun. Dari data tersebut, NewMenjangan membangun \textit{weighted graph} dalam memori (RAM) dalam bentuk \textit{adjacency list} dan melakukan prakomputasi. Setiap titik pada LineString menjadi \textit{node}, dan antara titik ke-i dan titik ke-(i+1) dihubungkan dengan \textit{edge}. Jika ada dua titik dari rute angkot berbeda yang berdekatan (jarak di bawah konstanta tertentu), maka dibuatkan juga \textit{edge}, yang menunjukkan kemungkinan seseorang dapat turun dari suatu angkot dan naik ke angkot lainnya untuk meneruskan perjalanan. 
   
 	Saat NewMenjangan menerima permintaan pencarian dari titik A ke titik B, kedua titik tersebut dijadikan \textit{node} sementara, dan dibuatkan \textit{edge} sementara ke \textit{node-node} yang sudah ada sebelumnya, jika jaraknya di bawah konstanta tertentu. Pencarian jarak terdekat pada graf tersebut dilakukan menggunakan algoritma Dijkstra versi teroptimasi (\textit{priority queue} dengan struktur data \textit{heap}). Proses ini dapat dilakukan secara paralel dengan aman (\textit{thread-safe}) tanpa mengubah graf utama.
 
 	Pada skripsi ini, akan dilakukan perubahan pada arsitektur kelas sehingga menggunakan \textit{strategy pattern} tanpa mengorbankan fitur-fitur yang sudah ada. Selain itu, algoritma A-star dan Floyd Warshall juga akan diimplementasikan sebagai \textit{concrete strategy}.
-	
+
+    \newpage
 	\section{Rumusan Masalah}
             \begin{enumerate}
-                \item Bagaimana cara melakukan perubahan untuk menerapkan arsitektur kelas \textit{strategy pattern}?
+                \item Bagaimana cara melakukan perubahan kode pada NewMenjangan untuk menerapkan \textit{strategy pattern}?
                 \item Bagaimana mengimplementasikan algoritma A-star dan Floyd Warshall sebagai \textit{concrete strategy}?
             \end{enumerate}
 	
 	\section{Tujuan}
             \begin{enumerate}
-                \item Melakukan perubahan arsitektur kelas dengan menerapkan \textit{strategy pattern}
-                \item Melakukan implementasi algoritma A-star dan Floyd Warshall
+                \item Melakukan perubahan arsitektur kelas dengan menerapkan \textit{strategy pattern}.
+                \item Melakukan implementasi algoritma A-star dan Floyd Warshall.
             \end{enumerate}
 	
 	\section{Deskripsi Perangkat Lunak}
 	Perangkat lunak akhir yang akan dibuat memiliki fitur minimal sebagai berikut:
     	\begin{itemize}
-    		\item Pengguna dapat melihat peta dunia.
-    		\item Pengguna dapat melakukan \textit{zoom in} / \textit{zoom ou}t pada peta.
-    		\item Pengguna dapat meangkatifkan lokasi / gps sehingga perangkat lunak bisa mengetahui lokasi pengguna.
-    		\item Pengguna dapat memilih kota, yaitu Jakarta atau Bandung.
-    		\item Pengguna dapat memilih bahasa yang ingin digunakan, yaitu bahasa Inggris atau bahasa Indonesia. 
-    		\item Pengguna dapat memasukan input berupa titik awal dan titik akhir secara diketik pada kolom input atau melakukan klik pada peta.
-                \item Pengguna dapat melakukan pencarian rute perjalanan berdasarkan masukan yang telah dimasukan.
+                \item Pengguna dapat menggunakan program KIRI seperti sebelumnya, yaitu:
+                \begin{enumerate}
+                    \item Pengguna dapat melihat peta dunia.
+    		      \item Pengguna dapat melakukan \textit{zoom in} / \textit{zoom out} pada peta.
+    		      \item Pengguna dapat mengaktifkan lokasi / gps sehingga KIRI bisa mengetahui lokasi pengguna.
+    		      \item Pengguna dapat memilih kota, yaitu Jakarta atau Bandung.
+    		      \item Pengguna dapat memilih bahasa yang ingin digunakan, yaitu bahasa Inggris atau Indonesia. 
+    		      \item Pengguna dapat memasukan input berupa titik awal dan titik akhir secara diketik pada kolom input atau melakukan klik pada peta.
+                        \item Pengguna dapat melakukan pencarian rute perjalanan berdasarkan masukan.
+                \end{enumerate}
+                \item Sistem dapat memilih algoritma \textit{shortest path} yang digunakan, saat menjalankan program.
     	\end{itemize}
 	
 	\section{Detail Pengerjaan Tugas Akhir}	
@@ -86,7 +91,7 @@
                 \item Mempelajari bahasa pemrograman PHP dan framework CodeIgniter.
     		\item Melakukan studi literatur mengenai penerapan arsitektur kelas \textit{straregy pattern}.
     		\item Mempelajari cara kerja algoritma Dijkstra, A-star, dan Floyd Warshall.
-    		\item Menerapkan arsitektur kelas \textit{strategy pattern}.
+    		\item Mengubah implementasi algoritma Dijkstra yang sudah ada ke dalam \textit{strategy pattern}.
     		\item Mengimplementasikan algoritma A-star dan Floyd Warshall.
     		\item Melakukan pengujian dan eksperimen.
     		\item Menulis dokumen tugas akhir.
@@ -100,12 +105,12 @@
                 \item Mempelajari bahasa pemrograman PHP dan framework CodeIgniter.
     		\item Melakukan studi literatur mengenai penerapan arsitektur kelas \textit{straregy pattern}.
     		\item Mempelajari cara kerja algoritma Dijkstra, A-star, dan Floyd Warshall.
+                \item Mengubah implementasi algoritma Dijkstra yang sudah ada ke dalam \textit{strategy pattern}.
                 \item Menulis sebagian dokumen skripsi, yaitu Bab 1, 2, dan 3.
     	\end{enumerate}
 	
 	Sedangkan yang akan diselesaikan di Tugas Akhir 2 adalah sebagai berikut:
     	\begin{enumerate}
-    		\item Menerapkan arsitektur kelas \textit{straregy pattern}.
     		\item Mengimplementasikan algoritma A-star dan Floyd Warshall.
     		\item Melakukan pengujian dan eksperimen.
     		\item Menyelesaikan dokumen skripsi.
