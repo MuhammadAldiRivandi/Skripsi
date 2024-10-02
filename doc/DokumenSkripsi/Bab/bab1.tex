@@ -5,40 +5,68 @@
 \section{Latar Belakang}
 \label{sec:label}
 
-Bagian ini akan diisi dengan apa yang melatarbelakangi pembuatan template skripsi ini.
-Termasuk juga masalah-masalah yang akan dihadapi untuk membuatnya, termasuk kurangnya kemampuan penguasaan \LaTeX{} sehingga template ini dibuat dengan mengandalkan berbagai contoh yang tersebar di dunia maya, yang digabung-gabung menjadi satu jua.
-Bagian lain juga akan dilengkapi, untuk sementara diisi dengan lorem ipsum versi bahasa inggris.
+Perangkat lunak KIRI adalah perangkat lunak berbasis web yang dirancang untuk membantu pengguna menemukan rute perjalanan menggunakan angkutan kota (angkot). Pada perangkat lunak KIRI, pengguna dapat memasukkan titik awal perjalanan dan titik tujuan. KIRI kemudian akan mencarikan berbagai alternatif rute angkot yang bisa digunakan untuk mencapai tujuan tersebut.
+	
+Arsitektur aplikasi KIRI terbagi menjadi dua bagian utama. Bagian frontend, yang dinamakan Tirtayasa, dibangun menggunakan bahasa pemrograman PHP dan mengandalkan basis data MySQL untuk menyimpan serta mengelola data. Selain itu, Tirtayasa juga menggunakan framework CodeIgniter 3. Saat menerima permintaan pencarian, Tirtayasa meneruskannya ke bagian backend, yaitu NewMenjangan. Hasil dari NewMenjangan kemudian diformat agar dapat dibaca dengan baik oleh pengguna. Bagian ini diimplementasikan dalam bahasa pemrograman Java dan berperan penting dalam perhitungan rute optimal.
 
+NewMenjangan merupakan program daemon yang berjalan secara otomatis saat server dinyalakan dan terus beroperasi hingga server dimatikan. Daemon sendiri adalah program komputer yang berjalan di latar belakang dan tidak berinteraksi langsung dengan pengguna\footnote{\url{https://www.linfo.org/daemon.html}}. Pada saat eksekusi, NewMenjangan terhubung ke basis data MySQL untuk mengambil data rute angkot yang tersimpan dalam format LineString. LineString adalah tipe data geometri yang digunakan dalam basis data, untuk merepresentasikan garis atau rangkaian segmen garis\footnote{\url{https://learn.microsoft.com/en-us/sql/relational-databases/spatial/linestring?view=sql-server-ver16}}. Setiap titik pada LineString merepresentasikan lokasi potensial untuk penumpang naik atau turun. Dari data tersebut, NewMenjangan membangun \textit{weighted graph} dalam memori (RAM) dalam bentuk \textit{adjacency list} dan melakukan prakomputasi. Setiap titik pada LineString menjadi \textit{node}, dan antara titik ke-i dan titik ke-(i+1) dihubungkan dengan \textit{edge}. Jika ada dua titik dari rute angkot berbeda yang berdekatan (jarak di bawah konstanta tertentu), maka dibuatkan juga \textit{edge}, yang menunjukkan kemungkinan seseorang dapat turun dari suatu angkot dan naik ke angkot lainnya untuk meneruskan perjalanan. 
+  
+Saat NewMenjangan menerima permintaan pencarian dari titik A ke titik B, kedua titik tersebut dijadikan \textit{node} sementara, dan dibuatkan \textit{edge} sementara ke \textit{node-node} yang sudah ada sebelumnya, jika jaraknya di bawah konstanta tertentu. Pencarian jarak terdekat pada graf tersebut dilakukan menggunakan algoritma Dijkstra versi teroptimasi (\textit{priority queue} dengan struktur data \textit{heap}). Proses ini dapat dilakukan secara paralel dengan aman (\textit{thread-safe}) tanpa mengubah graf utama.
+
+Pada saat ini algoritma yang digunakan KIRI masih terikat dengan algoritma Dijkstra. Oleh karena itu, pada tugas akhir ini akan diimplementasikan algoritma lainnya, yaitu algoritma A-star dan Floyd Warshall sebagai \textit{concrete strategy}. Selain itu, akan dilakukan juga penerapan arsitektur kelas \textit{strategy pattern} sehingga aplikasi KIRI akan menjadi lebih fleksibel dalam pemilihan algoritma \textit{shortest path} yang akan digunakan dan juga memudahkan apabila akan dilakukan perubahan atau perbaikan pada suatu algoritma yang digunakan.
 \dtext{5-10}
 
 \section{Rumusan Masalah}
 \label{sec:rumusan}
-Bagian ini akan diisi dengan penajaman dari masalah-masalah yang sudah diidentifikasi di bagian sebelumnya. 
+	\begin{enumerate}
+                \item Bagaimana cara melakukan perubahan kode pada NewMenjangan untuk menerapkan \textit{strategy pattern}?
+                \item Bagaimana mengimplementasikan algoritma A-star dan Floyd Warshall sebagai \textit{concrete strategy}?
+	\end{enumerate}
 
 \dtext{6}
 
 \section{Tujuan}
 \label{sec:tujuan}
-Akan dipaparkan secara lebih terperinci dan tersturkur apa yang menjadi tujuan pembuatan template skripsi ini
+	\begin{enumerate}
+                \item Melakukan perubahan arsitektur kelas dengan menerapkan \textit{strategy pattern}.
+                \item Melakukan implementasi algoritma A-star dan Floyd Warshall.
+            \end{enumerate}
 
 \dtext{7}
 
 \section{Batasan Masalah}
 \label{sec:batasan}
-Untuk mempermudah pembuatan template ini, tentu ada hal-hal yang harus dibatasi, misalnya saja bahwa template ini bukan berupa style \LaTeX{} pada umumnya (dengan alasannya karena belum mampu jika diminta membuat seperti itu)
+...
 
 \dtext{8}
 
 \section{Metodologi}
 \label{sec:metlit}
-Tentunya akan diisi dengan metodologi yang serius sehingga templatenya terkesan lebih serius.
+Metodologi yang akan digunakan dalam pembuatan tugas akhir ini adalah sebagai berikut:
+	\begin{enumerate}
+		\item Melakukan eksplorasi fungsi-fungsi dan cara kerja perangkat lunak KIRI.
+		\item Mempelajari modul-modul yang terdapat pada Tirtayasa dan NewMenjangan.
+		\item Mempelajari bahasa pemrograman PHP dan framework CodeIgniter 3.
+		\item Melakukan studi literatur mengenai penerapan arsitektur kelas \textit{strategy pattern}.
+    		\item Mempelajari cara kerja algoritma Dijkstra, A-star, dan Floyd Warshall.
+    		\item Mengubah implementasi algoritma Dijkstra yang sudah ada ke dalam \textit{strategy pattern}.
+    		\item Mengimplementasikan algoritma A-star dan Floyd Warshall.
+    		\item Melakukan pengujian dan eksperimen.
+    		\item Menulis dokumen tugas akhir.
+	\end{enumerate}
 
 \dtext{9}
 
 \section{Sistematika Pembahasan}
 \label{sec:sispem}
-Rencananya Bab 2 akan berisi petunjuk penggunaan template dan dasar-dasar \LaTeX.
-Mungkin bab 3,4,5 dapt diisi oleh ketiga jurusan, misalnya peraturan dasar skripsi atau pedoman penulisan, tentu jika berkenan.
-Bab 6 akan diisi dengan kesimpulan, bahwa membuat template ini ternyata sungguh menghabiskan banyak waktu.
+Tugas akhir ini akan disusun menjadi beberapa bab sebagai berikut:
+	\begin{itemize}
+		\item \textbf{Bab 1:} Pendahuluan
+		Bab ini berisi latar belakang, rumusan masalah,tujuan, batasan masalah, metodologi, dan sistematika pembahasan.
+		\item \textbf{Bab 2:} Landasan Teori
+		...
+		\item \textbf{Bab 3:} Analisis
+		...
+	\end{itemize}
 
 \dtext{10}
