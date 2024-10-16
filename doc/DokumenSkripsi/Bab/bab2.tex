@@ -2,200 +2,55 @@
 \chapter{Landasan Teori}
 \label{chap:teori}
 
+\section{Strategy Pattern}
+\label{sec:strategypattern}
+Strategy Pattern adalah sebuah design pattern yang memungkinkan objek untuk memilih saat runtime. Ini mendefinisikan sekumpulan algoritma, merangkum masing-masing algoritma, dan membuatnya dapat dipertukarkan. Hal ini memungkinkan klien untuk memilih algoritma berdasarkan kebutuhan mereka tanpa mengubah kode yang menggunakan algoritma tersebut. Ide utama penerapan Strategy Pattern adalah merancang antarmuka fleksibel yang dapat bekerja dengan algoritma berbeda tanpa perlu mengubah kode ketika algoritma baru diperkenalkan. \\
+Strategy Pattern cocok digunakan dalam skenario-skenario berikut:
+\begin{enumerate}
+    \item Ketika ada beberapa kelas terkait yang hanya berbeda dalam perilakunya. Strategy Pattern memungkinkan kelas dikonfigurasikan dengan salah satu dari banyak kemungkinan perilaku.
+    \item Ketika ada kebutuhan untuk varian algoritma yang berbeda.
+    \item Ketika suatu algoritma melibatkan data yang harus tetap tersembunyi dari klien. Strategy Pattern memastikan bahwa struktur data yang kompleks dan spesifik algoritma tidak terekspos.
+    \item Ketika sebuah kelas mendefinisikan banyak perilaku, dan perilaku ini diimplementasikan melalui beberapa pernyataan kondisional. Dalam kasus seperti ini, Strategy Pattern menyederhanakan kode dengan memindahkan cabang kondisional terkait ke dalam kelas Strategi masing-masing
+\end{enumerate}
+\begin{figure}[h] 
+	\centering  
+	\includegraphics[width=1\textwidth]{struktur-sp}  
+	\caption{Struktur Strategy Pattern}
+	\label{fig:struktursp} 
+\end{figure}
+
+\section{MySQL}
+\label{sec:mysql}
+MySQL adalah \textit{open source relational database management system} (RDBMS) yang digunakan untuk menyimpan dan mengelola data yang dikembangkan oleh Oracle. MySQL adalah salah satu sistem manajemen basis data paling populer di dunia. SQL adalah singkatan dari \textit{Structured Query Language} yang merupakan bahasa pemrograman yang digunakan untuk mengambil, memperbarui, menghapus, dan memanipulasi data dalam database relasional. Sebagai database relasional, MySQL menyimpan data dalam tabel baris dan kolom yang disusun dalam skema. Skema mendefinisikan bagaimana data diatur dan disimpan serta menjelaskan hubungan antara berbagai tabel. \\
+Manfaat utama MySQL meliputi hal berikut:
+\begin{itemize}
+    \item \textbf{\textit{Ease Of use}}. Pengembang dapat menginstal MySQL dengan mudah, dan database mudah dikelola.
+    \item \textbf{\textit{Reliability}}. MySQL adalah salah satu database yang paling matang dan banyak digunakan. Teknologi ini telah diuji dalam berbagai skenario selama hampir 30 tahun, termasuk oleh banyak perusahaan terbesar di dunia.
+    \item \textbf{\textit{Scalability}}. MySQL berskala untuk memenuhi permintaan aplikasi yang paling banyak diakses. Arsitektur replikasi asli MySQL memungkinkan organisasi, termasuk Facebook, Netflix, dan Uber, meningkatkan aplikasi untuk mendukung puluhan juta pengguna atau lebih.
+    \item \textbf{\textit{Performance}}. MySQL adalah sistem database tanpa administrasi yang terbukti berkinerja tinggi dan hadir dalam berbagai edisi untuk memenuhi hampir semua permintaan.
+    \item \textbf{\textit{High availability}}. MySQL menghadirkan serangkaian teknologi replikasi asli dan terintegrasi penuh untuk ketersediaan tinggi.
+    \item \textbf{\textit{Security}}. Keamanan data mencakup perlindungan data dan kepatuhan terhadap peraturan industri dan pemerintah.
+    \item \textbf{\textit{Flexibility}}. Penyimpanan Dokumen MySQL memberi pengguna fleksibilitas maksimum dalam mengembangkan aplikasi database tradisional bebas skema SQL dan NoSQL.
+\end{itemize}
+
+\subsection{LineString}
+\label{subs:linestring}
+Di MySQL, LineString adalah tipe data spasial yang digunakan untuk merepresentasikan geometri linier, seperti jalur atau garis, dalam ruang dua dimensi. MySQL menyediakan berbagai fungsi spasial untuk bekerja dengan geometri LineString, termasuk mengukur panjangnya, menentukan perpotongannya, dan banyak lagi. Fitur-fitur ini sangat berguna dalam aplikasi sistem informasi geografis dimana data spasial seperti jalan atau sungai perlu disimpan dan dianalisis. \\
+Format untuk mendefinisikan LINESTRING adalah sebagai berikut: \\
+\texttt{LINESTRING(x1 y1, x2 y2, x3 y3, ...)}
+
+\newpage
+
+\section{Algoritma Dijkstra}
+\label{sec:dijkstra}
+Algoritma Dijkstra merupakan algoritma greedy yang digunakan untuk mencari jalur terpendek antara suatu node sumber dan seluruh node lainnya pada suatu graf yang tidak memiliki bobot negatif \texttt{G = (V,E)}, dengan V untuk sekumpulan simpul dan E untuk sekumpulan sisi. Algoritma Dijkstra selalu memilih simpul yang memiliki bobot terkecil atau terdekat, oleh karena itu Dijkstra termasuk kedalam algoritma greedy. Dijkstra bekerja dengan menjelajahi node terdekat secara progresif dengan jarak terpendek yang diketahui, kemudian memperbarui jarak tetangganya, jika ditemukan jalur yang lebih pendek. Proses ini berlanjut hingga semua node telah dieksplorasi.\textit{Running time} algoritma Dijkstra bergantung pada bagaimana kita mengimplementasikan \textit{min-priority queue}.
+
+\section{Algoritma Floyd-Warshall}
+\label{floydwarshall}
+Algoritma Floyd-Warshall merupakan algoritma dynamic-programming yang digunakan untuk mencari jalur terpendek antara semua pasangan simpul dalam graf berbobot. Algoritma Floyd-Warshall bisa digunakan untuk graf berarah dan juga tidak berarah. \textit{Running time} untuk algoritma Floyd-Warshall, yaitu $O(V^3)$, dengan V adalah jumlah simpul pada graf. Perbedaan algoritma Floyd-Warshall dan algoritma Dijkstra, yaitu algoritma Floyd-Warshall dapat menangani graf yang memiliki bobot negatif, dengan catatan tidak adanya siklus negatif.
+
+
+
 \section{NewMenjangan}
 \label{sec:newmenjangan} 
 NewMenjangan merupakan bagian \textit{BackEnd} dari KIRI. Pada NewMenjangan terdapat berbagai modul yang dirancang menggunakan bahasa pemrograman java. NewMenjangan merupakan program daemon1 yang berjalan secara otomatis saat server dinyalakan dan terus beroperasi hingga server dimatikan yang berfungsi untuk melakukan perhitungan rute.
-
-\dtext{11-12} 
-
-\section{\LaTeX}
-\label{sec:latex}
-
-Mengapa menggunakan \LaTeX{} untuk buku skripsi dan apa keunggulan/kerugiannya bagi mahasiswa dan pembuat template. 
-
-\dtext{13-14}
-
-
-\section{Template Skripsi FTIS UNPAR}
-\label{sec:template}
- 
-Akan dipaparkan bagaimana menggunakan template ini, termasuk petunjuk singkat membuat referensi, gambar dan tabel.
-Juga hal-hal lain yang belum terpikir sampai saat ini. 
- 
-\dtext{15-16}
-
-\subsection{Tabel}  
-Berikut adalah contoh pembuatan tabel. 
-Penempatan tabel dan gambar secara umum diatur secara otomatis oleh \LaTeX{}, perhatikan contoh di file bab2.tex untuk melihat bagaimana cara memaksa tabel ditempatkan sesuai keinginan kita.
-
-Perhatikan bawa berbeda dengan penempatan judul gambar gambar, keterangan tabel harus diletakkan di atas tabel!!
-Lihat Tabel~\ref{tab:contoh1} berikut ini:
-
-\begin{table}[H] %atau h saja untuk "kira kira di sini"
-	\centering 
-	\caption{Tabel contoh}
-	\label{tab:contoh1}
-	\begin{tabular}{cccc}
-		\toprule
-		& $v_{start}$ & $\mathcal{S}_{1}$ & $v_{end}$\\
-
-		\midrule
-		$\tau_{1}$ & 1 & 12& 20\\
-		$\tau_{2}$ & 1 &  & 20\\
-		$\tau_{3}$ & 1 & 9 & 20\\
-		$\tau_{4}$ & 1 &  & 20\\
-
-		\bottomrule
-		
-	\end{tabular} 
-\end{table}
-Tabel~\ref{tab:cthwarna1} dan Tabel~\ref{tab:cthwarna2} berikut ini adalah tabel dengan sel yang berwarna dan ada dua tabel yang bersebelahan. 
-\begin{table}[H]
-	\begin{minipage}[c]{0.49\linewidth}
-		\centering
-		\caption{Tabel bewarna(1)}
-		\label{tab:cthwarna1}
-		\begin{tabular}{ccccc}
-			\toprule
-			 & $v_{start}$ & $\mathcal{S}_{2}$ & $\mathcal{S}_{1}$ & $v_{end}$\\
-			
-			\midrule
-			$\tau_{1}$ & 1 & 5 \cellcolor{green}& 12& 20\\
-			$\tau_{2}$ & 1 & 8 \cellcolor{green}& & 20\\
-			$\tau_{3}$ & 1 & 2/8/17 \cellcolor{green}& 9 & 20\\
-			$\tau_{4}$ & 1 & \cellcolor{red}& & 20\\
-			
-			\bottomrule
-
-		\end{tabular}
-	\end{minipage}
-	\begin{minipage}[c]{0.49\linewidth}
-		
-		\centering 
-		\caption{Tabel bewarna(2)}
-		\label{tab:cthwarna2}
-		\begin{tabular}{ccccc}
-			\toprule
-			 & $v_{start}$ & $\mathcal{S}_{1}$ & $\mathcal{S}_{2}$ & $v_{end}$\\
-			
-			\midrule
-			$\tau_{1}$ & 1 & 12& 5 \cellcolor{red} &20\\
-			$\tau_{2}$ & 1 &  &  8 \cellcolor{green} &20\\
-			$\tau_{3}$ & 1 & 9 & 2/8/17 \cellcolor{green} &20\\
-			$\tau_{4}$ & 1 &   & \cellcolor{red} &20\\
-			
-			\bottomrule
-		
-		\end{tabular}
-	\end{minipage}
-\end{table}
-
- 
-\subsection{Kutipan}
-\label{subs:kutipan} 
-Berikut contoh kutipan dari berbagai sumber, untuk keterangan lebih lengkap, silahkan membaca file referensi.bib yang disediakan juga di template ini.
-Contoh kutipan:
-\begin{itemize}
-	\item Buku:~\cite{berg:08:compgeom} 
-	\item Bab dalam buku:~\cite{kreveld:04:GIS}
-	\item Artikel dari Jurnal:~\cite{buchin:13:median}
-	\item Artikel dari prosiding seminar/konferensi:~\cite{kreveld:11:median}
-	\item Skripsi/Thesis/Disertasi:~\cite{lionov:02:animasi}~\cite{wiratma:10:following}~\cite{wiratma:22:later}
-	\item Technical/Scientific Report:~\cite{kreveld:07:watertight}
-	\item RFC (Request For Comments):~\cite{RFC1654}
-	\item Technical Documentation/Technical Manual:~\cite{Z.500}~\cite{unicode:16:stdv9}~\cite{google:16:and7}
-	\item Paten:~\cite{webb:12:comm}
-	\item Tidak dipublikasikan:~\cite{wiratma:09:median}~\cite{lionov:11:cpoly}
-	\item Laman web:~\cite{erickson:03:cgmodel}  
-	\item Lain-lain:~\cite{agung:12:tango}
-\end{itemize}    
-  
-\subsection{Gambar}
-
-Pada hampir semua editor, penempatan gambar di dalam dokumen \LaTeX{} tidak dapat dilakukan melalui proses {\it drag and drop}.
-Perhatikan contoh pada file bab2.tex untuk melihat bagaimana cara menempatkan gambar.
-Beberapa hal yang harus diperhatikan pada saat menempatkan gambar:
-\begin{itemize}
-	\item Setiap gambar {\bf harus} diacu di dalam teks (gunakan {\it field} {\sc label})
-	\item {\it Field} {\sc caption} digunakan untuk teks pengantar pada gambar. Terdapat dua bagian yaitu yang ada di antara tanda $[$ dan $]$ dan yang ada di antara tanda $\{$ dan $\}$. Yang pertama akan muncul di Daftar Gambar, sedangkan yang kedua akan muncul di teks pengantar gambar. Untuk skripsi ini, samakan isi keduanya.
-	\item Jenis file yang dapat digunakan sebagai gambar cukup banyak, tetapi yang paling populer adalah tipe {\sc png} (lihat Gambar~\ref{fig:ularpng}), tipe {\sc jpg} (Gambar~\ref{fig:ularjpg}) dan tipe {\sc pdf} (Gambar~\ref{fig:ularpdf})
-	\item Besarnya gambar dapat diatur dengan {\it field} {\sc scale}.
-	\item Penempatan gambar diatur menggunakan {\it placement specifier} (di antara tanda  $[$ dan $]$ setelah deklarasi gambar.
-	Yang umum digunakan adalah {\bf H} untuk menempatkan gambar {\bf sesuai} penempatannya di file .tex atau  {\bf h} yang berarti "kira-kira" di sini. \\
-	Jika tidak menggunakan {\it placement specifier}, \LaTeX{} akan menempatkan gambar secara otomatis untuk menghindari bagian kosong pada dokumen anda.
-	Walaupun cara ini sangat mudah, hindarkan terjadinya penempatan dua gambar secara berurutan. 	
-	\begin{itemize}
-		\item Gambar~\ref{fig:ularpng} ditempatkan di bagian atas halaman, walaupun penempatannya dilakukan setelah penulisan 3 paragraf setelah penjelasan ini.
-		\item Gambar~\ref{fig:ularjpg} dengan skala 0.5 ditempatkan di antara dua buah paragraf. Perhatikan penulisannya di dalam file bab2.tex!
-		\item Gambar~\ref{fig:ularpdf} ditempatkan menggunakan {\it specifier} {\bf h}.
-	\end{itemize}
-\end{itemize}
- 
-\dtext{17-18}
-\begin{figure} 
-	\centering  
-	\includegraphics[scale=1]{ular-png}  
-	\caption[Gambar {\it Serpentes} dalam format png]{Gambar {\it Serpentes} dalam format png} 
-	\label{fig:ularpng} 
-\end{figure} 
-
-\dtext{19-20}
-\begin{figure}[H]
-	\centering  
-	\includegraphics[scale=0.5]{ular-jpg}  
-	\caption[Ular kecil]{Ular kecil} 
-	\label{fig:ularjpg} 
-\end{figure} 
-\dtext{21-22}
-
-\begin{figure}[ht] 
-	\centering  
-	\includegraphics[scale=1]{ular-pdf}  
-	\caption[ {\it Serpentes} betina]{ {\it Serpentes} jantan} 
-	\label{fig:ularpdf} 
-\end{figure} 
- 
-\subsection{Kode Program}
-
-Kode program dalam bahasa tertentu seringkali harus ditulis di dalam bab, bukan hanya dilampirkan di bagian Lampiran. 
-Kode~\ref{kode:aneh} menampilkan penggunaan karakter-karakter yang umum digunakan dalam sebuah program yang ditulis dengan bahasa C.
-
-
-\begin{lstlisting}[language=Java, caption=Kode untuk menampilkan karakter-karakter aneh, label=kode:aneh]
-// This does not make algorithmic sense, 
-// but it shows off significant programming characters.
-
-#include<stdio.h>
-
-void myFunction( int input, float* output ) {
-	switch ( array[i] ) {
-		case 1: // This is silly code
-			if ( a >= 0 || b <= 3 && c != x )
-				*output += 0.005 + 20050;
-			char = 'g';
-			b = 2^n + ~right_size - leftSize * MAX_SIZE;
-			c = (--aaa + &daa) / (bbb++ - ccc % 2 );
-			strcpy(a,"hello $@?"); 
-	}
-	count = ~mask | 0x00FF00AA;
-}
-
-// Fonts for Displaying Program Code in LATEX
-// Adrian P. Robson, nepsweb.co.uk
-// 8 October 2012
-// http://nepsweb.co.uk/docs/progfonts.pdf
-
-\end{lstlisting}
-
-\subsection{Notasi}
-
-Simbol-simbol (matematika) yang sering digunakan sepanjang penulisan skripsi, dapat dimasukkan ke dalam ``Daftar Notasi''. Daftar ini ada di halaman depan sebelum Bab~\ref{chap:intro}.
-Cara memasukkan sebuah simbol ke dalam Daftar Notasi adalah menggunakan perintah \verb|\nomenclature|. Contoh:
-\begin{center}
-    \verb|\nomenclature[]{$A$}{luas kandang ular}|    
-\end{center}
-\nomenclature[]{$A$}{luas kandang ular}
-\nomenclature[]{$n$}{banyaknya ular}
-\nomenclature[]{$k$}{jumlah kepala per seekor ular\nomrefpage}
-Argumen opsional digunakan untuk mengurutkan notasi. Silahkan lihat sendiri dokumentasi package \verb|nomencl|
-
