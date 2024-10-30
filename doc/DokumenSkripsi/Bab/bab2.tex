@@ -35,7 +35,7 @@ Manfaat utama MySQL meliputi hal berikut:
 
 \subsection{LineString}
 \label{subs:linestring}
-Di MySQL, LineString adalah tipe data spasial yang digunakan untuk merepresentasikan geometri linier, seperti jalur atau garis, dalam ruang dua dimensi. MySQL menyediakan berbagai fungsi spasial untuk bekerja dengan geometri LineString, termasuk mengukur panjangnya, menentukan perpotongannya, dan banyak lagi. Fitur-fitur ini sangat berguna dalam aplikasi sistem informasi geografis dimana data spasial seperti jalan atau sungai perlu disimpan dan dianalisis. \\
+Di MySQL, LineString adalah tipe data spasial yang digunakan untuk merepresentasikan geometri linier, seperti jalur atau garis, dalam ruang dua dimensi. MySQL menyediakan berbagai fungsi spasial untuk bekerja dengan geometri LINESTRING, termasuk mengukur panjangnya, menentukan perpotongannya, dan banyak lagi. Fitur-fitur ini sangat berguna dalam aplikasi Sistem Informasi Geografis (GIS) dimana data spasial seperti jalan atau sungai perlu disimpan dan dianalisis. \\
 Format untuk mendefinisikan LINESTRING adalah sebagai berikut: \\
 \texttt{LINESTRING(x1 y1, x2 y2, x3 y3, ...)}
 
@@ -43,14 +43,30 @@ Format untuk mendefinisikan LINESTRING adalah sebagai berikut: \\
 
 \section{Algoritma Dijkstra}
 \label{sec:dijkstra}
-Algoritma Dijkstra merupakan algoritma greedy yang digunakan untuk mencari jalur terpendek antara suatu node sumber dan seluruh node lainnya pada suatu graf yang tidak memiliki bobot negatif \texttt{G = (V,E)}, dengan V untuk sekumpulan simpul dan E untuk sekumpulan sisi. Algoritma Dijkstra selalu memilih simpul yang memiliki bobot terkecil atau terdekat, oleh karena itu Dijkstra termasuk kedalam algoritma greedy. Dijkstra bekerja dengan menjelajahi node terdekat secara progresif dengan jarak terpendek yang diketahui, kemudian memperbarui jarak tetangganya, jika ditemukan jalur yang lebih pendek. Proses ini berlanjut hingga semua node telah dieksplorasi.\textit{Running time} algoritma Dijkstra bergantung pada bagaimana kita mengimplementasikan \textit{min-priority queue}.
+~\cite{Cormen:09:intro}
+Algoritma Dijkstra menyelesaikan masalah \textit{single-source shortest path}, yaitu menemukan jalur terpendek dari satu titik asal ke semua titik lainnya dalam sebuah graf berarah dengan bobot tepi non-negatif. Proses ini dimulai dengan menginisialisasi perkiraan jarak terpendek dari titik asal $s$ ke semua titik lain. Jarak titik asal sendiri diatur ke nol, sedangkan titik lainnya diatur sebagai tak hingga. Algoritma ini menggunakan sebuah struktur \textit{min-priority queue} (antrean prioritas minimum) yang menyimpan titik-titik dengan prioritas sesuai dengan perkiraan jarak terpendek mereka dari titik asal.
+\\
+Selama eksekusi, algoritma Dijkstra akan secara bertahap memindahkan titik dengan estimasi jarak terpendek dari antrean ke dalam satu set $S$, yang menampung titik-titik dengan jarak terpendek yang sudah final. Untuk setiap titik $u$ yang baru dipindahkan ke dalam set $S$, algoritma akan memeriksa setiap tetangganya $v$ dan memperbarui perkiraan jarak terpendek ke $v$ jika melalui $u$ memberikan jarak yang lebih pendek. Proses ini dikenal sebagai “relaksasi” tepi, yaitu memperbarui perkiraan jarak dan menunjuk $u$ sebagai pendahulu $v$ bila ditemukan jalur yang lebih optimal.
+\\
+Proses algoritma berlanjut hingga semua titik di graf telah diproses, sehingga jarak terpendek dari titik asal $s$ ke setiap titik yang dapat dijangkau sudah final. Kompleksitas waktu dari algoritma ini bergantung pada implementasi antrean prioritas yang digunakan, dengan menggunakan \textit{Fibonacci heap}, algoritma Dijkstra dapat mencapai kompleksitas $O(VlogV+E)$, yang efisien untuk graf yang jarang (sparse). Algoritma ini sangat bermanfaat dalam berbagai aplikasi yang melibatkan pencarian jalur terpendek, seperti sistem navigasi dan perutean jaringan.
 
 \section{Algoritma Floyd-Warshall}
 \label{floydwarshall}
-Algoritma Floyd-Warshall merupakan algoritma dynamic-programming yang digunakan untuk mencari jalur terpendek antara semua pasangan simpul dalam graf berbobot. Algoritma Floyd-Warshall bisa digunakan untuk graf berarah dan juga tidak berarah. \textit{Running time} untuk algoritma Floyd-Warshall, yaitu $O(V^3)$, dengan V adalah jumlah simpul pada graf. Perbedaan algoritma Floyd-Warshall dan algoritma Dijkstra, yaitu algoritma Floyd-Warshall dapat menangani graf yang memiliki bobot negatif, dengan catatan tidak adanya siklus negatif.
+~\cite{Cormen:09:intro}
+Algoritma Floyd-Warshall menyelesaikan masalah jalur terpendek untuk semua pasangan titik dalam graf berarah dengan menggunakan pendekatan pemrograman dinamis. Algoritma ini sangat berguna untuk graf yang memiliki bobot sisi negatif, selama tidak terdapat siklus dengan bobot negatif dalam graf tersebut. Pendekatan ini menghitung jalur terpendek antara semua pasangan titik dengan menggunakan tabel bobot antar titik dan mengulanginya secara bertahap untuk mencapai solusi optimal.
+\\
+Langkah pertama dalam algoritma ini adalah mempersiapkan matriks bobot jalur terpendek yang akan terus diperbarui. Algoritma memulai dengan menganggap setiap titik memiliki jalur langsung ke dirinya sendiri dengan bobot nol, sementara bobot antar titik lain mengikuti nilai bobot sisi pada graf. Secara rekursif, algoritma memperbarui jalur terpendek dengan menambahkan titik perantara secara bertahap, yaitu jika titik $k$ menjadi perantara dari titik $i$ ke $j$, maka bobot jalur terpendek $d_{ij}$ akan diperbarui menjadi minimum dari $d_{ij}$ atau $d_{ik} + d_{kj}$. Proses ini mengoptimalkan semua jalur antara pasangan titik dengan menambahkan satu titik perantara setiap kali iterasi dilakukan.
+\\
+Algoritma Floyd-Warshall memiliki kompleksitas waktu $O(V^3)$ karena terdiri dari tiga lapisan perulangan untuk semua titik dalam graf, dengan V sebagai jumlah titik. Meskipun kompleksitasnya tinggi, algoritma ini cukup praktis untuk graf ukuran sedang dan memiliki struktur yang sederhana sehingga dapat diimplementasikan secara efisien. Selain itu, hasil algoritma ini dapat digunakan untuk mendeteksi siklus dengan bobot negatif dalam graf, jika ada nilai negatif pada diagonal utama dari matriks akhir, maka graf tersebut memiliki siklus negatif.
+\\
+Algoritma ini juga memungkinkan pencarian jalur terpendek melalui matriks pendahulu yang mencatat titik sebelumnya pada jalur terpendek untuk setiap pasangan titik. Dengan matriks ini, jalur terpendek antara titik manapun dapat direkonstruksi secara efisien.
 
-
-
-\section{NewMenjangan}
-\label{sec:newmenjangan} 
-NewMenjangan merupakan bagian \textit{BackEnd} dari KIRI. Pada NewMenjangan terdapat berbagai modul yang dirancang menggunakan bahasa pemrograman java. NewMenjangan merupakan program daemon1 yang berjalan secara otomatis saat server dinyalakan dan terus beroperasi hingga server dimatikan yang berfungsi untuk melakukan perhitungan rute.
+\section{Algoritma A*}
+\label{a*}
+~\cite{Russell:09:ai}
+Algoritma A* adalah metode pencarian yang meminimalkan estimasi total biaya solusi dengan menggabungkan dua fungsi, yaitu  
+$g(n)$ dan $h(n)$ Fungsi $g(n)$ menghitung biaya aktual dari titik awal hingga simpul $n$, sedangkan $h(n)$ memperkirakan biaya tersisa dari $n$ ke tujuan. Kombinasi ini menghasilkan $f(n) = g(n) + h(n)$, yang memberikan perkiraan total biaya solusi jika rute melalui simpul $n$. Algoritma ini biasanya dipilih karena dapat mencapai solusi yang optimal dan lengkap, terutama jika fungsi heuristik $h(n)$ memenuhi kriteria tertentu.
+\\
+Kondisi utama yang diperlukan agar A* memberikan solusi optimal adalah heuristik $h(n)$ yang bersifat \textit{admissible}, yaitu tidak pernah melebih-lebihkan biaya ke tujuan, dan \textit{consistent} atau \textit{monotonic}, di mana nilai $h$ tidak menurun di sepanjang jalur. Dengan adanya heuristik yang memenuhi syarat ini, A* dapat menghindari eksplorasi simpul-simpul yang tidak relevan, mengurangi waktu dan memori yang dibutuhkan.
+\\
+Terdapat kendala utama dari algoritma A*, yaitu penggunaan memori yang besar karena algoritma ini perlu menyimpan semua simpul yang telah dihasilkan. Meskipun waktu komputasi dapat diatasi dengan baik, kebutuhan memori yang tinggi sering kali menjadi tantangan. Untuk mengatasi hal ini, terdapat varian A* seperti \textit{Iterative-Deepening A*} (IDA*) yang mengurangi kebutuhan memori tanpa mengorbankan optimalitas solusi, dengan biaya eksekusi yang sedikit lebih tinggi.
