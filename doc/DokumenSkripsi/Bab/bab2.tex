@@ -2,17 +2,27 @@
 \chapter{Landasan Teori}
 \label{chap:teori}
 
-\section{Strategy Pattern}
+\section{KIRI}
+\label{sec:kiri}
+
+\section{Design Pattern}
+\label{sec:designpattern}
+~\cite{Gamma:94:design}
+\textit{Design Pattern} adalah solusi umum yang telah terbukti efektif untuk mengatasi masalah desain berulang dalam pengembangan perangkat lunak berorientasi objek. Solusi ini dirancang agar dapat digunakan kembali di berbagai konteks tanpa harus disesuaikan secara berlebihan. Sebagai contoh, pola desain membantu memecah masalah desain menjadi struktur yang lebih modular dan fleksibel, sehingga mempermudah pengembangan dan pemeliharaan perangkat lunak.
+\\
+Pada dasarnya, \textit{design pattern} memiliki empat elemen utama. Pertama, nama pola yang memberikan cara singkat untuk menyebut masalah desain tertentu, solusinya, dan konsekuensi dari penerapannya. Kedua, masalah, yaitu deskripsi konteks atau situasi di mana pola desain ini relevan. Ketiga, solusi, berupa abstraksi dari elemen-elemen desain dan kolaborasinya tanpa menyebutkan implementasi konkret. Keempat, konsekuensi, yang mencakup hasil dari penerapan pola, termasuk dampak pada fleksibilitas, efisiensi, dan pengelolaan sistem.
+\\
+Penggunaan \textit{design pattern} juga memungkinkan sistem menjadi lebih adaptif terhadap perubahan kebutuhan. Pola seperti \textit{Strategy} mempermudah pergantian algoritma di runtime, sedangkan \textit{Factory Method} membantu mengurangi ketergantungan pada implementasi spesifik dengan menyediakan cara fleksibel untuk membuat objek. Dengan demikian, design pattern mempermudah kolaborasi dan komunikasi antar tim pengembang.
+
+\subsection{Strategy Pattern}
 \label{sec:strategypattern}
 ~\cite{Gamma:94:design}
-Strategy Pattern adalah sebuah design pattern yang memungkinkan objek untuk memilih saat runtime. Ini mendefinisikan sekumpulan algoritma, merangkum masing-masing algoritma, dan membuatnya dapat dipertukarkan. Hal ini memungkinkan klien untuk memilih algoritma berdasarkan kebutuhan mereka tanpa mengubah kode yang menggunakan algoritma tersebut. Ide utama penerapan Strategy Pattern adalah merancang antarmuka fleksibel yang dapat bekerja dengan algoritma berbeda tanpa perlu mengubah kode ketika algoritma baru diperkenalkan. \\
-Strategy Pattern cocok digunakan dalam skenario-skenario berikut:
-\begin{enumerate}
-    \item Ketika ada beberapa kelas terkait yang hanya berbeda dalam perilakunya. Strategy Pattern memungkinkan kelas dikonfigurasikan dengan salah satu dari banyak kemungkinan perilaku.
-    \item Ketika ada kebutuhan untuk varian algoritma yang berbeda.
-    \item Ketika suatu algoritma melibatkan data yang harus tetap tersembunyi dari klien. Strategy Pattern memastikan bahwa struktur data yang kompleks dan spesifik algoritma tidak terekspos.
-    \item Ketika sebuah kelas mendefinisikan banyak perilaku, dan perilaku ini diimplementasikan melalui beberapa pernyataan kondisional. Dalam kasus seperti ini, Strategy Pattern menyederhanakan kode dengan memindahkan cabang kondisional terkait ke dalam kelas Strategi masing-masing
-\end{enumerate}
+\textit{Strategy Pattern} merupakan salah satu pola desain perilaku yang dirancang untuk mendefinisikan serangkaian algoritma, mengenkapsulasi setiap algoritma, dan memungkinkan algoritma-algoritma tersebut untuk saling dipertukarkan. Pola ini memungkinkan algoritma untuk bervariasi secara independen dari pengguna. Dengan demikian, pengguna tidak perlu mengetahui detail implementasi dari algoritma yang digunakan, melainkan cukup berinteraksi melalui antarmuka umum yang disediakan oleh objek strategi.
+\\
+Pola ini sangat berguna ketika terdapat kebutuhan untuk mendukung berbagai varian algoritma dalam menyelesaikan tugas yang sama. \textit{Strategy Pattern} memindahkan setiap algoritma ke dalam kelas terpisah, yang disebut sebagai \textit{ConcreteStrategy}. Klien dapat memilih dan menyuntikkan strategi yang sesuai ke dalam konteks pada waktu eksekusi, sehingga memberikan fleksibilitas yang tinggi dalam proses pengembangan perangkat lunak.
+\\
+Manfaat utama dari \textit{Strategy Pattern} adalah kemampuannya untuk menghilangkan kompleksitas yang diakibatkan oleh penggunaan pernyataan kondisional yang rumit dalam kode, serta kemudahan dalam menambahkan atau mengganti algoritma tanpa perlu memodifikasi kode klien atau konteks. Namun, penerapan pola ini juga memiliki kelemahan, seperti meningkatnya jumlah kelas dalam sistem dan potensi timbulnya overhead komunikasi antara konteks dan strategi. Oleh karena itu, penerapan \textit{Strategy Pattern} sebaiknya dipertimbangkan dengan cermat, terutama dalam situasi di mana variasi algoritma memang diperlukan untuk memenuhi kebutuhan sistem.
+
 \begin{figure}[h] 
 	\centering  
 	\includegraphics[width=1\textwidth]{struktur-sp}  
@@ -23,26 +33,118 @@ Strategy Pattern cocok digunakan dalam skenario-skenario berikut:
 \section{MySQL}
 \label{sec:mysql}
 ~\cite{oracle:24:mysql8.4}
-MySQL adalah \textit{open source relational database management system} (RDBMS) yang digunakan untuk menyimpan dan mengelola data yang dikembangkan oleh Oracle. MySQL adalah salah satu sistem manajemen basis data paling populer di dunia. SQL adalah singkatan dari \textit{Structured Query Language} yang merupakan bahasa pemrograman yang digunakan untuk mengambil, memperbarui, menghapus, dan memanipulasi data dalam database relasional. Sebagai database relasional, MySQL menyimpan data dalam tabel baris dan kolom yang disusun dalam skema. Skema mendefinisikan bagaimana data diatur dan disimpan serta menjelaskan hubungan antara berbagai tabel. \\
-Manfaat utama MySQL meliputi hal berikut:
+MySQL merupakan sistem manajemen basis data relasional (\textit{Relational Database Management System}/RDBMS) bersifat open source yang dikembangkan oleh \textit{Oracle Corporation}. SQL, yang merupakan singkatan dari \textit{Structured Query Language}, adalah bahasa pemrograman yang digunakan untuk mengambil, memperbarui, menghapus, serta memanipulasi data pada basis data relasional.
+\\
+Sebagai basis data relasional, MySQL menyimpan data dalam bentuk tabel yang terdiri atas baris dan kolom, yang disusun dalam suatu skema. Skema ini bertugas mendefinisikan bagaimana data diorganisasi dan disimpan, serta menjelaskan hubungan antara tabel-tabel yang ada di dalamnya.
+\\
+Dalam MySQL, terdapat berbagai sintaks yang digunakan untuk mendukung pengelolaan basis data. Sintaks-sintaks tersebut mencakup operasi penting, seperti pembuatan tabel, penyisipan data, pembaruan data, penghapusan data, hingga pengambilan data. Setiap sintaks dirancang untuk mempermudah pengguna dalam mengelola data secara efektif dan efisien sesuai kebutuhan sistem. Berikut merupakan sintaks-sintaks dasar yang umum digunakan dalam MySQL.
 \begin{itemize}
-    \item \textbf{\textit{Ease Of use}}. Pengembang dapat menginstal MySQL dengan mudah, dan database mudah dikelola.
-    \item \textbf{\textit{Reliability}}. MySQL adalah salah satu database yang paling matang dan banyak digunakan. Teknologi ini telah diuji dalam berbagai skenario selama hampir 30 tahun, termasuk oleh banyak perusahaan terbesar di dunia.
-    \item \textbf{\textit{Scalability}}. MySQL berskala untuk memenuhi permintaan aplikasi yang paling banyak diakses. Arsitektur replikasi asli MySQL memungkinkan organisasi, termasuk Facebook, Netflix, dan Uber, meningkatkan aplikasi untuk mendukung puluhan juta pengguna atau lebih.
-    \item \textbf{\textit{Performance}}. MySQL adalah sistem database tanpa administrasi yang terbukti berkinerja tinggi dan hadir dalam berbagai edisi untuk memenuhi hampir semua permintaan.
-    \item \textbf{\textit{High availability}}. MySQL menghadirkan serangkaian teknologi replikasi asli dan terintegrasi penuh untuk ketersediaan tinggi.
-    \item \textbf{\textit{Security}}. Keamanan data mencakup perlindungan data dan kepatuhan terhadap peraturan industri dan pemerintah.
-    \item \textbf{\textit{Flexibility}}. Penyimpanan Dokumen MySQL memberi pengguna fleksibilitas maksimum dalam mengembangkan aplikasi database tradisional bebas skema SQL dan NoSQL.
+    \item \textbf{\textit{CREATE DATABASE}}
+    \begin{lstlisting}[language=SQL]
+    CREATE DATABASE database_name;
+    \end{lstlisting}
+    \newpage
+    \item \textbf{\textit{DROP DATABASE}}
+    \begin{lstlisting}[language=SQL]
+    DROP DATABASE database_name;
+    \end{lstlisting}
+    
+    \item \textbf{\textit{CREATE TABLE}}
+    \begin{lstlisting}[language=SQL]
+    CREATE TABLE table_name (
+        column1 datatype,
+        column2 datatype,
+        column3 datatype,
+        ....
+    );
+    \end{lstlisting}
+
+    \item \textbf{\textit{DROP TABLE}}
+    \begin{lstlisting}[language=SQL]
+    DROP TABLE table_name;;
+    \end{lstlisting}
+
+    \item \textbf{\textit{SELECT}}
+    \begin{lstlisting}[language=SQL]
+    SELECT column1, column2, ...
+    FROM table_name;
+    \end{lstlisting}
+
+    \item \textbf{\textit{WHERE}}
+    \begin{lstlisting}[language=SQL]
+    SELECT column1, column2, ...
+    FROM table_name
+    WHERE condition;
+    \end{lstlisting}
+
+    \item \textbf{\textit{INSERT INTO}}
+    \begin{lstlisting}[language=SQL]
+    INSERT INTO table_name (column1, column2, column3, ...)
+    VALUES (value1, value2, value3, ...);
+    \end{lstlisting}
+
+    \item \textbf{\textit{DELETE}}
+    \begin{lstlisting}[language=SQL]
+    DELETE FROM table_name
+    WHERE condition;
+    \end{lstlisting}
 \end{itemize}
 
 \subsection{LineString}
 \label{subs:linestring}
 ~\cite{oracle:24:mysql8.4}
-Di MySQL, LineString adalah tipe data spasial yang digunakan untuk merepresentasikan geometri linier, seperti jalur atau garis, dalam ruang dua dimensi. MySQL menyediakan berbagai fungsi spasial untuk bekerja dengan geometri LINESTRING, termasuk mengukur panjangnya, menentukan perpotongannya, dan banyak lagi. Fitur-fitur ini sangat berguna dalam aplikasi Sistem Informasi Geografis (GIS) dimana data spasial seperti jalan atau sungai perlu disimpan dan dianalisis. \\
-Format untuk mendefinisikan LINESTRING adalah sebagai berikut: \\
-\texttt{LINESTRING(x1 y1, x2 y2, x3 y3, ...)}
+\textit{LineString} adalah salah satu tipe data geometris dalam MySQL yang mewakili satu atau lebih segmen garis yang terhubung. \textit{LineString} terdiri dari urutan titik (point) yang membentuk jalur atau lintasan. Setiap titik pada \textit{LineString} memiliki koordinat (x, y), dan minimal terdiri dari dua titik untuk membentuk garis. \textit{LineString} digunakan dalam Sistem Informasi Geografis (GIS) untuk merepresentasikan lintasan seperti jalan, sungai, atau rute perjalanan.\\
+Terdapat fungsi untuk memanipulasi dan menganalisis \textit{LineString}. Fungsi-fungsi ini memungkinkan pengguna untuk mengambil informasi spesifik dari objek \textit{LineString}, seperti titik awal, titik akhir, jumlah titik, atau panjang lintasan. Berikut adalah beberapa fungsi penting yang berkaitan dengan \textit{LineString}:
+\begin{itemize}
+    \item ST\_EndPoint(ls)
+    \begin{lstlisting}[language=SQL]
+    SET @ls = 'LineString(1 1, 2 2, 3 3)';
+    SELECT ST_AsText(ST_EndPoint(ST_GeomFromText(@ls)));
+    \end{lstlisting}
+    Berfungsi untuk mengembalikan titik akhir dari objek \textit{LineString} $ls$.
+    \newpage
+    \item ST\_IsClosed(ls)
+    \begin{lstlisting}[language=SQL]
+    SET @ls1 = 'LineString(1 1,2 2,3 3,2 2)';
+    SET @ls2 = 'LineString(1 1,2 2,3 3,1 1)';
+    SELECT ST_IsClosed(ST_GeomFromText(@ls1));
+    \end{lstlisting}
+    Berfungsi untuk mengembalikan nilai TRUE/1 jika \textit{LineString} $ls$ adalah lintasan tertutup (titik awal dan akhir sama).
+    \item ST\_Length(ls)
+    \begin{lstlisting}[language=SQL]
+    SET @ls = ST_GeomFromText('LineString(1 1,2 2,3 3)');
+    SELECT ST_Length(@ls);
+    \end{lstlisting}
+    Berfungsi untuk menghitung panjang total \textit{LineString} $ls$.
+    \item ST\_NumPoints(ls)
+    \begin{lstlisting}[language=SQL]
+    SET @ls = 'LineString(1 1,2 2,3 3)';
+    SELECT ST_NumPoints(ST_GeomFromText(@ls));
+    \end{lstlisting}
+    Berfungsi untuk mengembalikan jumlah total titik yang membentuk \textit{LineString} $ls$.
+    \item ST\_Point(ls, N)
+    \begin{lstlisting}[language=SQL]
+    SET @ls = 'LineString(1 1,2 2,3 3)';
+    SELECT ST_AsText(ST_PointN(ST_GeomFromText(@ls),2));
+    \end{lstlisting}
+    Berfungsi untuk mengembalikan titik ke-N pada \textit{LineString} $ls$.
+    \item ST\_StartPoint(ls)
+    \begin{lstlisting}[language=SQL]
+    SET @ls = 'LineString(1 1,2 2,3 3)';
+    SELECT ST_AsText(ST_StartPoint(ST_GeomFromText(@ls)));
+    \end{lstlisting}
+    Berfungsi untuk mengembalikan titik awal dari objek \textit{LineString} $ls$.
+    
+\end{itemize}
 
-\newpage
+\section{Graf}
+\label{sec:graph}
+~\cite{Diestel:17:graph}
+Graf adalah struktur yang terdiri dari simpul (\textit{vertex}) dan sisi (\textit{edge}), di mana sisi menghubungkan pasangan simpul. Sebuah graf direpresentasikan sebagai pasangan $G=(V,E)$, dengan $V$ sebagai himpunan simpul dan $E$ sebagai himpunan sisi. Sisi dapat diwakili oleh pasangan simpul yang terhubung. Graf dapat bersifat terarah (sisi memiliki arah) atau tidak terarah (sisi tidak memiliki arah).
+\\
+Simpul-simpul dalam graf dapat memiliki derajat tertentu, yaitu jumlah sisi yang menghubunginya. Sebuah graf disebut terhubung jika terdapat jalur antara setiap pasangan simpul. Jalur ini adalah urutan simpul yang dihubungkan oleh sisi. Selain itu, siklus adalah jalur tertutup di mana simpul awal dan akhir adalah sama. Teori graf juga mencakup konsep seperti pohon (graf terhubung tanpa siklus), graf bipartit (simpul dibagi menjadi dua himpunan yang saling bebas sisi), dan subgraf (bagian dari graf yang tetap mempertahankan struktur graf).
+\\
+Graf digunakan dalam berbagai aplikasi, seperti jaringan komputer, rute transportasi, dan analisis hubungan sosial. Teori graf menyediakan dasar matematis untuk mempelajari struktur ini dan memberikan cara untuk memodelkan dan menyelesaikan masalah-masalah kompleks di berbagai bidang.
 
 \section{Algoritma Dijkstra}
 \label{sec:dijkstra}

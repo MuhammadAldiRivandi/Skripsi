@@ -1,2 +1,148 @@
 \chapter{Analisis}
 \label{chap:analisis}
+
+\section{Analisis Sistem Kini}
+\label{sec:sistemkini}
+
+\subsection{Main.java}
+Kelas Main ini berfungsi sebagai pusat kendali dari backend KIRI. Melalui kelas ini, server bisa dijalankan, diperiksa statusnya, dimatikan, dan juga mengolah data. Pada kelas ini, terdapat beberapa variabel diinisialisasikan serta \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
+\begin{itemize}
+    \item \textbf{Variabel}
+    \begin{itemize}
+        \item \texttt{TRACKS\_CONF}, \texttt{MYSQL\_PROPERTIES}, dan \texttt{MJNSERVE\_PROPERTIES}
+        \\ Variabel - variabel ini digunakan untuk mengarahkan pada file konfigurasi yang diperlukan.
+        \item \texttt{LOGGING\_PROPERTIES} dan \texttt{NEWMJNSERVE\_LOG}
+        \\ Variabel - variabel ini digunakan untuk mengatur lokasi konfigurasi logging dan file log.
+        \item Variabel \texttt{server}, \texttt{puller}, dan \texttt{timer}
+        \\ Variabel - variabel ini digunakan untuk mengelola server, menarik data, dan menjalankan tugas terjadwal.
+        \item \texttt{portNumber}
+        \\ Variabel ini berfungsi untuk menetapkan \textit{port default} yang digunakan oleh server.
+        \item \texttt{homeDirectory}
+        \\ Variabel ini digunakan untuk menjadi direktori utama yang diambil dari variabel lingkungan \texttt{NEWMJNSERVE\_HOME}, yang diperlukan agar aplikasi berjalan.
+    \end{itemize}
+
+    \item \textbf{Method}
+    \begin{itemize}
+        \item \texttt{main}
+        \\ \textit{Method} ini dirancang untuk memproses argumen yang diterima guna memeriksa status server atau menghentikannya. Ketika argumen \texttt{-c} diberikan, fungsi \texttt{sendCheckStatus} akan dipanggil untuk memastikan bahwa server sedang berjalan. Sebaliknya, jika argumen \texttt{-s} diberikan, fungsi \texttt{sendShutdown} akan bertugas mematikan server. Sebelum proses lebih lanjut dilakukan, program memeriksa apakah variabel lingkungan \texttt{NEWMJNSERVE\_HOME} telah disetel. Jika tidak, aplikasi akan segera dihentikan. Setelah inisialisasi konfigurasi \textit{logging} selesai, fungsi \texttt{pullData} dijalankan untuk menarik data yang diperlukan. Server kemudian dimulai melalui pemanggilan metode \texttt{server.start()}, dan sebuah \texttt{ShutdownHook} disertakan untuk memastikan penghentian server dilakukan dengan aman.
+        
+        \item \texttt{sendCheckStatus} dan \texttt{sendShutdown}
+        \\ Keduanya menggunakan koneksi HTTP untuk mengirim permintaan ke server. \textit{Method} \texttt{sendCheckStatus} berfungsi untuk mengecek status server, sementara \textit{method} \texttt{sendShutdown} mengirim permintaan untuk mematikan server.
+
+        \item \texttt{pullData}
+        \\ \textit{Method} ini bertugas untuk menarik data dari sumber SQL dan sumber eksternal lainnya. Jika terjadi perubahan pada file konfigurasi \texttt{tracks.conf}, data yang ada akan ditimpa dengan data baru yang diperbarui. Selain itu, proses pembaruan ini akan dicatat dalam log untuk pemantauan perubahan data yang terjadi.
+
+        \item \texttt{fileEquals}
+        \\ \textit{Method} ini dirancang untuk membandingkan dua file secara biner untuk menentukan kesamaan di antara keduanya. Jika kedua file memiliki panjang yang berbeda, maka file tersebut secara otomatis dianggap tidak identik. Selain itu, jika ditemukan perbedaan byte pada posisi tertentu selama proses pembandingan, posisi perbedaan tersebut akan dicatat dalam log.
+        
+    \end{itemize}
+\end{itemize}
+
+\subsection{AdminListener}
+Kelas AdminListener berfungsi sebagai \textit{handler} HTTP khusus yang menerima perintah-perintah administratif untuk mengelola server \textit{backend} KIRI. Kelas ini memungkinkan aplikasi \textit{backend} menerima dan menjalankan perintah administrasi dari localhost melalui HTTP. Pada kelas ini, terdapat beberapa variabel diinisialisasikan serta \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
+\begin{itemize}
+    \item \textbf{Variabel}
+    \begin{itemize}
+        \item \texttt{worker}
+        \\ Variabel ini bertipe Worker yang merupakan sebuah kelas. worker ini diperlukan untuk menjalankan perintah-perintah tertentu, seperti tracksinfo.
+    \end{itemize}
+    
+    \item \textbf{Method}
+    \begin{itemize}
+        \item \texttt{handle}
+        \\ \textit{Method} ini mengimplementasikan penanganan permintaan HTTP dengan memanfaatkan kelas \texttt{AbstractHandler} dari \textit{library} Jetty. Ketika sebuah permintaan HTTP diterima, metode ini akan melakukan beberapa langkah. Pertama, sumber permintaan diperiksa untuk memastikan bahwa hanya permintaan dari localhost yang diterima. Selanjutnya, metode ini mengurai parameter query string dari URL untuk mengidentifikasi perintah yang diminta. Dengan pendekatan ini, setiap permintaan dapat diproses sesuai dengan parameter yang dikirimkan.
+        \\ Metode ini mendukung berbagai jenis perintah yang dapat diterima melalui permintaan HTTP. Salah satu perintah adalah \texttt{forceshutdown}, yang berfungsi untuk menghentikan server setelah jeda satu detik dengan menjalankan \texttt{System.exit(0)} dalam sebuah thread baru. Perintah lain, yaitu \texttt{tracksinfo}, akan mengembalikan informasi mengenai jalur jika worker telah diinisialisasi, menggunakan metode \texttt{worker.printTracksInfo()}. Selain itu, perintah ping akan mengembalikan string "pong" untuk memverifikasi bahwa server sedang aktif. Apabila perintah yang diterima tidak valid atau tidak dikenali, metode ini akan mengembalikan status dan pesan kesalahan yang sesuai.
+        \\ Pengaturan status dan pesan respons dilakukan berdasarkan hasil dari setiap perintah yang diproses. Jika perintah berhasil dijalankan, status \texttt{HttpStatus.OK\_200} akan dikembalikan. Jika permintaan berasal dari alamat selain localhost, status yang dikembalikan adalah \texttt{HttpStatus.FORBIDDEN\_403}. Permintaan yang tidak mencantumkan perintah akan menerima status \texttt{HttpStatus.BAD\_REQUEST\_400}, sedangkan jika worker belum siap, status \texttt{HttpStatus.SERVICE\_UNAVAILABLE\_503} akan diberikan. Dengan pengaturan ini, metode memastikan respons yang sesuai terhadap setiap jenis permintaan yang diterima.
+    \end{itemize}
+\end{itemize}
+
+\subsection{NewMenjanganServer}
+Kelas NewMenjanganServer berfungsi untuk menginisialisasi dan menjalankan server HTTP yang mendengarkan permintaan pada backend KIRI. Server ini menggunakan \textit{library} Jetty untuk menangani permintaan HTTP. Pada kelas ini, terdapat konstruktor yang berfungsi untuk menginisialisasi variabel yang digunakan serta \textit{handler} yang berfungsi untuk menangani permintaan - permintaan serta perintah administratif. Selain itu, terdapat beberapa variabel lainnya diinisialisasikan serta \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
+\begin{itemize}
+    \item \textbf{Variabel}
+    \begin{itemize}
+        \item \texttt{DEFAULT\_PORT\_NUMBER}
+        \\ Merupakan nomor port \textit{default} yang digunakan jika tidak ada port yang ditentukan.
+        \item \texttt{worker}
+        \\ Merupakan instance dari kelas Worker.
+        \item \texttt{admin}
+        \\ Merupakan instance dari kelas AdminListener.
+        \item \texttt{service}
+        \\ Merupakan instance dari kelas ServiceListener.
+        \item \texttt{httpServer}
+        \\ Merupakan server Jetty yang akan mendengarkan permintaan HTTP.
+        \item \texttt{portNumber}
+        \\ Berfungsi untuk menyimpan port yang digunakan server.
+        \item \texttt{homeDirectory}
+        \\ Berfungsi untuk menyimpan direktori \textit{home} yang digunakan oleh server.
+    \end{itemize}
+
+    \item \textbf{Method}
+    \begin{itemize}
+        \item \texttt{clone}
+        \\ \textit{Method} ini bertujuan untuk membuat salinan baru dari objek \texttt{NewMenjanganServer} dengan mempertahankan nilai yang sama untuk variabel \texttt{portNumber} dan \texttt{homeDirectory}. Dalam kasus di mana proses \textit{cloning} gagal, metode ini akan mencatat pesan kesalahan ke dalam \textit{log} global untuk memastikan bahwa kegagalan tersebut tercatat.
+        \item \texttt{start} dan \texttt{stop}
+        Kedua metode ini berfungsi untuk mengelola server HTTP. Metode start digunakan untuk menjalankan server sehingga dapat mulai mendengarkan dan memproses permintaan yang masuk. Sebaliknya, metode stop bertugas menghentikan server HTTP, memastikan bahwa semua aktivitas server dihentikan dengan aman.
+    \end{itemize}
+\end{itemize}
+
+\subsection{ServiceListener}
+Kelas ServiceListener bertanggung jawab untuk menangani permintaan layanan pada server KIRI. Class ini menerima permintaan HTTP untuk mencari rute dan transportasi terdekat berdasarkan parameter yang diberikan. Pada kelas ini, terdapat beberapa variabel diinisialisasikan serta \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
+\begin{itemize}
+    \item \textbf{Variabel}
+    \begin{itemize}
+        \item \texttt{PARAMETER\_START}, \texttt{PARAMETER\_FINISH}, \texttt{PARAMETER\_MAXIMUM\_WALKING}, \\ \texttt{PARAMETER\_WALKING\_MULTIPLIER},\texttt{PARAMETER\_PENALTY\_TRANSFER}, dan \\ \texttt{PARAMETER\_TRACKTYPEID\_BLACKLIST}
+        \\ Semua parameter tersebut digunakan untuk menentukan parameter permintaan.
+        \item \texttt{worker}
+        \\ Merupakan instance dari class Worker, yang bertanggung jawab untuk menemukan rute dan transportasi.
+    \end{itemize}
+
+    \item \textbf{Method}
+    \\ \textit{Method} ini bertanggung jawab untuk menangani permintaan HTTP dan menghasilkan respons yang sesuai. Dalam prosesnya, variabel query digunakan untuk menyimpan string parameter permintaan, sementara params adalah objek Map yang berisi parameter permintaan yang telah diurai menggunakan \textit{method} \texttt{parseQuery(query)}. Untuk menentukan hasil yang akan dikirimkan, \textit{method} ini menggunakan variabel \texttt{responseText} untuk menyimpan teks respons dan \texttt{responseCode} untuk menyimpan status HTTP yang akan dikembalikan kepada klien.
+    \\ Dalam menangani permintaan HTTP, \textit{method} ini juga mengatur logika pemrosesan permintaan berdasarkan parameter yang diterima. Metode ini mencoba mendapatkan parameter \texttt{start} dan \texttt{finish}, yang mewakili koordinat awal dan akhir untuk menentukan rute perjalanan. Selain itu, parameter tambahan seperti \texttt{maximumWalking}, \texttt{walkingMultiplier}, \texttt{penaltyTransfer}, dan \texttt{trackTypeIdBlacklist} digunakan untuk menyesuaikan batas jarak berjalan kaki, faktor pengali untuk jalan kaki, penalti transfer, serta daftar jenis jalur yang diblokir. Jika parameter texttt{start} dan \texttt{finish} tersedia, pencarian rute dilakukan menggunakan \textit{method} \texttt{worker.findRoute}. Sebaliknya, jika hanya start yang tersedia, pencarian transportasi terdekat dilakukan melalui \textit{method} \texttt{worker.findNearbyTransports}. Namun, jika kedua parameter tidak tersedia, \textit{method} akan mengembalikan pesan kesalahan berupa ''\textit{Please provide start and finish location.}''
+    \\ Setelah proses permintaan selesai, pengaturan respons dilakukan untuk memastikan hasil dikirimkan dengan benar. Status respons HTTP diatur menggunakan \texttt{response.setStatus(responseCode)}, sementara \textit{method} \texttt{baseRequest.setHandled(true)} digunakan untuk menandakan bahwa permintaan telah berhasil ditangani. Akhirnya, teks respons dikirimkan ke klien melalui \texttt{response.getWriter().println(responseText)}. Dengan pendekatan ini, \textit{method} ini memastikan bahwa setiap permintaan ditangani secara terstruktur dan memberikan tanggapan yang sesuai.
+\end{itemize}
+
+\subsection{Worker}
+
+\subsection{DataPuller}
+Kelas ini bertanggung jawab untuk mengambil data jalur dari basis data dan memprosesnya dalam bentuk yang diinginkan. Kelas ini menggunakan JDBC untuk koneksi ke basis data MySQL dan mengubah data jalur menjadi koordinat. Selain itu, kelas ini menambahkan titik-titik virtual untuk memenuhi jarak maksimum tertentu antar titik. Pada kelas ini, terdapat beberapa variabel serta \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
+\begin{itemize}
+    \item \textbf{Atribut}
+    \begin{itemize}
+        \item \texttt{EARTH\_RADIUS}
+        \\ Bertipe \texttt{double} yang merupakan radius Bumi dalam kilometer dan digunakan untuk menghitung jarak antar titik koordinat.
+        \item \texttt{MAX\_DISTANCE}
+        \\ Bertipe \texttt{double} yang merupakan jarak maksimum antar titik yang diizinkan, jika jarak antar dua titik melebihi nilai ini, titik-titik virtual akan ditambahkan di antaranya.
+    \end{itemize}
+
+    \item \textbf{Method}
+    \begin{itemize}
+        \item \texttt{pull(File sqlPropertiesFile, PrintStream output)}
+        \\ Berfungsi untuk mengambil data dari tabel tracks di basis data, kemudian menuliskan hasil format jalur dalam format yang ditentukan. \textit{Method} ini memuat data dari file properti, terhubung ke basis data, dan melakukan query untuk mengambil data yang diperlukan. Hasil query diolah dan ditulis ke \textit{output}.
+        \item \texttt{lineStringToLngLatArray(String wktText)}
+        \\ Mengubah data koordinat dalam format \texttt{LINESTRING} menjadi array \texttt{LngLatAlt}. Ini menghilangkan teks \texttt{LINESTRING} dan tanda kurung, kemudian memecah data menjadi objek koordinat texttt{LngLatAlt}.
+        \item \texttt{computeDistance(LngLatAlt p1, LngLatAlt p2)}
+         \\ Menghitung jarak antara dua titik koordinat. Metode ini mempertimbangkan kelengkungan bumi dalam perhitungan jaraknya.
+         \item \texttt{formatTrack}
+         \\ Mengonversi informasi jalur yang diambil dari basis data ke format konfigurasi yang dibutuhkan. Metode ini mengatur titik transit, menambahkan titik virtual, dan menyusun informasi jalur dalam format konfigurasi yang diinginkan.
+         \item \texttt{RouteResult}
+         \\ Merupakan \textit{inner class}, kelas ini menyimpan hasil akhir dalam format konfigurasi sebagai string \texttt{trackInConfFormat}, yang dapat diambil dengan metode \texttt{getTrackInConfFormat}.
+    \end{itemize}
+\end{itemize}
+
+\subsection{DataPullerException}
+Kelas ini adalah kelas \textit{custom exception} yang dibuat untuk menangani kesalahan khusus yang terjadi saat pemrosesan data dalam kelas DataPuller. Kelas ini memperluas \texttt{RuntimeException}, sehingga DataPullerException adalah \textit{unchecked exception} dan tidak memerlukan penanganan eksplisit dengan blok \textit{try-catch} di tempat pemanggilannya. Pada kelas ini, terdapat sebuah atribut serta konstruktor yang memiliki penjelasan sebagai berikut:
+\begin{itemize}
+    \item \textbf{Atribut}
+    \begin{itemize}
+        \item \texttt{serialVersionUID}
+        \\ Bertipe data long yang menyimpan ID serial. ID ini memastikan data yang disimpan atau dikirimkan tetap cocok dengan versi kelas yang digunakan saat objek tersebut dibaca kembali. Hal ini penting, terutama jika kelas ini mengalami perubahan struktur, agar versi yang berbeda tetap dapat dikenali atau mencegah kesalahan jika struktur sudah tidak cocok.
+    \end{itemize}
+    
+    \item \textbf{Konstruktor}
+    \begin{itemize}
+        \item DataPullerException(String message)
+        \\ Konstruktor ini menerima pesan kesalahan dalam bentuk String, yang kemudian diteruskan ke konstruktor \textit{superclass} \texttt{RuntimeException} untuk disimpan dan nantinya dapat diambil dengan metode \texttt{getMessage()}. Pesan ini bertujuan untuk memberikan informasi yang lebih rinci tentang kesalahan yang terjadi.
+    \end{itemize}
+\end{itemize}

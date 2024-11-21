@@ -12,7 +12,8 @@ Perangkat lunak KIRI (lihat Gambar \ref{fig:kiri}) adalah perangkat lunak berbas
 	\caption{Tampilan halaman perangkat lunak KIRI}
 	\label{fig:kiri} 
 \end{figure}
-\\	
+\newpage
+\noindent
 Arsitektur aplikasi KIRI terbagi menjadi dua bagian utama. Bagian frontend, yang dinamakan Tirtayasa, dibangun menggunakan bahasa pemrograman PHP dan mengandalkan basis data MySQL untuk menyimpan serta mengelola data. Selain itu, Tirtayasa juga menggunakan framework CodeIgniter 3. Saat menerima permintaan pencarian, Tirtayasa meneruskannya ke bagian backend, yaitu NewMenjangan. Hasil dari NewMenjangan kemudian diformat agar dapat dibaca dengan baik oleh pengguna. Bagian ini diimplementasikan dalam bahasa pemrograman Java dan berperan penting dalam perhitungan rute optimal.
 \\
 NewMenjangan merupakan program daemon yang berjalan secara otomatis saat server dinyalakan dan terus beroperasi hingga server dimatikan. Daemon sendiri adalah program komputer yang berjalan di latar belakang dan tidak berinteraksi langsung dengan pengguna\footnote{\url{https://www.ibm.com/docs/en/aix/7.1?topic=processes-}}. Pada saat eksekusi, NewMenjangan terhubung ke basis data MySQL untuk mengambil data rute angkot yang tersimpan dalam format LineString. LineString adalah tipe data geometri yang digunakan dalam basis data, untuk merepresentasikan garis atau rangkaian segmen garis\footnote{\url{https://dev.mysql.com/doc/refman/8.4/en/gis-linestring-property-functions.html}}. Setiap titik pada LineString merepresentasikan lokasi potensial untuk penumpang naik atau turun. Dari data tersebut, NewMenjangan membangun \textit{weighted graph} dalam memori (RAM) dalam bentuk \textit{adjacency list} dan melakukan prakomputasi. Setiap titik pada LineString menjadi \textit{node}, dan antara titik ke-i dan titik ke-(i+1) dihubungkan dengan \textit{edge}. Jika ada dua titik dari rute angkot berbeda yang berdekatan (jarak di bawah konstanta tertentu), maka dibuatkan juga \textit{edge}, yang menunjukkan kemungkinan seseorang dapat turun dari suatu angkot dan naik ke angkot lainnya untuk meneruskan perjalanan. 
@@ -27,7 +28,7 @@ Pada saat ini algoritma yang digunakan KIRI masih terikat dengan algoritma Dijks
                 \item Bagaimana cara melakukan perubahan kode pada NewMenjangan untuk menerapkan \textit{strategy pattern}?
                 \item Bagaimana mengimplementasikan algoritma A-star dan Floyd Warshall sebagai \textit{concrete strategy}?
 	\end{enumerate}
-
+\newpage
 \section{Tujuan}
 \label{sec:tujuan}
 	\begin{enumerate}
