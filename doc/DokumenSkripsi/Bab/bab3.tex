@@ -34,10 +34,10 @@ Kelas ini berfungsi sebagai pusat kendali dari backend KIRI. Melalui kelas ini, 
         \\ Keduanya menggunakan koneksi HTTP untuk mengirim permintaan ke server. \textit{Method} \texttt{sendCheckStatus} berfungsi untuk mengecek status server, sementara \textit{method} \texttt{sendShutdown} mengirim permintaan untuk mematikan server.
 
         \item \texttt{pullData()}
-        \\ \textit{Method} ini bertugas untuk menarik data dari sumber SQL dan sumber eksternal lainnya. Jika terjadi perubahan pada file konfigurasi \texttt{tracks.conf}, data yang ada akan ditimpa dengan data baru yang diperbarui. Selain itu, proses pembaruan ini akan dicatat dalam log untuk pemantauan perubahan data yang terjadi.
+        \\ \textit{Method} ini bertugas untuk menarik data dari sumber SQL dan sumber eksternal lainnya. Jika terjadi perubahan pada file konfigurasi \texttt{tracks.conf}, data yang ada akan ditimpa dengan data baru yang diperbarui. Selain itu, proses pembaruan ini akan dicatat dalam log untuk pemantauan perubahan data yang terjadi. \textit{Method} akan mengembalikan nilai \texttt{true} apabila penarikan data berhasil dan \texttt{false} apabila gagal.
 
         \item \texttt{fileEquals(File file1, File file2)}
-        \\ \textit{Method} ini dirancang untuk membandingkan dua file secara biner untuk menentukan kesamaan di antara keduanya. Jika kedua file memiliki panjang yang berbeda, maka file tersebut secara otomatis dianggap tidak identik. Selain itu, jika ditemukan perbedaan byte pada posisi tertentu selama proses pembandingan, posisi perbedaan tersebut akan dicatat dalam log.
+        \\ \textit{Method} ini dirancang untuk membandingkan dua file secara biner untuk menentukan kesamaan di antara keduanya. Jika kedua file memiliki panjang yang berbeda, maka file tersebut secara otomatis dianggap tidak identik. Selain itu, jika ditemukan perbedaan byte pada posisi tertentu selama proses pembandingan, posisi perbedaan tersebut akan dicatat dalam log. \textit{Method} akan mengembalikan nilai \texttt{true} apabila file \textit{identical} dan \texttt{false} apabila tidak.
         
     \end{itemize}
 \end{itemize}
@@ -55,7 +55,7 @@ Kelas ini berfungsi sebagai \textit{handler} HTTP khusus yang menerima perintah-
     \begin{itemize}
         \item \texttt{handle(String target, Request baseRequest, HttpServletRequest request, \\HttpServletResponse response)}
         \\ \textit{Method} ini mengimplementasikan penanganan permintaan HTTP dengan memanfaatkan kelas \texttt{AbstractHandler} dari \textit{library} Jetty. Ketika sebuah permintaan HTTP diterima, metode ini akan melakukan beberapa langkah. Pertama, sumber permintaan diperiksa untuk memastikan bahwa hanya permintaan dari localhost yang diterima. Selanjutnya, metode ini mengurai parameter query string dari URL untuk mengidentifikasi perintah yang diminta. Dengan pendekatan ini, setiap permintaan dapat diproses sesuai dengan parameter yang dikirimkan.
-        \\ Metode ini mendukung berbagai jenis perintah yang dapat diterima melalui permintaan HTTP. Salah satu perintah adalah \texttt{forceshutdown}, yang berfungsi untuk menghentikan server setelah jeda satu detik dengan menjalankan \texttt{System.exit(0)} dalam sebuah thread baru. Perintah lain, yaitu \texttt{tracksinfo}, akan mengembalikan informasi mengenai jalur jika worker telah diinisialisasi, menggunakan metode \texttt{worker.printTracksInfo()}. Selain itu, perintah ping akan mengembalikan string "pong" untuk memverifikasi bahwa server sedang aktif. Apabila perintah yang diterima tidak valid atau tidak dikenali, metode ini akan mengembalikan status dan pesan kesalahan yang sesuai.
+        \\ \textit{Method} ini mendukung berbagai jenis perintah yang dapat diterima melalui permintaan HTTP. Salah satu perintah adalah \texttt{forceshutdown}, yang berfungsi untuk menghentikan server setelah jeda satu detik dengan menjalankan \texttt{System.exit(0)} dalam sebuah thread baru. Perintah lain, yaitu \texttt{tracksinfo}, akan mengembalikan informasi mengenai jalur jika worker telah diinisialisasi, menggunakan metode \texttt{worker.printTracksInfo()}. Selain itu, perintah ping akan mengembalikan string "pong" untuk memverifikasi bahwa server sedang aktif. Apabila perintah yang diterima tidak valid atau tidak dikenali, metode ini akan mengembalikan status dan pesan kesalahan yang sesuai.
         \\ Pengaturan status dan pesan respons dilakukan berdasarkan hasil dari setiap perintah yang diproses. Jika perintah berhasil dijalankan, status \texttt{HttpStatus.OK\_200} akan dikembalikan. Jika permintaan berasal dari alamat selain localhost, status yang dikembalikan adalah \texttt{HttpStatus.FORBIDDEN\_403}. Permintaan yang tidak mencantumkan perintah akan menerima status \texttt{HttpStatus.BAD\_REQUEST\_400}, sedangkan jika worker belum siap, status \texttt{HttpStatus.SERVICE\_UNAVAILABLE\_503} akan diberikan.
     \end{itemize}
 \end{itemize}
@@ -147,7 +147,7 @@ Kelas ini bertanggung jawab untuk menangani permintaan routing (pencarian rute) 
         \\ Representasi graf dari seluruh \textit{node}.
     \end{itemize}
 
-    \item \textbf{Konstraktor}
+    \item \textbf{Konstruktor}
     \begin{itemize}
         \item \texttt{public Worker(String homeDirectory)}
         \\ Konstruktor ini membaca file konfigurasi utama yang disebut \texttt{MJNSERVE\_PROPERTIES} untuk memuat pengaturan yang dibutuhkan. Selanjutnya, data graf jalur diambil dari file konfigurasi tambahan, yaitu \texttt{TRACKS\_CONF}, untuk membangun struktur jalur yang akan digunakan. Setelah itu, \textit{method} \texttt{linkAngkots()} dijalankan untuk menghubungkan \textit{node-node} angkot, memastikan keterhubungan jalur transportasi dalam graf. Terakhir, metode \texttt{cleanUpMemory()} dipanggil untuk membersihkan memori sementara, sehingga efisiensi dan stabilitas sistem tetap terjaga.
@@ -164,20 +164,20 @@ Kelas ini bertanggung jawab untuk menangani permintaan routing (pencarian rute) 
         \item \texttt{findRoute(LatLon start, LatLon finish, Double customMaximumWalkingDistance, Double customMultiplierWalking, Double customPenaltyTransfer, Set<String> trackTypeIdBlacklist)}
         \\ \textit{Method} ini dirancang untuk membangun graf virtual sebagai bagian dari proses pencarian rute. Proses dimulai dengan menambahkan \textit{node start} dan \textit{end} ke dalam graf, yang mewakili titik awal dan tujuan perjalanan. Setelah itu, \textit{node-node} dalam graf dihubungkan menggunakan jarak berjalan kaki untuk mencerminkan kemungkinan pergerakan pejalan kaki. Selanjutnya, algoritma Dijkstra dijalankan untuk menghitung dan menemukan rute terpendek antara \textit{node start} dan \textit{end}. Sebagai hasil akhirnya, langkah-langkah rute yang ditemukan disusun dalam format protokol Kalapa-Dago untuk memberikan panduan perjalanan yang terstruktur dan dapat diinterpretasikan dengan mudah.
         \item \texttt{resetStatistics()}
-        \\ \textit{Method} ini bertujuan untuk mereset statistik pemrosesan server. Dalam prosesnya, jumlah permintaan (numberOfRequests) diatur ulang menjadi nol untuk menghapus data historis mengenai jumlah permintaan yang telah diterima. Selain itu, waktu pemrosesan total (totalProcessTime) juga diatur ulang menjadi nol untuk menghapus catatan akumulasi waktu yang digunakan dalam memproses permintaan. 
+        \\ \textit{Method} ini bertujuan untuk mereset statistik pemrosesan server. Dalam prosesnya, jumlah permintaan (\texttt{numberOfRequests}) diatur ulang menjadi nol untuk menghapus data historis mengenai jumlah permintaan yang telah diterima. Selain itu, waktu pemrosesan total (\texttt{totalProcessTime}) juga diatur ulang menjadi nol untuk menghapus catatan akumulasi waktu yang digunakan dalam memproses permintaan. 
         \item \texttt{getNumberOfRequests()}
         \\ \textit{Method} ini mengembalikan jumlah permintaan yang telah diproses sejak statistik terakhir diatur ulang.
         \item \texttt{getTotalProcessTime()}
         \\ \textit{Method} ini mengembalikan total waktu pemrosesan semua permintaan dalam detik.
         \item \texttt{readGraph(String filename)}
-        \\ \textit{Method} ini dirancang untuk membangun graf dengan membaca data dari file yang berisi informasi lintasan, node, dan koneksi antar node. Proses dimulai dengan membaca file untuk mengambil detail lintasan, node, serta hubungan koneksi di antara keduanya. Graf kemudian dibuat untuk merepresentasikan struktur jaringan yang akan digunakan dalam proses pencarian rute.
+        \\ \textit{Method} ini dirancang untuk membangun graf dengan membaca data dari file yang berisi informasi lintasan, node, dan koneksi antar node. Proses dimulai dengan membaca file untuk mengambil detail lintasan, node, serta hubungan koneksi di antara keduanya. Graf kemudian dibuat untuk merepresentasikan struktur jaringan yang akan digunakan dalam proses pencarian rute. \textit{Method} ini mengembalikan nilai \texttt{true} apabila berhasil dan \texttt{false} apabila gagal.
         \newpage
         \item \texttt{linkAngkots()}
         \\ \textit{Method} membangun \textit{K-D Tree} yang digunakan untuk mempermudah pencarian node terdekat. Metode ini juga menghubungkan node transfer yang berada dalam batas jarak transfer maksimum, sehingga memastikan konektivitas antar node sesuai dengan aturan jarak yang telah ditentukan.
         \item \texttt{toString()}
         \\ \textit{Method} ini mengembalikan representasi string dari semua \textit{track} yang dimuat.
         \item \texttt{findNearbyTransports(LatLon start, Double customMaximumWalkingDistance)}
-        \\ \textit{Method} ini bertujuan untuk menemukan transportasi terdekat dari lokasi tertentu dengan menghitung jarak dari lokasi awal ke setiap \textit{track} dalam graf. Setelah semua jarak dihitung, \textit{method} ini akan menentukan lintasan dengan jarak minimum yang masih berada dalam batas yang dapat dijangkau dengan berjalan kaki.
+        \\ \textit{Method} ini bertujuan untuk menemukan transportasi terdekat dari lokasi tertentu dengan menghitung jarak dari lokasi awal ke setiap \textit{track} dalam graf. Setelah semua jarak dihitung, \textit{method} ini akan menentukan lintasan dengan jarak minimum yang masih berada dalam batas yang dapat dijangkau dengan berjalan kaki. \textit{Method} ini mengembalikan informasi dari transportasi yang ditemukan dalam bentuk \textit{string}.
     \end{itemize}
 \end{itemize}
 
@@ -197,16 +197,16 @@ Kelas ini bertanggung jawab untuk mengambil data jalur dari basis data dan mempr
         \item \texttt{pull(File sqlPropertiesFile, PrintStream output)}
         \\ Berfungsi untuk mengambil data dari tabel tracks di basis data, kemudian menuliskan hasil format jalur dalam format yang ditentukan. \textit{Method} ini memuat data dari file properti, terhubung ke basis data, dan melakukan query untuk mengambil data yang diperlukan. Hasil query diolah dan ditulis ke \textit{output}.
         \item \texttt{lineStringToLngLatArray(String wktText)}
-        \\ Mengubah data koordinat dalam format \texttt{LINESTRING} menjadi array \texttt{LngLatAlt}. Ini menghilangkan teks \texttt{LINESTRING} dan tanda kurung, kemudian memecah data menjadi objek koordinat texttt{LngLatAlt}.
+        \\ Mengubah data koordinat dalam format \texttt{LINESTRING} menjadi array \texttt{LngLatAlt}. Ini menghilangkan teks \texttt{LINESTRING} dan tanda kurung, kemudian memecah data menjadi objek koordinat texttt{LngLatAlt}. \textit{Method} ini mengembalikan array koordinat, yang berisi array objek \texttt{LngLatAlt} yang mewakili koordinat LineString.
         \item \texttt{computeDistance(LngLatAlt p1, LngLatAlt p2)}
-         \\ Menghitung jarak antara dua titik koordinat. Metode ini mempertimbangkan kelengkungan bumi dalam perhitungan jaraknya.
+         \\ Menghitung jarak antara dua titik koordinat. \textit{Method} ini mempertimbangkan kelengkungan bumi dalam perhitungan jaraknya. \textit{Method} ini mengembalikan jarak yang dihitung antara dua titik.
          \newpage
          \item \texttt{formatTrack}
          \\ Mengonversi informasi jalur yang diambil dari basis data ke format konfigurasi yang dibutuhkan. Metode ini mengatur titik transit, menambahkan titik virtual, dan menyusun informasi jalur dalam format konfigurasi yang diinginkan.
     \end{itemize}
 \end{itemize}
-\subsubsection{RouteResult}
-Merupakan sebuah \textit{inner class} yang menyimpan hasil akhir dalam format konfigurasi sebagai string \texttt{trackInConfFormat}, yang dapat diambil dengan \textit{method} \texttt{getTrackInConfFormat()}.
+\subsection{DataPuller.RouteResult}
+Merupakan sebuah \textit{static nested class} yang menyimpan hasil akhir dalam format konfigurasi sebagai string \texttt{trackInConfFormat}, yang dapat diambil dengan \textit{method} \texttt{getTrackInConfFormat()}.
 
 \subsection{DataPullerException}
 Kelas ini adalah kelas \textit{custom exception} yang dibuat untuk menangani kesalahan khusus yang terjadi saat pemrosesan data dalam kelas DataPuller. Kelas ini memperluas \texttt{RuntimeException}, sehingga DataPullerException adalah \textit{unchecked exception} dan tidak memerlukan penanganan eksplisit dengan blok \textit{try-catch} di tempat pemanggilannya. Pada kelas ini, terdapat sebuah konstanta serta konstruktor yang memiliki penjelasan sebagai berikut:
@@ -254,7 +254,7 @@ Kelas ini berfungsi untuk merepresentasikan posisi geografis dengan koordinat li
         \item \texttt{toString()}
         \\ \textit{Method} ini mengembalikan representasi string dari objek LatLon, berupa lat lon, yang menyajikan lintang dan bujur dalam format yang sederhana.
         \item \texttt{distanceTo(LatLon target)}
-        \\ \textit{Method} ini menghitung jarak antara objek LatLon saat ini dengan objek LatLon lain (target).
+        \\ \textit{Method} ini menghitung jarak antara objek LatLon saat ini dengan objek LatLon lain (target). \textit{Method} ini mengembalikan jarak yang dihitung antara objek LatLon saat ini dan objek LatLon target dalam kilometer.
     \end{itemize}
 \end{itemize}
 
@@ -279,18 +279,19 @@ Kelas ini merupakan struktur data khusus berbasis linked list yang berfungsi seb
     \begin{itemize}
         \item \texttt{add(E e)}
         \\Menambahkan elemen e ke internalArray pada UnrolledLinkedList saat ini.
+        \newpage
         \item \texttt{iterator()}
         \\Mengembalikan iterator (\texttt{FastLinkedListIterator}) yang dapat digunakan untuk menavigasi elemen-elemen di dalam \texttt{UnrolledLinkedList}.
         \item \texttt{addAll(UnrolledLinkedList<E> elements)}
         \\ Menambahkan semua elemen dari sebuah objek \texttt{UnrolledLinkedList<E>} lain (\texttt{elements}) ke dalam \textit{list} yang sedang diproses (\texttt{this}).
         \item \texttt{size()}
-        \\ Menghitung total elemen di seluruh \texttt{UnrolledLinkedList}, termasuk yang ada di \texttt{nextList}.
+        \\ Menghitung total elemen di seluruh \texttt{UnrolledLinkedList}, termasuk yang ada di \texttt{nextList} dan mengembalikan nilai total elemen tersebut.
         \item \texttt{cleanUpMemory()}
-        \\Memangkas ukuran \texttt{internalArray} ke jumlah elemen yang sebenarnya untuk menghemat memori.
+        \\Mengurangi ukuran \texttt{internalArray} ke jumlah elemen yang bertujuan untuk mengurangi penggunaan memori.
     \end{itemize}
 \end{itemize}
 
-\subsubsection{FastLinkedListIterator}
+\subsection{UnrolledLinkedList.FastLinkedListIterator}
 Inner class ini merupakan iterator yang digunakan untuk menjelajahi atau mengambil elemen-elemen dalam \texttt{UnrolledLinkedList} satu per satu secara berurutan. Dalam \textit{inner class} ini juga terdapat 3 atribut serta beberapa \textit{method} yang diimpelentasikan.
 \begin{itemize}
     \item \textbf{Atribut}
@@ -306,7 +307,7 @@ Inner class ini merupakan iterator yang digunakan untuk menjelajahi atau mengamb
     \item \textbf{Method}
     \begin{itemize}
         \item \texttt{hasNext()}
-        \\ Mengecek apakah masih ada elemen berikutnya di dalam \texttt{internalArray} atau di \texttt{nextList}.
+        \\ Mengecek apakah masih ada elemen berikutnya di dalam \texttt{internalArray} atau di \texttt{nextList} dan mengembalikan nilai \texttt{true} apabila masih ada dan \texttt{false} apabila tidak.
         \item \texttt{next()}
         \\Mengembalikan elemen berikutnya dalam iterasi. Jika sudah mencapai akhir \texttt{internalArray}, beralih ke \texttt{nextList}.
         \item \texttt{hasPrevious()} dan \texttt{previous()}
@@ -314,11 +315,53 @@ Inner class ini merupakan iterator yang digunakan untuk menjelajahi atau mengamb
         \item \texttt{nextIndex()} dan \texttt{previousIndex()}
         \\Mengembalikan indeks global berikutnya atau sebelumnya.
         \item \texttt{remove()}
-        \\melempar \texttt{UnsupportedOperationException}.
+        \\Melempar \texttt{UnsupportedOperationException}.
         \item \texttt{set(E e)}
         \\Mengganti elemen di \texttt{currentIndex} dengan elemen baru \texttt{e}.
         \item \texttt{add(E e)}
         \\Menambahkan elemen \texttt{e} ke dalam \texttt{UnrolledLinkedList}.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Track}
+Kelas Track merepresentasikan sebuah jalur transportasi umum, yaitu jalur angkot atau Transjakarta. Kelas ini menghubungkan node-node dalam sebuah graf menggunakan jalur yang spesifik untuk transportasi tersebut. Pada kelas ini, terdapat 4 atribut. Selain itu, terdapat konstruktor dan \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
+\begin{itemize}
+    \item \textbf{Atribut}
+    \begin{itemize}
+        \item \texttt{trackTypeId}
+        \\ Menyimpan jenis jalur transportasi, seperti "angkot" atau "transjakarta".
+        \item \texttt{trackId}
+        \\ Menyimpan ID spesifik dari jalur transportasi, seperti "kalapaledeng" atau "cicaheumciroyom".
+        \item \texttt{trackPath}
+        \\ Menyimpan daftar node (\texttt{GraphNode}) yang membentuk jalur.
+        \item \texttt{penalty}
+        \\ Menyimpan nilai penalti yang akan digunakan untuk memengaruhi biaya jalur saat algoritma pencarian jalur dijalankan.
+    \end{itemize}
+
+    \item \textbf{Konstruktor}
+    \begin{itemize}
+        \item \texttt{public Track(String fullyQualifiedTrackId)}
+        \\ Menginisialisasi sebuah objek \texttt{Track} menggunakan ID jalur lengkap dalam format \texttt{trackTypeId.trackId}.
+    \end{itemize}
+
+    \item \textbf{Method}
+    \begin{itemize}
+        \item \texttt{getTrackId()}
+        \\ Mengembalikan ID jalur (\texttt{trackId}).
+        \item \texttt{getTrackTypeId()}
+        \\ Mengembalikan jenis jalur (\texttt{trackTypeId}).
+        \item \texttt{getPenalty()}
+        \\ Mengembalikan nilai penalti.
+        \item \texttt{setPenalty(double penalty)}
+        \\ Mengatur nilai penalti untuk suatu jalur.
+        \item \texttt{toString()}
+        \\ Mengembalikan representasi string dari objek \texttt{Track}, meliputi jenis jalur, ID jalur, dan jumlah node.
+        \item \texttt{addNode(GraphNode node)}
+        \\ Menambahkan sebuah node ke dalam jalur (\texttt{trackPath}).
+        \item \texttt{getNode(int idx)}
+        \\ Mengambil dan mengembalikan node berdasarkan indeks dalam \texttt{trackPath}.
+        \item \texttt{getSize()}
+        \\ Mengembalikan jumlah node dalam jalur.
     \end{itemize}
 \end{itemize}
 \newpage
@@ -342,9 +385,9 @@ Kelas ini mewakili sebuah \textit{edge} (sisi) dalam struktur data graf. \textit
     \item \textbf{Method}
     \begin{itemize}
         \item \texttt{int getNode()}
-        \\ Metode ini mengembalikan nilai \textit{node} yang dituju oleh \textit{edge} ini. Berguna untuk mendapatkan informasi tentang \textit{node} tujuan.
+        \\ \textit{Method} ini mengembalikan nilai \textit{node} yang dituju oleh \textit{edge} ini yang bertujuan untuk mendapatkan informasi tentang \textit{node} tujuan.
         \item \texttt{double getWeight()}
-        \\ Metode ini mengembalikan bobot dari \textit{edge} saat ini, yang dapat digunakan dalam perhitungan atau penelusuran jalur dalam graf.
+        \\ \textit{Method} ini mengembalikan bobot dari \textit{edge} saat ini, yang dapat digunakan dalam perhitungan atau penelusuran jalur dalam graf.
     \end{itemize}
 \end{itemize}
 
@@ -449,17 +492,42 @@ Kelas ini adalah implementasi dari algoritma Dijkstra yang digunakan untuk menca
         \item \texttt{getDistance(int node)}
         \\ Mengembalikan jarak dari \textit{node} awal ke \textit{node} yang diminta.
         \item \texttt{calculateWeight(NodeInfo currentNode, GraphEdge edge)}
-        \\ \textit{Method} ini bertugas menghitung bobot perjalanan dari \texttt{currentNode} ke \textit{node} tujuan melalui sebuah \textit{edge}. Perhitungan bobot dilakukan berdasarkan beberapa kondisi. Jika salah satu dari \textit{node} tersebut merupakan jalur pejalan kaki, bobot dihitung dengan menerapkan nilai \texttt{multiplierWalking} untuk merepresentasikan jarak berjalan kaki. Jika node tersebut melibatkan \textit{transfer} angkot, parameter \texttt{penaltyTransfer} akan ditambahkan ke bobot perjalanan. Namun, jika perjalanan tetap berada dalam angkot yang sama, bobot dihitung berdasarkan nilai bobot dari objek \texttt{GraphEdge} serta penalti yang berlaku pada jalur yang relevan.
+        \\ \textit{Method} ini bertugas menghitung bobot perjalanan dari \texttt{currentNode} ke \textit{node} tujuan melalui sebuah \textit{edge}. Perhitungan bobot dilakukan berdasarkan beberapa kondisi. Jika salah satu dari \textit{node} tersebut merupakan jalur pejalan kaki, bobot dihitung dengan menerapkan nilai \texttt{multiplierWalking} untuk merepresentasikan jarak berjalan kaki. Jika node tersebut melibatkan \textit{transfer} angkot, parameter \texttt{penaltyTransfer} akan ditambahkan ke bobot perjalanan. Namun, jika perjalanan tetap berada dalam angkot yang sama, bobot dihitung berdasarkan nilai bobot dari objek \texttt{GraphEdge} serta penalti yang berlaku pada jalur yang relevan. \textit{Method} ini mengembalikan nilai Double yang mewakili bobot yang telah dihitung.
         \item \texttt{heapPercolateDown(int index)}
         \\ Menjaga agar heap tetap terurut setelah penghapusan node dengan jarak terpendek.
         \item \texttt{heapPercolateUp(int index)}
         \\ Memperbarui posisi node dalam heap setelah perubahan jarak.
         \item \texttt{heapDeleteMin()}
-        \\ Menghapus node dengan jarak terpendek dari heap, dan menyesuaikan urutan heap.
+        \\ Menghapus node dengan jarak terpendek dari heap, dan menyesuaikan urutan heap. \textit{Method} ini mengembalikan variabel \texttt{ret}, yang berisi objek NodeInfo.
         \item \texttt{getString(int node)}
         \\ Mengembalikan string dari \texttt{NodeInfo}.
     \end{itemize}
 \end{itemize}
 
-\subsubsection{NodeInfo}
-Merupakan sebuah \textit{inner class} yang menyimpan data untuk setiap node, seperti \texttt{baseIndex}, \texttt{heapIndex}, \texttt{distance}, dan \texttt{parent}. Selain itu, diimplementasikan juga method \texttt{toString()} yang mengembalikan nilai string dari data-data tersebut yang telah diformat.
+\subsection{Dijkstra.NodeInfo}
+Merupakan sebuah \textit{static nested class} yang menyimpan data untuk setiap node, seperti \texttt{baseIndex}, \texttt{heapIndex}, \texttt{distance}, dan \texttt{parent}. Selain itu, diimplementasikan juga method \texttt{toString()} yang mengembalikan nilai string dari data-data tersebut yang telah diformat.
+
+\subsection{Kelas Diagram}
+\begin{figure}[h] 
+    \centering  
+    \includegraphics[width=1.1\textwidth]{ClassDiagram}  
+    \caption{Struktur Strategy Pattern}
+    \label{fig:struktursp2} 
+\end{figure}
+\newpage
+\section{Analisis Sistem Usulan}
+Analisis ini dilakukan terhadap sistem usulan yang bertujuan untuk meningkatkan fleksibilitas dan efisiensi dalam proses pencarian rute terpendek pada perangkat lunak KIRI. Sistem yang diusulkan mengadopsi strategy pattern sebagai pola desain untuk memisahkan logika implementasi algoritma shortest path, sehingga memungkinkan penggantian atau penambahan algoritma dengan lebih mudah. Selain algoritma Dijkstra yang telah diterapkan pada sistem saat ini, sistem usulan juga mengimplementasikan dua algoritma tambahan, yaitu Floyd-Warshall dan A*. Penambahan kedua algoritma ini bertujuan untuk memperluas cakupan kebutuhan kasus penggunaan yang beragam, di mana Floyd-Warshall cocok untuk penghitungan semua pasangan titik, sedangkan A* menawarkan efisiensi untuk pencarian rute dengan heuristik tertentu. Dengan demikian, sistem usulan diharapkan dapat mengatasi keterbatasan sistem yang ada, yang saat ini hanya menggunakan satu algoritma dan belum mengadopsi pola desain modular seperti strategy pattern.
+
+\subsection{Implementasi Strategy Pattern}
+Implementasi strategy pattern pada NewMenjangan bertujuan untuk memberikan KIRI kebebasan untuk memilih dan menentukan strategi yang akan dipilih, dalam kasus ini adalah algoritma \textit{shortest path}. Selain itu, juga memberikan fleksibilitas yang tinggi serta memberikan kemudahan dalam menambahkan atau mengganti algoritma ketika proses pengembangan perangkat lunak, seperti yang telah dijelaskan pada subbab \ref{sec:designdanstrategypattern}.
+\begin{figure}[h] 
+    \centering  
+    \includegraphics[width=1\textwidth]{Struktur-SP2}  
+    \caption{Struktur Strategy Pattern}
+    \label{fig:struktursp2} 
+\end{figure}
+\\
+Gambar \ref{fig:struktursp2} menunjukkan struktur strategy pattern yang dirancang untuk implementasi yang akan dilakukan dalam tugas akhir ini. Gambar \ref{fig:struktursp2} merupakan lanjutan dari gambar \ref{fig:struktursp} yang hanya menggambarkan struktur strategy pattern secara umum. Gambar \ref{fig:struktursp2} menjelaskan bagaimana strategy pattern diimplementasikan dengan algoritma Dijkstra, A*, dan Floyd-Warshall sebagai \textit{concrete strategy}. Kemudian, kelas ShortestPathAlgorithm sebagai \textit{Strategy} dan kelas Worker sebagai \textit{Context}.
+
+\subsection{Implementasi Algoritma A* dan Algoritma Floyd-Warshall}
+Sistem usulan dirancang untuk meningkatkan performa dan fleksibilitas dalam penentuan rute terpendek dengan mengimplementasikan algoritma A* dan Floyd-Warshall. Pada sistem saat ini, hanya algoritma Dijkstra yang telah diimplementasikan. Algoritma A* dan Floyd-Warshall juga sama seperti algoritma Dijkstra yang termasuk algoritma \textit{shortest path} yang digunakan untuk mencari rute terdekat, seperti yang sudah dijelaskan pada subbab \ref{a*} dan \ref{floydwarshall}. Perubahan akan dilakukan pada NewMenjangan untuk mengimplementasikan algoritma A* dan Floyd-Warshall, yaitu dengan menambahkan 2 \textit{class} java baru dengan nama Dijkstra.java dan AStar.java.
