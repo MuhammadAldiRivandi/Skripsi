@@ -531,3 +531,329 @@ Gambar \ref{fig:struktursp2} menunjukkan struktur strategy pattern yang dirancan
 
 \subsection{Implementasi Algoritma A* dan Algoritma Floyd-Warshall}
 Sistem usulan dirancang untuk meningkatkan performa dan fleksibilitas dalam penentuan rute terpendek dengan mengimplementasikan algoritma A* dan Floyd-Warshall. Pada sistem saat ini, hanya algoritma Dijkstra yang telah diimplementasikan. Algoritma A* dan Floyd-Warshall juga sama seperti algoritma Dijkstra yang termasuk algoritma \textit{shortest path} yang digunakan untuk mencari rute terdekat, seperti yang sudah dijelaskan pada subbab \ref{a*} dan \ref{floydwarshall}. Perubahan akan dilakukan pada NewMenjangan untuk mengimplementasikan algoritma A* dan Floyd-Warshall, yaitu dengan menambahkan 2 \textit{class} java baru dengan nama Dijkstra.java dan AStar.java.
+
+\section{Contoh Kasus}
+Pada sub-bab ini, akan disajikan sebuah contoh kasus untuk mengilustrasikan penerapan algoritma Dijkstra, Floyd-Warshall, dan A* dalam pencarian jalur terpendek pada sebuah graf. Hal ini bertujuan untuk membandingkan cara kerja ketiga algoritma dalam menemukan rute optimal berdasarkan bobot atau jarak antar simpul. Graf (lihat Gambar \ref{fig:grafkasus}) yang digunakan merepresentasikan jaringan jalan dalam suatu wilayah, di mana setiap simpul melambangkan lokasi tertentu dan setiap sisi menunjukkan jalur yang menghubungkan lokasi-lokasi tersebut beserta bobot yang merepresentasikan jarak atau waktu tempuh. Pada kasus ini, pencarian jalur terpendek akan dilakukan dari titik A sebagai titik awal menuju titik E sebagai tujuan.
+\begin{figure}[h] 
+    \centering  
+    \includegraphics[width=1\textwidth]{graf-kasus}  
+    \caption{Visualisasi Graf}
+    \label{fig:grafkasus} 
+\end{figure}
+\newpage
+\subsection{Algoritma Dijkstra}
+\begin{enumerate}
+    \item Inisialisasi
+    \begin{itemize}
+        \item Atur jarak semua simpul ke $\infty$ (tak hingga), kecuali simpul A yang diset ke 0.
+        \item Masukan semua simpul kedalam \textit{Priority Queue}.
+        \item PQ : \{(A, 0), (B, $\infty$), (C, $\infty$), (D, $\infty$), (E, $\infty$)\}
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|}
+        \hline
+            \textbf{Simpul} & \textbf{Jarak Dari A} & Jalur \\ \hline
+            A               & 0                     & A     \\ \hline
+            B               & $\infty$              & -     \\ \hline
+            C               & $\infty$              & -     \\ \hline
+            D               & $\infty$              & -     \\ \hline
+            E               & $\infty$              & -     \\ \hline
+        \end{tabular}
+    \end{table}
+    
+    \item Iterasi 1
+    \begin{itemize}
+        \item Ambil simpul A (0) dari PQ
+        \item Periksa dan Perbarui jarak ke tetangga
+        \begin{itemize}
+            \item B = min($\infty$, 0 + 10) = 10
+            \item C = min($\infty$, 0 + 3) = 3
+        \end{itemize}
+        \item PQ : \{(C, 3), (B, 10), (D, $\infty$), (E, $\infty$)\}
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|}
+        \hline
+            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
+            A               & 0                     & A     \\ \hline
+            B               & 10                    & A - B     \\ \hline
+            C               & 3                     & A - C     \\ \hline
+            D               & $\infty$              & -     \\ \hline
+            E               & $\infty$              & -     \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \item Iterasi 2
+    \begin{itemize}
+        \item Ambil simpul C (3) dari PQ
+        \item Periksa dan Perbarui jarak ke tetangga
+        \begin{itemize}
+            \item B = min(10, 3 + 1) = 4
+            \item D = min($\infty$, 3 + 4) = 7
+            \item E = min($\infty$, 3 + 2) = 5
+        \end{itemize}
+        \item PQ : \{(B, 4), (E, 5), (D, 7), (B, 10)\}
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|}
+        \hline
+            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
+            A               & 0                     & A     \\ \hline
+            B               & 4                     & A - C - B     \\ \hline
+            C               & 3                     & A - C     \\ \hline
+            D               & 7                     & A - C - D     \\ \hline
+            E               & 5                     & A - C - E     \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \item Iterasi 3
+    \begin{itemize}
+        \item Ambil simpul B (4) dari PQ
+        \item Periksa dan Perbarui jarak ke tetangga
+        \begin{itemize}
+            \item D = min(7, 4 + 8) = 7
+        \end{itemize}
+        \item PQ : \{(E, 5), (D, 7), (B, 10)\}
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|}
+        \hline
+            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
+            A               & 0                     & A     \\ \hline
+            B               & 4                     & A - C - B     \\ \hline
+            C               & 3                     & A - C     \\ \hline
+            D               & 7                     & A - C - D     \\ \hline
+            E               & 5                     & A - C - E     \\ \hline
+        \end{tabular}
+    \end{table}
+    
+
+    \item Iterasi 4
+    \begin{itemize}
+        \item Ambil simpul E (5) dari PQ
+        \item Periksa dan Perbarui jarak ke tetangga
+        \begin{itemize}
+            \item D = min(7, 5 + 7) = 7
+        \end{itemize}
+        \item PQ : \{(D, 7)\}
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|}
+        \hline
+            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
+            A               & 0                     & A     \\ \hline
+            B               & 4                     & A - C - B     \\ \hline
+            C               & 3                     & A - C     \\ \hline
+            D               & 7                     & A - C - D     \\ \hline
+            E               & 5                     & A - C - E     \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \item Iterasi 5
+    \begin{itemize}
+        \item Ambil simpul D (7) dari PQ
+        \item Tidak ada tetangga atau PQ sudah kosong.
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|}
+        \hline
+            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
+            A               & 0                     & A     \\ \hline
+            B               & 4                     & A - C - B     \\ \hline
+            C               & 3                     & A - C     \\ \hline
+            D               & 7                     & A - C - D     \\ \hline
+            E               & 5                     & A - C - E     \\ \hline
+        \end{tabular}
+    \end{table}
+\end{enumerate}
+
+\subsection{Algoritma Floyd Warshall}
+\begin{enumerate}
+    \item Inisialisasi Matriks Jarak
+    \begin{itemize}
+        \item Setiap jarak awal diisi berdasarkan bobot sisi yang ada. Jika tidak ada sisi antara dua simpul, diisi dengan $\infty$ (tak hingga).
+    \end{itemize}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+          & A        & B        & C        & D        & E        \\ \hline
+        A & 0        & 10       & 3        & $\infty$ & $\infty$ \\ \hline
+        B & $\infty$ & 0        & 1        & 8        & $\infty$ \\ \hline
+        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
+        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
+        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
+        \end{tabular}
+    \end{table}
+    \newpage
+    \item Iterasi 1 dengan A sebagai perantara(k) / k = A
+    \begin{itemize}
+        \item Tidak ada perubahan karena A hanya memiliki jalur langsung ke B dan C dan tidak ada jalur baru yang lebih pendek yang bisa ditemukan.
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+          & A        & B        & C        & D        & E        \\ \hline
+        A & 0        & 10       & 3        & $\infty$ & $\infty$ \\ \hline
+        B & $\infty$ & 0        & 1        & 8        & $\infty$ \\ \hline
+        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
+        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
+        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \item Iterasi 2 dengan B sebagai perantara(k) / k = B
+    \begin{itemize}
+        \item Tidak ada jalur lebih pendek yang ditemukan melalui B sehingga tidak ada perubahan.
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+          & A        & B        & C        & D        & E        \\ \hline
+        A & 0        & 10       & 3        & $\infty$ & $\infty$ \\ \hline
+        B & $\infty$ & 0        & 1        & 8        & $\infty$ \\ \hline
+        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
+        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
+        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \item Iterasi 3 dengan C sebagai perantara (k) / k = C
+    \begin{itemize}
+        \item A - B dapat melalui C
+        \begin{itemize}
+            \item A - C - B = 3 + 1 = 4
+            \item Jarak langsung A - B adalah 10, jadi jarak A - B diperbarui dengan jarak A - C - B.
+        \end{itemize}
+        \item A - D dapat melalui C
+        \begin{itemize}
+            \item A - C - D = 3 + 4 = 7
+            \item Jarak A - D diisi dengan jarak A - C - D.
+        \end{itemize}
+        \item A - E dapat melalui C
+        \begin{itemize}
+            \item A - C - E = 3 + 2 = 5
+            \item Jarak A - E diisi dengan jarak A - C - E.
+        \end{itemize}
+        \item B - D dapat melalui C
+        \begin{itemize}
+            \item B - C - D = 1 + 4 = 5
+            \item Jarak B - D diisi dengan jarak B - C - D.
+        \end{itemize}
+        \item B - E dapat melalui C
+        \begin{itemize}
+            \item B - C - E = 1 + 2 = 4
+            \item Jarak B - E diisi dengan jarak B - C - E.
+        \end{itemize}
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+          & A        & B        & C        & D        & E        \\ \hline
+        A & 0        & 4        & 3        & 7        & 5 \\ \hline
+        B & $\infty$ & 0        & 1        & 5        & 3 \\ \hline
+        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
+        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
+        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
+        \end{tabular}
+    \end{table}
+    \newpage
+    \item Iterasi 4 dengan D sebagai perantara (k) / k = D
+    \begin{itemize}
+        \item Tidak ada jalur lebih pendek yang ditemukan melalui D sehingga tidak ada perubahan.
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+          & A        & B        & C        & D        & E        \\ \hline
+        A & 0        & 4        & 3        & 7        & 5 \\ \hline
+        B & $\infty$ & 0        & 1        & 5        & 3 \\ \hline
+        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
+        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
+        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \item Iterasi 5 dengan E sebagai perantara (k) / k = E
+    \begin{itemize}
+        \item Titik E sudah merupakan titik terakhir atau titik tujuan sehingga tidak ada perubahan.
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+          & A        & B        & C        & D        & E        \\ \hline
+        A & 0        & 4        & 3        & 7        & 5 \\ \hline
+        B & $\infty$ & 0        & 1        & 5        & 3 \\ \hline
+        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
+        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
+        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
+        \end{tabular}
+    \end{table}
+    
+\end{enumerate}
+
+\subsection{Algoritma A*}
+\begin{enumerate}
+    \item Inisialisasi
+    \begin{itemize}
+        \item Tentukan nilai heuristik setiap titik h(n).
+        \begin{itemize}
+            \item h(A) = 7
+            \item h(B) = 6
+            \item h(C) = 2
+            \item h(D) = 4
+            \item h(E) = 0 
+        \end{itemize}
+        \item Buat 2 buah list untuk menyimpan titik.
+        \begin{itemize}
+            \item \textit{Open List}, untuk menyimpan titik yang akan diperiksa.
+            \item \textit{Closed List}, untuk menyimpan titik yang sudah diperiksa.
+        \end{itemize}
+        \item Hitung total jarak untuk titik awal (f(A)).
+        \begin{itemize}
+            \item f(A) = 0 + 7 = 7
+        \end{itemize}
+        \item Update list.
+        \begin{itemize}
+            \item \textit{Open List}: \{A\}
+            \item \textit{Closed List}: \{\}
+        \end{itemize}
+    \end{itemize}
+
+    \item Iterasi 1
+    \begin{itemize}
+        \item Pilih titik A, karena hanya ada titik A saja pada \textit{Open List}
+        \item Periksa titik-titik tetangganya.
+        \begin{itemize}
+            \item f(B) = 10 + 6 = 16
+            \item f(C) = 3 + 2 = 5
+        \end{itemize}
+        \item Update list.
+        \begin{itemize}
+            \item \textit{Open List}: \{B, C\}
+            \item \textit{Closed List}: \{A\}
+        \end{itemize}
+    \end{itemize}
+
+    \item Iterasi 2
+    \begin{itemize}
+        \item Pilih titik C, karena memiliki total jarak terkecil pada \textit{Open List}
+        \item Periksa titik-titik tetangganya.
+        \begin{itemize}
+            \item f(B) = 4 + 6 = 10
+            \item f(D) = 7 + 4 = 11
+            \item f(E) = 5 + 0 = 5
+        \end{itemize}
+        \item Update list.
+        \begin{itemize}
+            \item \textit{Open List}: \{B, D, E\}
+            \item \textit{Closed List}: \{A, C\}
+        \end{itemize}
+    \end{itemize}
+
+    \item Iterasi 3
+    \begin{itemize}
+        \item Pilih titik E, karena memiliki total jarak terkecil pada \textit{Open List}
+        \item Iterasi selesai karena E adalah titik tujuan.
+    \end{itemize}
+    
+\end{enumerate}

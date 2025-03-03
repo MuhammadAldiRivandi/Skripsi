@@ -245,8 +245,14 @@ Berikut adalah beberapa fungsi penting yang dapat digunakan untuk bekerja dengan
 
 \section{Graf ~\cite{Diestel:17:graph}}
 \label{sec:graph}
-Graf ($G$) adalah struktur yang terdiri dari simpul (\textit{vertex}) dan sisi (\textit{edge}), dimana sisi menghubungkan pasangan simpul. Sebuah graf direpresentasikan sebagai pasangan $G=(V,E)$, dengan $V$ sebagai himpunan simpul dan $E$ sebagai himpunan sisi. Sisi diwakili oleh pasangan simpul yang terhubung. Graf dapat bersifat terarah atau tidak terarah.
-\\
+Graf ($G$) adalah struktur yang terdiri dari simpul (\textit{vertex}) dan sisi (\textit{edge}), dimana sisi menghubungkan pasangan simpul (lihat Gambar \ref{fig:graf}). Sebuah graf direpresentasikan sebagai pasangan $G=(V,E)$, dengan $V$ sebagai himpunan simpul dan $E$ sebagai himpunan sisi. Sisi diwakili oleh pasangan simpul yang terhubung. Graf dapat bersifat terarah atau tidak terarah.
+\begin{figure}[H] 
+	\centering  
+	\includegraphics[width=0.6\textwidth]{graf}  
+	\caption{Graf}
+	\label{fig:graf} 
+\end{figure}
+\noindent
 Simpul-simpul dalam graf dapat memiliki derajat tertentu, yaitu jumlah sisi yang menghubunginya. Sebuah graf disebut terhubung jika terdapat jalur antara setiap pasangan simpul. Jalur ini adalah urutan simpul yang dihubungkan oleh sisi. Selain itu, siklus adalah jalur tertutup di mana simpul awal dan akhir adalah sama. Teori graf juga mencakup konsep seperti pohon (graf terhubung tanpa siklus), graf bipartit (simpul dibagi menjadi dua himpunan yang saling bebas sisi), dan subgraf (bagian dari graf yang tetap mempertahankan struktur graf).
 \\
 Graf digunakan dalam berbagai hal, seperti jaringan komputer, rute transportasi, dan analisis hubungan sosial. Teori graf menyediakan dasar matematis untuk mempelajari struktur ini dan memberikan cara untuk memodelkan dan menyelesaikan masalah kompleks di berbagai bidang. 
@@ -284,8 +290,7 @@ Algoritma Floyd-Warshall merupakan sebuah algoritma untuk menyelesaikan masalah 
 \noindent
 \\
 Gambar \ref{fig:pseudocodefw} merupakan pseudocode dari algoritma Floyd-Warshall. Pada pseudocode terdapat beberapa atribut diantarnya, yaitu $W$ yang merupakan sebuah matriks berbobot berukuran $n*n$ dan mewakili bobot dari setiap sisi pada graf, $D^{(0)}$ atau $D^{(k)}$ merupakan Matriks berukuran $n*n$ pada iterasi ke-$k$, $n$ merepresentasikan banyaknya simpul dalam graf, diperoleh dari jumlah baris dari matriks $W$. Selain itu, terdapat $d_{ij}^{(k)}$ yang merupakan elemen dari matriks $D^{(k)}$ yang menunjukkan jarak terpendek antara simpul $i$ dan $j$ pada iterasi ke-$k$. Algoritma Floyd-Warshall dimulai dengan menginisialisasi $n$ yang diinisialisasi dengan nilai baris pada matriks $W$ dan juga $D^{(0)}$ yang diinisialisasi dengan matriks $W$. 
-\newpage
-\noindent
+\\
 Selama $n$ iterasi, algoritma memperbarui matriks jarak terpendek dengan mempertimbangkan kemungkinan jalan melalui simpul antara $\{1,2,...,k\}$. Pada setiap langkah, algoritma memeriksa apakah jarak dari $i$ ke $j$ dapat diperpendek dengan melalui simpul $k$, dibandingkan dengan jarak langsung antara $i$ dan $j$. Proses ini menghasilkan solusi optimal, di mana $D^{(n)}$ mencakup semua jarak terpendek yang memungkinkan.Algoritma Floyd-Warshall memiliki kompleksitas waktu $O(n^3)$ karena terdiri dari tiga \textit{looping} untuk semua titik dalam graf.
 
 \subsection{Algoritma A* ~\cite{Russell:09:ai}}
