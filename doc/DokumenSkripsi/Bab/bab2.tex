@@ -246,17 +246,69 @@ Berikut adalah beberapa fungsi penting yang dapat digunakan untuk bekerja dengan
 \section{Graf ~\cite{Diestel:17:graph}}
 \label{sec:graph}
 Graf ($G$) adalah struktur yang terdiri dari simpul (\textit{vertex}) dan sisi (\textit{edge}), dimana sisi menghubungkan pasangan simpul (lihat Gambar \ref{fig:graf}). Sebuah graf direpresentasikan sebagai pasangan $G=(V,E)$, dengan $V$ sebagai himpunan simpul dan $E$ sebagai himpunan sisi. Sisi diwakili oleh pasangan simpul yang terhubung. Graf dapat bersifat terarah atau tidak terarah.
-\begin{figure}[H] 
-	\centering  
-	\includegraphics[width=0.6\textwidth]{graf}  
-	\caption{Graf}
-	\label{fig:graf} 
+\begin{figure}[h] 
+    \centering  
+    \includegraphics[width=0.8\textwidth]{graf-kasus}  
+    \caption{Graf}
+    \label{fig:graf} 
 \end{figure}
 \noindent
 Simpul-simpul dalam graf dapat memiliki derajat tertentu, yaitu jumlah sisi yang menghubunginya. Sebuah graf disebut terhubung jika terdapat jalur antara setiap pasangan simpul. Jalur ini adalah urutan simpul yang dihubungkan oleh sisi. Selain itu, siklus adalah jalur tertutup di mana simpul awal dan akhir adalah sama. Teori graf juga mencakup konsep seperti pohon (graf terhubung tanpa siklus), graf bipartit (simpul dibagi menjadi dua himpunan yang saling bebas sisi), dan subgraf (bagian dari graf yang tetap mempertahankan struktur graf).
 \\
-Graf digunakan dalam berbagai hal, seperti jaringan komputer, rute transportasi, dan analisis hubungan sosial. Teori graf menyediakan dasar matematis untuk mempelajari struktur ini dan memberikan cara untuk memodelkan dan menyelesaikan masalah kompleks di berbagai bidang. 
+Graf digunakan dalam berbagai hal, seperti jaringan komputer, rute transportasi, dan analisis hubungan sosial. Teori graf menyediakan dasar matematis untuk mempelajari struktur ini dan memberikan cara untuk memodelkan dan menyelesaikan masalah kompleks di berbagai bidang.
 
+\subsection{Graf Berarah ~\cite{Diestel:17:graph}}
+\label{sec:grafberarah}
+Graf berarah adalah graf di mana setiap sisi memiliki arah tertentu. Dengan kata lain, setiap sisi dalam graf ini diwakili oleh pasangan terurut dari simpul (\textit{vertex}). Sebuah graf berarah didefinisikan sebagai pasangan $G=(V,E)$, di mana $V$ adalah himpunan simpul dan $E$ adalah himpunan sisi yang berbentuk pasangan terurut dari simpul. Setiap sisi $e$ memiliki simpul awal $init(e)$ dan simpul terminal $ter(e)$ yang menunjukkan arah perjalanan dari satu simpul ke simpul lainnya.
+\\
+Graf berarah dapat memiliki berbagai karakteristik khusus. Jika terdapat lebih dari satu sisi dengan arah yang sama antara dua simpul yang sama, sisi tersebut disebut sisi paralel. Jika sebuah sisi memiliki awal dan terminal yang sama, maka sisi tersebut disebut loop. Selain itu, Jika suatu graf tidak berarah diberikan arah pada setiap sisinya, maka graf berarah yang dihasilkan disebut sebagai \textit{oriented graph}.
+
+\begin{figure}[H] 
+    \centering  
+    \includegraphics[width=0.7\textwidth]{graf-berarah}  
+    \caption{Graf Berarah}
+    \label{fig:grafberarah} 
+\end{figure}
+
+\subsection{Graf Tidak Berarah ~\cite{Diestel:17:graph}}
+\label{sec:graftidakberarah}
+Graf tidak berarah adalah jenis graf di mana setiap sisi hanya menghubungkan dua simpul tanpa adanya arah tertentu. Dalam graf ini, sisi diwakili sebagai pasangan tidak terurut \{$u,v$\} yang berarti bahwa pergerakan dari simpul $u$ ke $v$ sama dengan pergerakan dari $v$ ke $u$. Graf tidak berarah dapat direpresentasikan dalam bentuk matriks ketetanggaan (\textit{adjacency matrix}), di mana matriks ini bersifat simetris.
+\\
+Salah satu sifat penting dari graf tidak berarah adalah konsep keterhubungan. Sebuah graf dikatakan terhubung jika terdapat jalur antara setiap pasangan simpulnya. Jika terdapat simpul yang tidak dapat dijangkau dari simpul lain, maka graf tersebut disebut tidak terhubung. Graf tidak berarah juga memiliki properti siklus, yaitu jalur tertutup di mana simpul awal dan simpul akhir adalah sama.
+
+\begin{figure}[H] 
+    \centering  
+    \includegraphics[width=0.7\textwidth]{graf-kasus}  
+    \caption{Graf Tidak Berarah}
+    \label{fig:graftidakberarah} 
+\end{figure}
+
+\subsection{Graf Berbobot ~\cite{Diestel:17:graph}}
+\label{sec:grafberbobot}
+Graf berbobot adalah graf di mana setiap sisi memiliki bobot atau nilai numerik yang menyatakan karakteristik tertentu seperti jarak, biaya, atau kapasitas. Graf berbobot direpresentasikan sebagai $G = (V,E,w)$, di mana $w:E\rightarrow R$ adalah fungsi yang memberikan bobot pada setiap sisi.
+\\
+Graf berbobot sering digunakan dalam berbagai aplikasi seperti algoritma pencarian jalur terpendek, optimasi jaringan, dan model transportasi. Dalam beberapa kasus, graf berbobot dapat berarah atau tidak berarah, tergantung pada apakah bobot tersebut memiliki arah tertentu atau tidak.
+
+\begin{figure}[H] 
+    \centering  
+    \includegraphics[width=0.7\textwidth]{graf-kasus}  
+    \caption{Graf Berbobot}
+    \label{fig:grafberbobot} 
+\end{figure}
+
+\subsection{Graf Tidak Berbobot ~\cite{Diestel:17:graph}}
+\label{sec:graftidakberbobot}
+Graf tidak berbobot adalah graf di mana semua sisi dianggap memiliki bobot yang sama, biasanya bernilai satu atau dianggap tidak berbobot sama sekali. Graf jenis ini sering digunakan dalam analisis struktur jaringan, di mana hanya penting untuk mengetahui adanya hubungan antar simpul tanpa mempertimbangkan seberapa kuat atau penting hubungan tersebut.
+\\
+Dalam graf tak berbobot, algoritma seperti BFS (Breadth-First Search) dan DFS (Depth-First Search) sangat berguna untuk menemukan keterhubungan, jalur terpendek dalam jumlah langkah, serta untuk eksplorasi struktur graf lainnya.
+
+\begin{figure}[H] 
+    \centering  
+    \includegraphics[width=0.7\textwidth]{graf-tidak-berbobot}  
+    \caption{Graf Tidak Berbobot}
+    \label{fig:graf} 
+\end{figure}
+\newpage
 \section{Algoritma Shortest Path}
 \label{sec:algoritmasp}
 Ada berbagai jenis algoritma \textit{shortest path} yang dirancang untuk menemukan lintasan terpendek antara dua titik dalam sebuah graf. Algoritma ini memainkan peran penting dalam berbagai aplikasi, seperti sistem navigasi, perencanaan jaringan, analisis data geografis, dan pemecahan masalah rute optimal.
@@ -266,32 +318,301 @@ Setiap algoritma memiliki pendekatan, kelebihan, dan keterbatasan masing-masing,
 \subsection{Algoritma Dijkstra ~\cite{Cormen:09:intro}}
 \label{sec:dijkstra}
 Algoritma Dijkstra merupakan sebuah algoritma untuk menyelesaikan masalah \textit{single-source shortest path}, yaitu menemukan jalur terpendek dari satu titik asal ke semua titik lainnya dalam sebuah graf berarah dengan bobot tepi non-negatif. Algoritma ini menggunakan sebuah struktur \textit{min-priority queue} (antrean prioritas minimum) yang menyimpan titik-titik dengan prioritas sesuai dengan perkiraan jarak terpendek dari titik asal.
-\begin{figure}[H] 
-    \centering  
-    \includegraphics[width=0.5\textwidth]{dijkstra}  
-    \caption{Pseudocode Algoritma Dijkstra}
-    \label{fig:pseudocodedijkstra} 
-\end{figure}
+\begin{algorithm}[H]
+    \caption{Dijkstra($G, w, s$)}
+    \label{alg:dijkstra}
+    \begin{algorithmic}[1]
+    \State \textbf{Initialize-Single-Source}($G, s$)
+    \State $S = \emptyset$
+    \State $Q = G.V$
+    \While{$Q \neq \emptyset$}
+        \State $u = \textbf{Extract-Min}(Q)$
+        \State $S = S \cup \{u\}$
+        \For{each vertex $v \in G.Adj[u]$}
+            \State \textbf{Relax}($u, v, w$)
+        \EndFor
+    \EndWhile
+    \end{algorithmic}
+\end{algorithm}
 \noindent
-\\
-Gambar \ref{fig:pseudocodedijkstra} merupakan pseudocode dari algoritma Dijkstra. Pada pseudocode terdapat beberapa atribut diantarnya, yaitu $G$ yang merepresentasikan graf, $w$ merupakan bobot yang menyatakan jarak atau biaya antar dan $s$ merepresentasikan simpul sumber yang merupakan titik awal pencarian. Selain itu, $S$ merepresentasikan kumpulan simpul yang sudah diproses yang diawal diinisialisasikan kosong, sedangkan $Q$ merepresentasikan kumpulan simpul yang belum diproses, kemudian $u$ merepresentasikan simpul yang sedang diproses dan $v$ merepresentasikan simpul tetangga dari $u$. Algoritma Dijkstra dimulai dengan menginisialisasi perkiraan jarak terpendek dari titik asal $s$ ke semua titik lain, kecuali $s$ itu sendiri yang diinisialisasi dengan jarak 0 dan juga semua simpul dimasukkan ke dalam \textit{min-priority queue} ($Q$), di mana prioritas ditentukan berdasarkan jarak terpendek yang diketahui. Selanjutnya, algoritma memproses simpul-simpul satu per satu dengan memilih simpul $u$ dari $Q$ yang memiliki jarak terpendek. Simpul tersebut kemudian ditambahkan ke dalam himpunan $S$.
+Pseudocode \ref{alg:dijkstra} merupakan pseudocode dari algoritma Dijkstra. Pada pseudocode terdapat beberapa atribut diantarnya, yaitu $G$ yang merepresentasikan graf, $w$ merupakan bobot yang menyatakan jarak atau biaya antar dan $s$ merepresentasikan simpul sumber yang merupakan titik awal pencarian. Selain itu, $S$ merepresentasikan kumpulan simpul yang sudah diproses yang diawal diinisialisasikan kosong, sedangkan $Q$ merepresentasikan kumpulan simpul yang belum diproses, kemudian $u$ merepresentasikan simpul yang sedang diproses dan $v$ merepresentasikan simpul tetangga dari $u$. Algoritma Dijkstra dimulai dengan menginisialisasi perkiraan jarak terpendek dari titik asal $s$ ke semua titik lain, kecuali $s$ itu sendiri yang diinisialisasi dengan jarak 0 dan juga semua simpul dimasukkan ke dalam \textit{min-priority queue} ($Q$), di mana prioritas ditentukan berdasarkan jarak terpendek yang diketahui. Selanjutnya, algoritma memproses simpul-simpul satu per satu dengan memilih simpul $u$ dari $Q$ yang memiliki jarak terpendek. Simpul tersebut kemudian ditambahkan ke dalam himpunan $S$.
 \\
 Setelah simpul $u$ diproses, algoritma akan memeriksa semua tetangga $v$ dari $u$. Untuk setiap tetangga, algoritma melakukan proses \textit{relaksasi}, yaitu membandingkan jarak saat ini ke $v$ dengan jarak yang melewati $u$. Jika jalur melalui $u$ memberikan jarak yang lebih pendek, jarak ke $v$ diperbarui dengan jarak baru tersebut, dan simpul pendahulu $v$ diatur menjadi $u$. Proses ini memastikan bahwa jalur terpendek ditemukan secara bertahap melalui iterasi. Algoritma akan terus berjalan hingga semua simpul telah diproses atau antrean $Q$ kosong. Hasil akhir berupa jarak terpendek dari simpul sumber $s$ ke setiap simpul lain dalam graf.
+\\
+Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Dijkstra dengan langkah-langkah berikut.
+\begin{enumerate}
+    \item Inisialisasi
+    \begin{itemize}
+        \item Atur jarak semua simpul ke $\infty$ (tak hingga), kecuali simpul A yang diset ke 0.
+        \item Masukan semua simpul kedalam \textit{Priority Queue}.
+        \item PQ : \{(A, 0), (B, $\infty$), (C, $\infty$), (D, $\infty$), (E, $\infty$)\}
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|}
+        \hline
+            \textbf{Simpul} & \textbf{Jarak Dari A} & Jalur \\ \hline
+            A               & 0                     & A     \\ \hline
+            B               & $\infty$              & -     \\ \hline
+            C               & $\infty$              & -     \\ \hline
+            D               & $\infty$              & -     \\ \hline
+            E               & $\infty$              & -     \\ \hline
+        \end{tabular}
+    \end{table}
+    
+    \item Iterasi 1
+    \begin{itemize}
+        \item Ambil simpul A (0) dari PQ
+        \item Periksa dan Perbarui jarak ke tetangga
+        \begin{itemize}
+            \item B = min($\infty$, 0 + 10) = 10
+            \item C = min($\infty$, 0 + 3) = 3
+        \end{itemize}
+        \item PQ : \{(C, 3), (B, 10), (D, $\infty$), (E, $\infty$)\}
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|}
+        \hline
+            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
+            A               & 0                     & A     \\ \hline
+            B               & 10                    & A - B     \\ \hline
+            C               & 3                     & A - C     \\ \hline
+            D               & $\infty$              & -     \\ \hline
+            E               & $\infty$              & -     \\ \hline
+        \end{tabular}
+    \end{table}
 
+    \item Iterasi 2
+    \begin{itemize}
+        \item Ambil simpul C (3) dari PQ
+        \item Periksa dan Perbarui jarak ke tetangga
+        \begin{itemize}
+            \item B = min(10, 3 + 1) = 4
+            \item D = min($\infty$, 3 + 4) = 7
+            \item E = min($\infty$, 3 + 2) = 5
+        \end{itemize}
+        \item PQ : \{(B, 4), (E, 5), (D, 7), (B, 10)\}
+    \end{itemize}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|}
+        \hline
+            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
+            A               & 0                     & A     \\ \hline
+            B               & 4                     & A - C - B     \\ \hline
+            C               & 3                     & A - C     \\ \hline
+            D               & 7                     & A - C - D     \\ \hline
+            E               & 5                     & A - C - E     \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \item Iterasi 3
+    \begin{itemize}
+        \item Ambil simpul B (4) dari PQ
+        \item Periksa dan Perbarui jarak ke tetangga
+        \begin{itemize}
+            \item D = min(7, 4 + 8) = 7
+        \end{itemize}
+        \item PQ : \{(E, 5), (D, 7), (B, 10)\}
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|}
+        \hline
+            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
+            A               & 0                     & A     \\ \hline
+            B               & 4                     & A - C - B     \\ \hline
+            C               & 3                     & A - C     \\ \hline
+            D               & 7                     & A - C - D     \\ \hline
+            E               & 5                     & A - C - E     \\ \hline
+        \end{tabular}
+    \end{table}
+    
+    \item Iterasi 4
+    \begin{itemize}
+        \item Ambil simpul E (5) dari PQ
+        \item Periksa dan Perbarui jarak ke tetangga
+        \begin{itemize}
+            \item D = min(7, 5 + 7) = 7
+        \end{itemize}
+        \item PQ : \{(D, 7)\}
+    \end{itemize}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|}
+        \hline
+            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
+            A               & 0                     & A     \\ \hline
+            B               & 4                     & A - C - B     \\ \hline
+            C               & 3                     & A - C     \\ \hline
+            D               & 7                     & A - C - D     \\ \hline
+            E               & 5                     & A - C - E     \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \item Iterasi 5
+    \begin{itemize}
+        \item Ambil simpul D (7) dari PQ
+        \item Tidak ada tetangga atau PQ sudah kosong.
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|}
+        \hline
+            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
+            A               & 0                     & A     \\ \hline
+            B               & 4                     & A - C - B     \\ \hline
+            C               & 3                     & A - C     \\ \hline
+            D               & 7                     & A - C - D     \\ \hline
+            E               & 5                     & A - C - E     \\ \hline
+        \end{tabular}
+    \end{table}
+\end{enumerate}
+\newpage
 \subsection{Algoritma Floyd-Warshall ~\cite{Cormen:09:intro}}
 \label{floydwarshall}
 Algoritma Floyd-Warshall merupakan sebuah algoritma untuk menyelesaikan masalah jalur terpendek untuk semua pasangan titik dalam graf berarah dengan menggunakan pendekatan pemrograman dinamis. Algoritma ini sangat berguna untuk graf yang memiliki bobot sisi negatif, selama tidak terdapat siklus dengan bobot negatif dalam graf tersebut. Pendekatan ini menghitung jalur terpendek antara semua pasangan titik dengan menggunakan tabel bobot antar titik dan mengulanginya secara bertahap untuk mencapai solusi optimal.
-\begin{figure}[h] 
-    \centering  
-    \includegraphics[width=0.7\textwidth]{fw}  
-    \caption{Pseudocode Algoritma Floyd-Warshall}
-    \label{fig:pseudocodefw} 
-\end{figure}
+\begin{algorithm}[H]
+    \caption{Floyd-Warshall($W$)}
+    \label{alg:floydwarshall}
+    \begin{algorithmic}[1]
+        \State $n = W.rows$
+        \State $D^{(0)} = W$
+        \For{$k = 1$ to $n$}
+            \State Let $D^{(k)} = (d_{ij}^{(k)})$ be a new $n \times n$ matrix
+            \For{$i = 1$ to $n$}
+                \For{$j = 1$ to $n$}
+                    \State $d_{ij}^{(k)} = \min(d_{ij}^{(k-1)}, d_{ik}^{(k-1)} + d_{kj}^{(k-1)})$
+                \EndFor
+            \EndFor
+        \EndFor
+        \State \textbf{return} $D^{(n)}$
+    \end{algorithmic}
+\end{algorithm}
 \noindent
-\\
-Gambar \ref{fig:pseudocodefw} merupakan pseudocode dari algoritma Floyd-Warshall. Pada pseudocode terdapat beberapa atribut diantarnya, yaitu $W$ yang merupakan sebuah matriks berbobot berukuran $n*n$ dan mewakili bobot dari setiap sisi pada graf, $D^{(0)}$ atau $D^{(k)}$ merupakan Matriks berukuran $n*n$ pada iterasi ke-$k$, $n$ merepresentasikan banyaknya simpul dalam graf, diperoleh dari jumlah baris dari matriks $W$. Selain itu, terdapat $d_{ij}^{(k)}$ yang merupakan elemen dari matriks $D^{(k)}$ yang menunjukkan jarak terpendek antara simpul $i$ dan $j$ pada iterasi ke-$k$. Algoritma Floyd-Warshall dimulai dengan menginisialisasi $n$ yang diinisialisasi dengan nilai baris pada matriks $W$ dan juga $D^{(0)}$ yang diinisialisasi dengan matriks $W$. 
+Pseudocode \ref{alg:floydwarshall} merupakan pseudocode dari algoritma Floyd-Warshall. Pada pseudocode terdapat beberapa atribut diantarnya, yaitu $W$ yang merupakan sebuah matriks berbobot berukuran $n*n$ dan mewakili bobot dari setiap sisi pada graf, $D^{(0)}$ atau $D^{(k)}$ merupakan Matriks berukuran $n*n$ pada iterasi ke-$k$, $n$ merepresentasikan banyaknya simpul dalam graf, diperoleh dari jumlah baris dari matriks $W$. Selain itu, terdapat $d_{ij}^{(k)}$ yang merupakan elemen dari matriks $D^{(k)}$ yang menunjukkan jarak terpendek antara simpul $i$ dan $j$ pada iterasi ke-$k$. Algoritma Floyd-Warshall dimulai dengan menginisialisasi $n$ yang diinisialisasi dengan nilai baris pada matriks $W$ dan juga $D^{(0)}$ yang diinisialisasi dengan matriks $W$. 
 \\
 Selama $n$ iterasi, algoritma memperbarui matriks jarak terpendek dengan mempertimbangkan kemungkinan jalan melalui simpul antara $\{1,2,...,k\}$. Pada setiap langkah, algoritma memeriksa apakah jarak dari $i$ ke $j$ dapat diperpendek dengan melalui simpul $k$, dibandingkan dengan jarak langsung antara $i$ dan $j$. Proses ini menghasilkan solusi optimal, di mana $D^{(n)}$ mencakup semua jarak terpendek yang memungkinkan.Algoritma Floyd-Warshall memiliki kompleksitas waktu $O(n^3)$ karena terdiri dari tiga \textit{looping} untuk semua titik dalam graf.
+\\
+Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Floyd-Warshall dengan langkah-langkah berikut.
+\begin{enumerate}
+    \item Inisialisasi Matriks Jarak
+    \begin{itemize}
+        \item Setiap jarak awal diisi berdasarkan bobot sisi yang ada. Jika tidak ada sisi antara dua simpul, diisi dengan $\infty$ (tak hingga).
+    \end{itemize}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+          & A        & B        & C        & D        & E        \\ \hline
+        A & 0        & 10       & 3        & $\infty$ & $\infty$ \\ \hline
+        B & $\infty$ & 0        & 1        & 8        & $\infty$ \\ \hline
+        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
+        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
+        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \item Iterasi 1 dengan A sebagai perantara(k) / k = A
+    \begin{itemize}
+        \item Tidak ada perubahan karena A hanya memiliki jalur langsung ke B dan C dan tidak ada jalur baru yang lebih pendek yang bisa ditemukan.
+    \end{itemize}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+          & A        & B        & C        & D        & E        \\ \hline
+        A & 0        & 10       & 3        & $\infty$ & $\infty$ \\ \hline
+        B & $\infty$ & 0        & 1        & 8        & $\infty$ \\ \hline
+        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
+        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
+        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \item Iterasi 2 dengan B sebagai perantara(k) / k = B
+    \begin{itemize}
+        \item Tidak ada jalur lebih pendek yang ditemukan melalui B sehingga tidak ada perubahan.
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+          & A        & B        & C        & D        & E        \\ \hline
+        A & 0        & 10       & 3        & $\infty$ & $\infty$ \\ \hline
+        B & $\infty$ & 0        & 1        & 8        & $\infty$ \\ \hline
+        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
+        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
+        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \item Iterasi 3 dengan C sebagai perantara (k) / k = C
+    \begin{itemize}
+        \item A - B dapat melalui C
+        \begin{itemize}
+            \item A - C - B = 3 + 1 = 4
+            \item Jarak langsung A - B adalah 10, jadi jarak A - B diperbarui dengan jarak A - C - B.
+        \end{itemize}
+        \item A - D dapat melalui C
+        \begin{itemize}
+            \item A - C - D = 3 + 4 = 7
+            \item Jarak A - D diisi dengan jarak A - C - D.
+        \end{itemize}
+        \item A - E dapat melalui C
+        \begin{itemize}
+            \item A - C - E = 3 + 2 = 5
+            \item Jarak A - E diisi dengan jarak A - C - E.
+        \end{itemize}
+        \item B - D dapat melalui C
+        \begin{itemize}
+            \item B - C - D = 1 + 4 = 5
+            \item Jarak B - D diisi dengan jarak B - C - D.
+        \end{itemize}
+        \item B - E dapat melalui C
+        \begin{itemize}
+            \item B - C - E = 1 + 2 = 4
+            \item Jarak B - E diisi dengan jarak B - C - E.
+        \end{itemize}
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+          & A        & B        & C        & D        & E        \\ \hline
+        A & 0        & 4        & 3        & 7        & 5 \\ \hline
+        B & $\infty$ & 0        & 1        & 5        & 3 \\ \hline
+        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
+        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
+        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \newpage
+    \item Iterasi 4 dengan D sebagai perantara (k) / k = D
+    \begin{itemize}
+        \item Tidak ada jalur lebih pendek yang ditemukan melalui D sehingga tidak ada perubahan.
+    \end{itemize}
+    \begin{table}[h]
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+          & A        & B        & C        & D        & E        \\ \hline
+        A & 0        & 4        & 3        & 7        & 5 \\ \hline
+        B & $\infty$ & 0        & 1        & 5        & 3 \\ \hline
+        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
+        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
+        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \item Iterasi 5 dengan E sebagai perantara (k) / k = E
+    \begin{itemize}
+        \item Titik E sudah merupakan titik terakhir atau titik tujuan sehingga tidak ada perubahan.
+    \end{itemize}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+          & A        & B        & C        & D        & E        \\ \hline
+        A & 0        & 4        & 3        & 7        & 5 \\ \hline
+        B & $\infty$ & 0        & 1        & 5        & 3 \\ \hline
+        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
+        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
+        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
+        \end{tabular}
+    \end{table}
+    
+\end{enumerate}
 
 \subsection{Algoritma A* ~\cite{Russell:09:ai}}
 \label{a*}
@@ -300,3 +621,71 @@ Algoritma A* adalah metode pencarian yang meminimalkan estimasi total biaya solu
 Kondisi utama yang diperlukan agar algortima A* memberikan solusi optimal adalah heuristik $h(n)$ yang bersifat \textit{admissible}, yaitu tidak pernah melebih-lebihkan biaya ke tujuan, dan \textit{consistent} atau \textit{monotonic}, di mana nilai $h$ tidak menurun di sepanjang jalur. Dengan adanya heuristik yang memenuhi syarat ini, algoritma A* dapat menghindari eksplorasi simpul-simpul yang tidak relevan, mengurangi waktu dan memori yang dibutuhkan.
 \\
 Terdapat kendala utama dari algoritma A*, yaitu penggunaan memori yang besar karena algoritma ini perlu menyimpan semua simpul yang telah dihasilkan. Untuk mengatasi hal ini, terdapat varian A* seperti \textit{Iterative-Deepening A*} (IDA*) yang mengurangi kebutuhan memori tanpa mengorbankan optimalitas solusi, dengan biaya eksekusi yang sedikit lebih tinggi.
+\\
+Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan A* dengan langkah-langkah berikut.
+\begin{enumerate}
+    \item Inisialisasi
+    \begin{itemize}
+        \item Tentukan nilai heuristik setiap titik h(n).
+        \begin{itemize}
+            \item h(A) = 7
+            \item h(B) = 6
+            \item h(C) = 2
+            \item h(D) = 4
+            \item h(E) = 0 
+        \end{itemize}
+        \item Buat 2 buah list untuk menyimpan titik.
+        \begin{itemize}
+            \item \textit{Open List}, untuk menyimpan titik yang akan diperiksa.
+            \item \textit{Closed List}, untuk menyimpan titik yang sudah diperiksa.
+        \end{itemize}
+        \item Hitung total jarak untuk titik awal (f(A)).
+        \begin{itemize}
+            \item f(A) = 0 + 7 = 7
+        \end{itemize}
+        \item Update list.
+        \begin{itemize}
+            \item \textit{Open List}: \{A\}
+            \item \textit{Closed List}: \{\}
+        \end{itemize}
+    \end{itemize}
+
+    \item Iterasi 1
+    \begin{itemize}
+        \item Pilih titik A, karena hanya ada titik A saja pada \textit{Open List}
+        \item Periksa titik-titik tetangganya.
+        \begin{itemize}
+            \item f(B) = 10 + 6 = 16
+            \item f(C) = 3 + 2 = 5
+        \end{itemize}
+        \item Update list.
+        \begin{itemize}
+            \item \textit{Open List}: \{B, C\}
+            \item \textit{Closed List}: \{A\}
+        \end{itemize}
+    \end{itemize}
+
+    \item Iterasi 2
+    \begin{itemize}
+        \item Pilih titik C, karena memiliki total jarak terkecil pada \textit{Open List}
+        \item Periksa titik-titik tetangganya.
+        \begin{itemize}
+            \item f(B) = 4 + 6 = 10
+            \item f(D) = 7 + 4 = 11
+            \item f(E) = 5 + 0 = 5
+        \end{itemize}
+        \item Update list.
+        \begin{itemize}
+            \item \textit{Open List}: \{B, D, E\}
+            \item \textit{Closed List}: \{A, C\}
+        \end{itemize}
+    \end{itemize}
+
+    \item Iterasi 3
+    \begin{itemize}
+        \item Pilih titik E, karena memiliki total jarak terkecil pada \textit{Open List}
+        \item Iterasi selesai karena E adalah titik tujuan.
+        \item \textit{Closed List}: \{A, C, E\}
+    \end{itemize}
+    
+\end{enumerate}

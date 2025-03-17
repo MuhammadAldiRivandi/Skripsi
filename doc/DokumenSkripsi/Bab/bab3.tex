@@ -3,8 +3,18 @@
 
 \section{Analisis Sistem Kini}
 \label{sec:sistemkini}
-Analisis akan dilakukan terhadap sistem backend bernama NewMenjangan, yang merupakan bagian dari KIRI. Sistem ini bertanggung jawab untuk menangani berbagai fungsi backend yang mendukung layanan utama KIRI, termasuk pengolahan data, komunikasi dengan komponen lain, dan pengelolaan algoritma terkait penelusuran rute. Saat ini, algoritma yang diterapkan adalah algoritma Dijkstra, yang digunakan untuk menemukan jalur terpendek dalam graf berbobot. Analisis ini mencakup tinjauan menyeluruh terhadap struktur kelas dari NewMenjangan. Berikut adalah struktur kelas NewMenjangan, dengan mengamati seluruh kode program yang ada.
-\subsection{Main.java}
+Analisis akan dilakukan terhadap sistem backend dari aplikasi KIRI yang bernama NewMenjangan. Sistem ini bertanggung jawab untuk menangani berbagai fungsi backend yang mendukung layanan utama KIRI, termasuk pengolahan data, komunikasi dengan komponen lain, dan pengelolaan algoritma terkait penelusuran rute. Gambar \ref{fig:strukturkelas}, merupakan struktur kelas saat ini dari aplikasi KIRI yang digambarkan dalam diagram kelas. Saat ini, algoritma yang diterapkan adalah algoritma Dijkstra, yang digunakan untuk menemukan jalur terpendek dalam graf berbobot. Analisis ini mencakup tinjauan menyeluruh terhadap struktur kelas NewMenjangan dan juga pemodelan graf pada aplikasi KIRI.
+\begin{figure}[h] 
+    \centering  
+    \includegraphics[width=1\textwidth]{class-diagram}  
+    \caption{Struktur Kelas NewMenjangan}
+    \label{fig:strukturkelas} 
+\end{figure}
+\newpage
+\subsection{Analisis Kelas}
+Pada bagian ini, akan dilakukan analisis terhadap struktur kelas yang membentuk sistem backend NewMenjangan. Analisis ini bertujuan untuk memahami peran dan hubungan antar kelas dalam sistem, termasuk bagaimana kelas-kelas tersebut berinteraksi untuk menangani pencarian rute menggunakan algoritma Dijkstra. Setiap kelas dalam diagram pada Gambar \ref{fig:strukturkelas} akan dianalisis berdasarkan fungsinya dalam sistem.
+
+\subsubsection{Main.java}
 Kelas ini berfungsi sebagai pusat kendali dari backend KIRI. Melalui kelas ini, server bisa dijalankan, diperiksa statusnya, dimatikan, dan juga mengolah data. Pada kelas ini, terdapat 5 konstanta dan 5 atribut. Selain itu, terdapat \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Konstanta}
@@ -24,7 +34,7 @@ Kelas ini berfungsi sebagai pusat kendali dari backend KIRI. Melalui kelas ini, 
         \item \texttt{homeDirectory}
         \\ Atribut ini digunakan untuk menjadi direktori utama yang diambil dari variabel lingkungan \texttt{NEWMJNSERVE\_HOME}, yang diperlukan agar aplikasi berjalan.
     \end{itemize}
-    \newpage
+
     \item \textbf{Method}
     \begin{itemize}
         \item \texttt{main(String[] args)}
@@ -42,7 +52,7 @@ Kelas ini berfungsi sebagai pusat kendali dari backend KIRI. Melalui kelas ini, 
     \end{itemize}
 \end{itemize}
 
-\subsection{AdminListener}
+\subsubsection{AdminListener}
 Kelas ini berfungsi sebagai \textit{handler} HTTP khusus yang menerima perintah-perintah administratif untuk mengelola server \textit{backend} KIRI. Kelas ini memungkinkan aplikasi \textit{backend} menerima dan menjalankan perintah administrasi dari localhost melalui HTTP. Pada kelas ini, terdapat 1 atribut diinisialisasikan serta \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Atribut}
@@ -60,7 +70,7 @@ Kelas ini berfungsi sebagai \textit{handler} HTTP khusus yang menerima perintah-
     \end{itemize}
 \end{itemize}
 
-\subsection{NewMenjanganServer}
+\subsubsection{NewMenjanganServer}
 Kelas ini berfungsi untuk menginisialisasi dan menjalankan server HTTP yang mendengarkan permintaan pada backend KIRI. Server ini menggunakan \textit{library} Jetty untuk menangani permintaan HTTP. Pada kelas ini, terdapat 1 konstanta dan 6 atribut. Selain itu, terdapat sebuah konstruktor dan \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Konstanta}
@@ -84,7 +94,7 @@ Kelas ini berfungsi untuk menginisialisasi dan menjalankan server HTTP yang mend
         \item \texttt{homeDirectory}
         \\ Berfungsi untuk menyimpan direktori \textit{home} yang digunakan oleh server. 
     \end{itemize}
-    \newpage
+    
     \item \textbf{Konstruktor}
     \begin{itemize}
         \item \texttt{NewMenjanganServer(int portNumber, String homeDirectory)}
@@ -100,7 +110,7 @@ Kelas ini berfungsi untuk menginisialisasi dan menjalankan server HTTP yang mend
     \end{itemize}
 \end{itemize}
 
-\subsection{ServiceListener}
+\subsubsection{ServiceListener}
 Kelas ini bertanggung jawab untuk menangani permintaan layanan pada server KIRI. Class ini menerima permintaan HTTP untuk mencari rute dan transportasi terdekat berdasarkan parameter yang diberikan. Pada kelas ini, terdapat 6 konstanta dan 1 atribut. Selain itu, terdapat sebuah konstruktor dan \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Konstanta}
@@ -124,7 +134,8 @@ Kelas ini bertanggung jawab untuk menangani permintaan layanan pada server KIRI.
     \end{itemize}
 \end{itemize}
 
-\subsection{Worker}
+\subsubsection{Worker}
+\label{subss:worker}
 Kelas ini bertanggung jawab untuk menangani permintaan routing (pencarian rute) menggunakan algoritma pencarian jalur terpendek. Fungsinya adalah untuk memproses permintaan rute berdasarkan data graf, dengan mempertimbangkan parameter jarak berjalan kaki, penalti transfer, dan lainnya. Pada kelas ini, terdapat 8 atribut. Selain itu, terdapat konstruktor dan method - method diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Atribut}
@@ -171,7 +182,7 @@ Kelas ini bertanggung jawab untuk menangani permintaan routing (pencarian rute) 
         \\ \textit{Method} ini mengembalikan total waktu pemrosesan semua permintaan dalam detik.
         \item \texttt{readGraph(String filename)}
         \\ \textit{Method} ini dirancang untuk membangun graf dengan membaca data dari file yang berisi informasi lintasan, node, dan koneksi antar node. Proses dimulai dengan membaca file untuk mengambil detail lintasan, node, serta hubungan koneksi di antara keduanya. Graf kemudian dibuat untuk merepresentasikan struktur jaringan yang akan digunakan dalam proses pencarian rute. \textit{Method} ini mengembalikan nilai \texttt{true} apabila berhasil dan \texttt{false} apabila gagal.
-        \newpage
+
         \item \texttt{linkAngkots()}
         \\ \textit{Method} membangun \textit{K-D Tree} yang digunakan untuk mempermudah pencarian node terdekat. Metode ini juga menghubungkan node transfer yang berada dalam batas jarak transfer maksimum, sehingga memastikan konektivitas antar node sesuai dengan aturan jarak yang telah ditentukan.
         \item \texttt{toString()}
@@ -180,8 +191,9 @@ Kelas ini bertanggung jawab untuk menangani permintaan routing (pencarian rute) 
         \\ \textit{Method} ini bertujuan untuk menemukan transportasi terdekat dari lokasi tertentu dengan menghitung jarak dari lokasi awal ke setiap \textit{track} dalam graf. Setelah semua jarak dihitung, \textit{method} ini akan menentukan lintasan dengan jarak minimum yang masih berada dalam batas yang dapat dijangkau dengan berjalan kaki. \textit{Method} ini mengembalikan informasi dari transportasi yang ditemukan dalam bentuk \textit{string}.
     \end{itemize}
 \end{itemize}
-
-\subsection{DataPuller}
+\newpage
+\subsubsection{DataPuller}
+\label{subss:datapuller}
 Kelas ini bertanggung jawab untuk mengambil data jalur dari basis data dan memprosesnya dalam bentuk yang diinginkan. Kelas ini menggunakan JDBC untuk koneksi ke basis data MySQL dan mengubah data jalur menjadi koordinat. Selain itu, kelas ini menambahkan titik-titik virtual untuk memenuhi jarak maksimum tertentu antar titik. Pada kelas ini, terdapat 2 konstanta serta \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Konstanta}
@@ -200,15 +212,16 @@ Kelas ini bertanggung jawab untuk mengambil data jalur dari basis data dan mempr
         \\ Mengubah data koordinat dalam format \texttt{LINESTRING} menjadi array \texttt{LngLatAlt}. Ini menghilangkan teks \texttt{LINESTRING} dan tanda kurung, kemudian memecah data menjadi objek koordinat texttt{LngLatAlt}. \textit{Method} ini mengembalikan array koordinat, yang berisi array objek \texttt{LngLatAlt} yang mewakili koordinat LineString.
         \item \texttt{computeDistance(LngLatAlt p1, LngLatAlt p2)}
          \\ Menghitung jarak antara dua titik koordinat. \textit{Method} ini mempertimbangkan kelengkungan bumi dalam perhitungan jaraknya. \textit{Method} ini mengembalikan jarak yang dihitung antara dua titik.
-         \newpage
+
          \item \texttt{formatTrack}
          \\ Mengonversi informasi jalur yang diambil dari basis data ke format konfigurasi yang dibutuhkan. Metode ini mengatur titik transit, menambahkan titik virtual, dan menyusun informasi jalur dalam format konfigurasi yang diinginkan.
     \end{itemize}
 \end{itemize}
-\subsection{DataPuller.RouteResult}
+
+\subsubsection{DataPuller.RouteResult}
 Merupakan sebuah \textit{static nested class} yang menyimpan hasil akhir dalam format konfigurasi sebagai string \texttt{trackInConfFormat}, yang dapat diambil dengan \textit{method} \texttt{getTrackInConfFormat()}.
 
-\subsection{DataPullerException}
+\subsubsection{DataPullerException}
 Kelas ini adalah kelas \textit{custom exception} yang dibuat untuk menangani kesalahan khusus yang terjadi saat pemrosesan data dalam kelas DataPuller. Kelas ini memperluas \texttt{RuntimeException}, sehingga DataPullerException adalah \textit{unchecked exception} dan tidak memerlukan penanganan eksplisit dengan blok \textit{try-catch} di tempat pemanggilannya. Pada kelas ini, terdapat sebuah konstanta serta konstruktor yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Konstanta}
@@ -224,7 +237,8 @@ Kelas ini adalah kelas \textit{custom exception} yang dibuat untuk menangani kes
     \end{itemize}
 \end{itemize}
 
-\subsection{LatLon}
+\subsubsection{LatLon}
+\label{subss:latlon}
 Kelas ini berfungsi untuk merepresentasikan posisi geografis dengan koordinat lintang (\textit{latitude}) dan bujur (\textit{longitude}). Pada kelas ini terdapat metode untuk menghitung jarak antara dua titik koordinat berdasarkan jarak permukaan bumi. Penggunaannya bisa ditemui pada sistem yang memerlukan perhitungan atau pengelolaan data geografis. Pada kelas ini, terdapat 1 konstanta dan 2 atribut. Selain itu, terdapat konstruktor dan \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Konstanta}
@@ -232,7 +246,7 @@ Kelas ini berfungsi untuk merepresentasikan posisi geografis dengan koordinat li
         \item \texttt{EARTH\_RADIUS}
         \\ Menyimpan nilai jari-jari Bumi dalam satuan kilometer (6371.0 km). Konstanta ini digunakan dalam perhitungan jarak antara dua titik geografis.
     \end{itemize}
-    \newpage
+    
     \item \textbf{Atribut}
     \begin{itemize}
         \item \texttt{lat}
@@ -258,7 +272,7 @@ Kelas ini berfungsi untuk merepresentasikan posisi geografis dengan koordinat li
     \end{itemize}
 \end{itemize}
 
-\subsection{UnrolledLinkedList}
+\subsubsection{UnrolledLinkedList}
 Kelas ini merupakan struktur data khusus berbasis linked list yang berfungsi sebagai implementasi daftar berantai (linked list) yang memanfaatkan ArrayList sebagai penyimpanan internal. Pada kelas ini, terdapat 2 atribut. Selain itu, terdapat konstruktor dan \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Atribut}
@@ -279,7 +293,7 @@ Kelas ini merupakan struktur data khusus berbasis linked list yang berfungsi seb
     \begin{itemize}
         \item \texttt{add(E e)}
         \\Menambahkan elemen e ke internalArray pada UnrolledLinkedList saat ini.
-        \newpage
+
         \item \texttt{iterator()}
         \\Mengembalikan iterator (\texttt{FastLinkedListIterator}) yang dapat digunakan untuk menavigasi elemen-elemen di dalam \texttt{UnrolledLinkedList}.
         \item \texttt{addAll(UnrolledLinkedList<E> elements)}
@@ -291,7 +305,7 @@ Kelas ini merupakan struktur data khusus berbasis linked list yang berfungsi seb
     \end{itemize}
 \end{itemize}
 
-\subsection{UnrolledLinkedList.FastLinkedListIterator}
+\subsubsection{UnrolledLinkedList.FastLinkedListIterator}
 Inner class ini merupakan iterator yang digunakan untuk menjelajahi atau mengambil elemen-elemen dalam \texttt{UnrolledLinkedList} satu per satu secara berurutan. Dalam \textit{inner class} ini juga terdapat 3 atribut serta beberapa \textit{method} yang diimpelentasikan.
 \begin{itemize}
     \item \textbf{Atribut}
@@ -323,7 +337,8 @@ Inner class ini merupakan iterator yang digunakan untuk menjelajahi atau mengamb
     \end{itemize}
 \end{itemize}
 
-\subsection{Track}
+\subsubsection{Track}
+\label{subss:track}
 Kelas Track merepresentasikan sebuah jalur transportasi umum, yaitu jalur angkot atau Transjakarta. Kelas ini menghubungkan node-node dalam sebuah graf menggunakan jalur yang spesifik untuk transportasi tersebut. Pada kelas ini, terdapat 4 atribut. Selain itu, terdapat konstruktor dan \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Atribut}
@@ -337,7 +352,7 @@ Kelas Track merepresentasikan sebuah jalur transportasi umum, yaitu jalur angkot
         \item \texttt{penalty}
         \\ Menyimpan nilai penalti yang akan digunakan untuk memengaruhi biaya jalur saat algoritma pencarian jalur dijalankan.
     \end{itemize}
-
+    \newpage
     \item \textbf{Konstruktor}
     \begin{itemize}
         \item \texttt{public Track(String fullyQualifiedTrackId)}
@@ -364,8 +379,8 @@ Kelas Track merepresentasikan sebuah jalur transportasi umum, yaitu jalur angkot
         \\ Mengembalikan jumlah node dalam jalur.
     \end{itemize}
 \end{itemize}
-\newpage
-\subsection{GraphEdge}
+
+\subsubsection{GraphEdge}
 Kelas ini mewakili sebuah \textit{edge} (sisi) dalam struktur data graf. \textit{Edge} ini digunakan dalam konteks perhitungan jalur atau algoritma graf lainnya. Pada kelas ini, terdapat 2 atribut. Selain itu, terdapat konstruktor dan \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Atribut}
@@ -391,7 +406,8 @@ Kelas ini mewakili sebuah \textit{edge} (sisi) dalam struktur data graf. \textit
     \end{itemize}
 \end{itemize}
 
-\subsection{GraphNode}
+\subsubsection{GraphNode}
+\label{subss:graphnode}
 Kelas ini berfungsi untuk merepresentasikan sebuah \textit{node} (simpul) dalam sebuah graf. \textit{Node} ini digunakan untuk menyimpan informasi tentang lokasi geografis, koneksi ke \textit{node} lain, dan atribut tertentu yang berhubungan dengan transportasi umum. Kelas ini dapat digunakan untuk membuat struktur graf yang akan mencerminkan rute dan jalur transportasi, sehingga memudahkan pemodelan dalam algoritma pencarian rute.
 Pada kelas ini, terdapat 4 atribut. Selain itu, terdapat konstruktor dan \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
@@ -434,7 +450,8 @@ Pada kelas ini, terdapat 4 atribut. Selain itu, terdapat konstruktor dan \textit
     \end{itemize}
 \end{itemize}
 
-\subsection{Graph}
+\subsubsection{Graph}
+\label{subss:graph}
 Kelas ini adalah kelas yang merepresentasikan sebuah graf, yaitu kumpulan dari \textit{node-node} (\texttt{GraphNode}). Dengan metode \texttt{rangeSearch}, kelas ini dapat mendukung pencarian node dalam radius tertentu, yang berguna dalam pemodelan rute. Kelas ini tidak memiliki atribut selain dari \texttt{ArrayList} yang diwarisi, karena kelas ini mewarisi semua fungsi dari \texttt{ArrayList} dan berfungsi untuk menyimpan node-node dalam bentuk \texttt{GraphNode}. Terdapat 2 konstruktor dan \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Konstruktor}
@@ -453,7 +470,7 @@ Kelas ini adalah kelas yang merepresentasikan sebuah graf, yaitu kumpulan dari \
     \end{itemize}
 \end{itemize}
 
-\subsection{Dijkstra}
+\subsubsection{Dijkstra}
 Kelas ini adalah implementasi dari algoritma Dijkstra yang digunakan untuk mencari jarak terpendek antara dua titik dalam sebuah graf. Algoritma ini bekerja dengan mencari rute dengan bobot terendah atau rute dengan jarak minimum antara node awal dan node tujuan. Pada kelas ini, terdapat 1 konstanta dan 10 atribut. Selain itu, terdapat konstruktor dan \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Konstanta}
@@ -504,17 +521,21 @@ Kelas ini adalah implementasi dari algoritma Dijkstra yang digunakan untuk menca
     \end{itemize}
 \end{itemize}
 
-\subsection{Dijkstra.NodeInfo}
+\subsubsection{Dijkstra.NodeInfo}
 Merupakan sebuah \textit{static nested class} yang menyimpan data untuk setiap node, seperti \texttt{baseIndex}, \texttt{heapIndex}, \texttt{distance}, dan \texttt{parent}. Selain itu, diimplementasikan juga method \texttt{toString()} yang mengembalikan nilai string dari data-data tersebut yang telah diformat.
 
-\subsection{Kelas Diagram}
+\subsection{Pemodelan Graf}
 \begin{figure}[h] 
     \centering  
-    \includegraphics[width=1.1\textwidth]{ClassDiagram}  
-    \caption{Struktur Strategy Pattern}
-    \label{fig:struktursp2} 
+    \includegraphics[width=1\textwidth]{pemodelan-graf}  
+    \caption{Rute Ciroyom – Cicaheum}
+    \label{fig:pemodelangraf} 
 \end{figure}
-\newpage
+\noindent
+Pada bagian ini, akan dilakukan analisis mengenai bagaimana rute-rute yang terdapat dalam tabel "tracks" pada database dapt dimodelkan menjadi sebuah graf oleh NewMenjangan. Gambar \ref{fig:pemodelangraf} merupakan visualisasi GIS (\textit{Geographic Information System}) dari rute angkot cicaheum-ciroyom.
+\\
+Pada saat NewMenjangan dijalankan data dari tabel "tracks" akan diambil menggunakan method \texttt{pull()} pada kelas DataPuller \ref{subss:datapuller} dalam format LineString \ref{subs:linestring}. Kemudian format data diubah menjadi bentuk array \texttt{LngLatAlt} (\textit{longitude} dan \textit{latitude}) menggunakan method \texttt{lineStringToLngLatArray} yang juga terdapat pada kelas DataPuller \ref{subss:datapuller}. Dari Titik-titik yang terdapat pada array \texttt{LngLatAlt} akan dimodelkan menjadi graf dengan menjadikan setiap titik menjadi sebuah node dan akan dihubungkan dengan edge antara nodenya, selain itu juga apabila ada dua titik dari rute angkot berbeda atau disebut juga \textit{transferNode} yang jaraknya dibawah dari konstanta yang telah ditentukan, maka akan dibuatkan juga sebuah edge untuk menghubungkannya. Pemodelan graf tersebut menggunakan method-method pada kelas Worker \ref{subss:worker} yang juga memanfaatkan method-method pada kelas Graph \ref{subss:graph}, GraphNode \ref{subss:graphnode}, LatLon \ref{subss:latlon}, dan Track \ref{subss:track}.
+
 \section{Analisis Sistem Usulan}
 Analisis ini dilakukan terhadap sistem usulan yang bertujuan untuk meningkatkan fleksibilitas dan efisiensi dalam proses pencarian rute terpendek pada perangkat lunak KIRI. Sistem yang diusulkan mengadopsi strategy pattern sebagai pola desain untuk memisahkan logika implementasi algoritma shortest path, sehingga memungkinkan penggantian atau penambahan algoritma dengan lebih mudah. Selain algoritma Dijkstra yang telah diterapkan pada sistem saat ini, sistem usulan juga mengimplementasikan dua algoritma tambahan, yaitu Floyd-Warshall dan A*. Penambahan kedua algoritma ini bertujuan untuk memperluas cakupan kebutuhan kasus penggunaan yang beragam, di mana Floyd-Warshall cocok untuk penghitungan semua pasangan titik, sedangkan A* menawarkan efisiensi untuk pencarian rute dengan heuristik tertentu. Dengan demikian, sistem usulan diharapkan dapat mengatasi keterbatasan sistem yang ada, yang saat ini hanya menggunakan satu algoritma dan belum mengadopsi pola desain modular seperti strategy pattern.
 
@@ -532,328 +553,3 @@ Gambar \ref{fig:struktursp2} menunjukkan struktur strategy pattern yang dirancan
 \subsection{Implementasi Algoritma A* dan Algoritma Floyd-Warshall}
 Sistem usulan dirancang untuk meningkatkan performa dan fleksibilitas dalam penentuan rute terpendek dengan mengimplementasikan algoritma A* dan Floyd-Warshall. Pada sistem saat ini, hanya algoritma Dijkstra yang telah diimplementasikan. Algoritma A* dan Floyd-Warshall juga sama seperti algoritma Dijkstra yang termasuk algoritma \textit{shortest path} yang digunakan untuk mencari rute terdekat, seperti yang sudah dijelaskan pada subbab \ref{a*} dan \ref{floydwarshall}. Perubahan akan dilakukan pada NewMenjangan untuk mengimplementasikan algoritma A* dan Floyd-Warshall, yaitu dengan menambahkan 2 \textit{class} java baru dengan nama Dijkstra.java dan AStar.java.
 
-\section{Contoh Kasus}
-Pada sub-bab ini, akan disajikan sebuah contoh kasus untuk mengilustrasikan penerapan algoritma Dijkstra, Floyd-Warshall, dan A* dalam pencarian jalur terpendek pada sebuah graf. Hal ini bertujuan untuk membandingkan cara kerja ketiga algoritma dalam menemukan rute optimal berdasarkan bobot atau jarak antar simpul. Graf (lihat Gambar \ref{fig:grafkasus}) yang digunakan merepresentasikan jaringan jalan dalam suatu wilayah, di mana setiap simpul melambangkan lokasi tertentu dan setiap sisi menunjukkan jalur yang menghubungkan lokasi-lokasi tersebut beserta bobot yang merepresentasikan jarak atau waktu tempuh. Pada kasus ini, pencarian jalur terpendek akan dilakukan dari titik A sebagai titik awal menuju titik E sebagai tujuan.
-\begin{figure}[h] 
-    \centering  
-    \includegraphics[width=1\textwidth]{graf-kasus}  
-    \caption{Visualisasi Graf}
-    \label{fig:grafkasus} 
-\end{figure}
-\newpage
-\subsection{Algoritma Dijkstra}
-\begin{enumerate}
-    \item Inisialisasi
-    \begin{itemize}
-        \item Atur jarak semua simpul ke $\infty$ (tak hingga), kecuali simpul A yang diset ke 0.
-        \item Masukan semua simpul kedalam \textit{Priority Queue}.
-        \item PQ : \{(A, 0), (B, $\infty$), (C, $\infty$), (D, $\infty$), (E, $\infty$)\}
-    \end{itemize}
-    \begin{table}[h]
-        \begin{tabular}{|l|l|l|}
-        \hline
-            \textbf{Simpul} & \textbf{Jarak Dari A} & Jalur \\ \hline
-            A               & 0                     & A     \\ \hline
-            B               & $\infty$              & -     \\ \hline
-            C               & $\infty$              & -     \\ \hline
-            D               & $\infty$              & -     \\ \hline
-            E               & $\infty$              & -     \\ \hline
-        \end{tabular}
-    \end{table}
-    
-    \item Iterasi 1
-    \begin{itemize}
-        \item Ambil simpul A (0) dari PQ
-        \item Periksa dan Perbarui jarak ke tetangga
-        \begin{itemize}
-            \item B = min($\infty$, 0 + 10) = 10
-            \item C = min($\infty$, 0 + 3) = 3
-        \end{itemize}
-        \item PQ : \{(C, 3), (B, 10), (D, $\infty$), (E, $\infty$)\}
-    \end{itemize}
-    \begin{table}[h]
-        \begin{tabular}{|l|l|l|}
-        \hline
-            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
-            A               & 0                     & A     \\ \hline
-            B               & 10                    & A - B     \\ \hline
-            C               & 3                     & A - C     \\ \hline
-            D               & $\infty$              & -     \\ \hline
-            E               & $\infty$              & -     \\ \hline
-        \end{tabular}
-    \end{table}
-
-    \item Iterasi 2
-    \begin{itemize}
-        \item Ambil simpul C (3) dari PQ
-        \item Periksa dan Perbarui jarak ke tetangga
-        \begin{itemize}
-            \item B = min(10, 3 + 1) = 4
-            \item D = min($\infty$, 3 + 4) = 7
-            \item E = min($\infty$, 3 + 2) = 5
-        \end{itemize}
-        \item PQ : \{(B, 4), (E, 5), (D, 7), (B, 10)\}
-    \end{itemize}
-    \begin{table}[h]
-        \begin{tabular}{|l|l|l|}
-        \hline
-            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
-            A               & 0                     & A     \\ \hline
-            B               & 4                     & A - C - B     \\ \hline
-            C               & 3                     & A - C     \\ \hline
-            D               & 7                     & A - C - D     \\ \hline
-            E               & 5                     & A - C - E     \\ \hline
-        \end{tabular}
-    \end{table}
-
-    \item Iterasi 3
-    \begin{itemize}
-        \item Ambil simpul B (4) dari PQ
-        \item Periksa dan Perbarui jarak ke tetangga
-        \begin{itemize}
-            \item D = min(7, 4 + 8) = 7
-        \end{itemize}
-        \item PQ : \{(E, 5), (D, 7), (B, 10)\}
-    \end{itemize}
-    \begin{table}[h]
-        \begin{tabular}{|l|l|l|}
-        \hline
-            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
-            A               & 0                     & A     \\ \hline
-            B               & 4                     & A - C - B     \\ \hline
-            C               & 3                     & A - C     \\ \hline
-            D               & 7                     & A - C - D     \\ \hline
-            E               & 5                     & A - C - E     \\ \hline
-        \end{tabular}
-    \end{table}
-    
-
-    \item Iterasi 4
-    \begin{itemize}
-        \item Ambil simpul E (5) dari PQ
-        \item Periksa dan Perbarui jarak ke tetangga
-        \begin{itemize}
-            \item D = min(7, 5 + 7) = 7
-        \end{itemize}
-        \item PQ : \{(D, 7)\}
-    \end{itemize}
-    \begin{table}[h]
-        \begin{tabular}{|l|l|l|}
-        \hline
-            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
-            A               & 0                     & A     \\ \hline
-            B               & 4                     & A - C - B     \\ \hline
-            C               & 3                     & A - C     \\ \hline
-            D               & 7                     & A - C - D     \\ \hline
-            E               & 5                     & A - C - E     \\ \hline
-        \end{tabular}
-    \end{table}
-
-    \item Iterasi 5
-    \begin{itemize}
-        \item Ambil simpul D (7) dari PQ
-        \item Tidak ada tetangga atau PQ sudah kosong.
-    \end{itemize}
-    \begin{table}[h]
-        \begin{tabular}{|l|l|l|}
-        \hline
-            \textbf{Simpul} & \textbf{Jarak Dari A} & \textbf{Jalur} \\ \hline
-            A               & 0                     & A     \\ \hline
-            B               & 4                     & A - C - B     \\ \hline
-            C               & 3                     & A - C     \\ \hline
-            D               & 7                     & A - C - D     \\ \hline
-            E               & 5                     & A - C - E     \\ \hline
-        \end{tabular}
-    \end{table}
-\end{enumerate}
-
-\subsection{Algoritma Floyd Warshall}
-\begin{enumerate}
-    \item Inisialisasi Matriks Jarak
-    \begin{itemize}
-        \item Setiap jarak awal diisi berdasarkan bobot sisi yang ada. Jika tidak ada sisi antara dua simpul, diisi dengan $\infty$ (tak hingga).
-    \end{itemize}
-    \begin{table}[H]
-        \begin{tabular}{|l|l|l|l|l|l|}
-        \hline
-          & A        & B        & C        & D        & E        \\ \hline
-        A & 0        & 10       & 3        & $\infty$ & $\infty$ \\ \hline
-        B & $\infty$ & 0        & 1        & 8        & $\infty$ \\ \hline
-        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
-        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
-        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
-        \end{tabular}
-    \end{table}
-    \newpage
-    \item Iterasi 1 dengan A sebagai perantara(k) / k = A
-    \begin{itemize}
-        \item Tidak ada perubahan karena A hanya memiliki jalur langsung ke B dan C dan tidak ada jalur baru yang lebih pendek yang bisa ditemukan.
-    \end{itemize}
-    \begin{table}[h]
-        \begin{tabular}{|l|l|l|l|l|l|}
-        \hline
-          & A        & B        & C        & D        & E        \\ \hline
-        A & 0        & 10       & 3        & $\infty$ & $\infty$ \\ \hline
-        B & $\infty$ & 0        & 1        & 8        & $\infty$ \\ \hline
-        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
-        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
-        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
-        \end{tabular}
-    \end{table}
-
-    \item Iterasi 2 dengan B sebagai perantara(k) / k = B
-    \begin{itemize}
-        \item Tidak ada jalur lebih pendek yang ditemukan melalui B sehingga tidak ada perubahan.
-    \end{itemize}
-    \begin{table}[h]
-        \begin{tabular}{|l|l|l|l|l|l|}
-        \hline
-          & A        & B        & C        & D        & E        \\ \hline
-        A & 0        & 10       & 3        & $\infty$ & $\infty$ \\ \hline
-        B & $\infty$ & 0        & 1        & 8        & $\infty$ \\ \hline
-        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
-        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
-        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
-        \end{tabular}
-    \end{table}
-
-    \item Iterasi 3 dengan C sebagai perantara (k) / k = C
-    \begin{itemize}
-        \item A - B dapat melalui C
-        \begin{itemize}
-            \item A - C - B = 3 + 1 = 4
-            \item Jarak langsung A - B adalah 10, jadi jarak A - B diperbarui dengan jarak A - C - B.
-        \end{itemize}
-        \item A - D dapat melalui C
-        \begin{itemize}
-            \item A - C - D = 3 + 4 = 7
-            \item Jarak A - D diisi dengan jarak A - C - D.
-        \end{itemize}
-        \item A - E dapat melalui C
-        \begin{itemize}
-            \item A - C - E = 3 + 2 = 5
-            \item Jarak A - E diisi dengan jarak A - C - E.
-        \end{itemize}
-        \item B - D dapat melalui C
-        \begin{itemize}
-            \item B - C - D = 1 + 4 = 5
-            \item Jarak B - D diisi dengan jarak B - C - D.
-        \end{itemize}
-        \item B - E dapat melalui C
-        \begin{itemize}
-            \item B - C - E = 1 + 2 = 4
-            \item Jarak B - E diisi dengan jarak B - C - E.
-        \end{itemize}
-    \end{itemize}
-    \begin{table}[h]
-        \begin{tabular}{|l|l|l|l|l|l|}
-        \hline
-          & A        & B        & C        & D        & E        \\ \hline
-        A & 0        & 4        & 3        & 7        & 5 \\ \hline
-        B & $\infty$ & 0        & 1        & 5        & 3 \\ \hline
-        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
-        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
-        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
-        \end{tabular}
-    \end{table}
-    \newpage
-    \item Iterasi 4 dengan D sebagai perantara (k) / k = D
-    \begin{itemize}
-        \item Tidak ada jalur lebih pendek yang ditemukan melalui D sehingga tidak ada perubahan.
-    \end{itemize}
-    \begin{table}[h]
-        \begin{tabular}{|l|l|l|l|l|l|}
-        \hline
-          & A        & B        & C        & D        & E        \\ \hline
-        A & 0        & 4        & 3        & 7        & 5 \\ \hline
-        B & $\infty$ & 0        & 1        & 5        & 3 \\ \hline
-        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
-        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
-        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
-        \end{tabular}
-    \end{table}
-
-    \item Iterasi 5 dengan E sebagai perantara (k) / k = E
-    \begin{itemize}
-        \item Titik E sudah merupakan titik terakhir atau titik tujuan sehingga tidak ada perubahan.
-    \end{itemize}
-    \begin{table}[h]
-        \begin{tabular}{|l|l|l|l|l|l|}
-        \hline
-          & A        & B        & C        & D        & E        \\ \hline
-        A & 0        & 4        & 3        & 7        & 5 \\ \hline
-        B & $\infty$ & 0        & 1        & 5        & 3 \\ \hline
-        C & $\infty$ & 1        & 0        & 4        & 2        \\ \hline
-        D & $\infty$ & $\infty$ & $\infty$ & 0        & 7        \\ \hline
-        E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
-        \end{tabular}
-    \end{table}
-    
-\end{enumerate}
-
-\subsection{Algoritma A*}
-\begin{enumerate}
-    \item Inisialisasi
-    \begin{itemize}
-        \item Tentukan nilai heuristik setiap titik h(n).
-        \begin{itemize}
-            \item h(A) = 7
-            \item h(B) = 6
-            \item h(C) = 2
-            \item h(D) = 4
-            \item h(E) = 0 
-        \end{itemize}
-        \item Buat 2 buah list untuk menyimpan titik.
-        \begin{itemize}
-            \item \textit{Open List}, untuk menyimpan titik yang akan diperiksa.
-            \item \textit{Closed List}, untuk menyimpan titik yang sudah diperiksa.
-        \end{itemize}
-        \item Hitung total jarak untuk titik awal (f(A)).
-        \begin{itemize}
-            \item f(A) = 0 + 7 = 7
-        \end{itemize}
-        \item Update list.
-        \begin{itemize}
-            \item \textit{Open List}: \{A\}
-            \item \textit{Closed List}: \{\}
-        \end{itemize}
-    \end{itemize}
-
-    \item Iterasi 1
-    \begin{itemize}
-        \item Pilih titik A, karena hanya ada titik A saja pada \textit{Open List}
-        \item Periksa titik-titik tetangganya.
-        \begin{itemize}
-            \item f(B) = 10 + 6 = 16
-            \item f(C) = 3 + 2 = 5
-        \end{itemize}
-        \item Update list.
-        \begin{itemize}
-            \item \textit{Open List}: \{B, C\}
-            \item \textit{Closed List}: \{A\}
-        \end{itemize}
-    \end{itemize}
-
-    \item Iterasi 2
-    \begin{itemize}
-        \item Pilih titik C, karena memiliki total jarak terkecil pada \textit{Open List}
-        \item Periksa titik-titik tetangganya.
-        \begin{itemize}
-            \item f(B) = 4 + 6 = 10
-            \item f(D) = 7 + 4 = 11
-            \item f(E) = 5 + 0 = 5
-        \end{itemize}
-        \item Update list.
-        \begin{itemize}
-            \item \textit{Open List}: \{B, D, E\}
-            \item \textit{Closed List}: \{A, C\}
-        \end{itemize}
-    \end{itemize}
-
-    \item Iterasi 3
-    \begin{itemize}
-        \item Pilih titik E, karena memiliki total jarak terkecil pada \textit{Open List}
-        \item Iterasi selesai karena E adalah titik tujuan.
-    \end{itemize}
-    
-\end{enumerate}
