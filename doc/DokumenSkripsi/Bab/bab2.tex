@@ -48,13 +48,13 @@ Berikut merupakan struktur dari strategy pattern (Gambar \ref{fig:struktursp}).
 \newpage
 \subsection{Contoh Kode Program}
 \label{sec:kode}
-\begin{lstlisting}[language=Java, caption=IntegerSorter.java]
+\begin{lstlisting}[language=Java, caption=IntegerSorter.java, basicstyle=\small\ttfamily]
     abstract class IntegerSorter {
         public abstract int[] sort(int[] arr);
     }
 \end{lstlisting}
 
-\begin{lstlisting}[language=Java, caption=ArraysSort.java]
+\begin{lstlisting}[language=Java, caption=ArraysSort.java, basicstyle=\small\ttfamily]
     import java.util.*;
 
     class ArraysSort extends IntegerSorter {
@@ -65,7 +65,7 @@ Berikut merupakan struktur dari strategy pattern (Gambar \ref{fig:struktursp}).
     }
 \end{lstlisting}
 
-\begin{lstlisting}[language=Java, caption=BubbleSort.java]
+\begin{lstlisting}[language=Java, caption=BubbleSort.java, basicstyle=\small\ttfamily]
     class BubbleSort extends IntegerSorter {
         public int[] sort(int[] arr) {
             int n = arr.length;
@@ -83,7 +83,7 @@ Berikut merupakan struktur dari strategy pattern (Gambar \ref{fig:struktursp}).
     }
 \end{lstlisting}
 
-\begin{lstlisting}[language=Java, caption=InsertionSort.java]
+\begin{lstlisting}[language=Java, caption=InsertionSort.java, basicstyle=\small\ttfamily]
     class InsertionSort extends IntegerSorter {
         public int[] sort(int[] arr) {
             int n = arr.length;
@@ -102,7 +102,7 @@ Berikut merupakan struktur dari strategy pattern (Gambar \ref{fig:struktursp}).
     }
 \end{lstlisting}
 
-\begin{lstlisting}[language=Java, caption=Main.java]
+\begin{lstlisting}[language=Java, caption=Main.java, basicstyle=\small\ttfamily]
     import java.util.*;
 
     public class Main {
@@ -257,9 +257,9 @@ Simpul-simpul dalam graf dapat memiliki derajat tertentu, yaitu jumlah sisi yang
 \\
 Graf digunakan dalam berbagai hal, seperti jaringan komputer, rute transportasi, dan analisis hubungan sosial. Teori graf menyediakan dasar matematis untuk mempelajari struktur ini dan memberikan cara untuk memodelkan dan menyelesaikan masalah kompleks di berbagai bidang.
 
-\subsection{Graf Berarah ~\cite{Diestel:17:graph}}
+\subsection{Graf Berarah dan Graf Tidak Berarah~\cite{Diestel:17:graph}}
 \label{sec:grafberarah}
-Graf berarah adalah graf di mana setiap sisi memiliki arah tertentu. Dengan kata lain, setiap sisi dalam graf ini diwakili oleh pasangan terurut dari simpul (\textit{vertex}). Sebuah graf berarah didefinisikan sebagai pasangan $G=(V,E)$, di mana $V$ adalah himpunan simpul dan $E$ adalah himpunan sisi yang berbentuk pasangan terurut dari simpul. Setiap sisi $e$ memiliki simpul awal $init(e)$ dan simpul terminal $ter(e)$ yang menunjukkan arah perjalanan dari satu simpul ke simpul lainnya.
+Graf berarah (lihat Gambar \ref{fig:grafberarah}) adalah graf di mana setiap sisi memiliki arah tertentu. Dengan kata lain, setiap sisi dalam graf ini diwakili oleh pasangan terurut dari simpul (\textit{vertex}). Sebuah graf berarah didefinisikan sebagai pasangan $G=(V,E)$, di mana $V$ adalah himpunan simpul dan $E$ adalah himpunan sisi yang berbentuk pasangan terurut dari simpul. Setiap sisi $e$ memiliki simpul awal $init(e)$ dan simpul terminal $ter(e)$ yang menunjukkan arah perjalanan dari satu simpul ke simpul lainnya.
 \\
 Graf berarah dapat memiliki berbagai karakteristik khusus. Jika terdapat lebih dari satu sisi dengan arah yang sama antara dua simpul yang sama, sisi tersebut disebut sisi paralel. Jika sebuah sisi memiliki awal dan terminal yang sama, maka sisi tersebut disebut loop. Selain itu, Jika suatu graf tidak berarah diberikan arah pada setiap sisinya, maka graf berarah yang dihasilkan disebut sebagai \textit{oriented graph}.
 
@@ -269,36 +269,18 @@ Graf berarah dapat memiliki berbagai karakteristik khusus. Jika terdapat lebih d
     \caption{Graf Berarah}
     \label{fig:grafberarah} 
 \end{figure}
-
-\subsection{Graf Tidak Berarah ~\cite{Diestel:17:graph}}
-\label{sec:graftidakberarah}
-Graf tidak berarah adalah jenis graf di mana setiap sisi hanya menghubungkan dua simpul tanpa adanya arah tertentu. Dalam graf ini, sisi diwakili sebagai pasangan tidak terurut \{$u,v$\} yang berarti bahwa pergerakan dari simpul $u$ ke $v$ sama dengan pergerakan dari $v$ ke $u$. Graf tidak berarah dapat direpresentasikan dalam bentuk matriks ketetanggaan (\textit{adjacency matrix}), di mana matriks ini bersifat simetris.
+\noindent
+Graf tidak berarah (lihat Gambar \ref{fig:graf}) adalah jenis graf di mana setiap sisi hanya menghubungkan dua simpul tanpa adanya arah tertentu. Dalam graf ini, sisi diwakili sebagai pasangan tidak terurut \{$u,v$\} yang berarti bahwa pergerakan dari simpul $u$ ke $v$ sama dengan pergerakan dari $v$ ke $u$. Graf tidak berarah dapat direpresentasikan dalam bentuk matriks ketetanggaan (\textit{adjacency matrix}), di mana matriks ini bersifat simetris.
 \\
 Salah satu sifat penting dari graf tidak berarah adalah konsep keterhubungan. Sebuah graf dikatakan terhubung jika terdapat jalur antara setiap pasangan simpulnya. Jika terdapat simpul yang tidak dapat dijangkau dari simpul lain, maka graf tersebut disebut tidak terhubung. Graf tidak berarah juga memiliki properti siklus, yaitu jalur tertutup di mana simpul awal dan simpul akhir adalah sama.
 
-\begin{figure}[H] 
-    \centering  
-    \includegraphics[width=0.7\textwidth]{graf-kasus}  
-    \caption{Graf Tidak Berarah}
-    \label{fig:graftidakberarah} 
-\end{figure}
-
-\subsection{Graf Berbobot ~\cite{Diestel:17:graph}}
+\subsection{Graf Berbobot dan Graf Tidak Berbobot ~\cite{Diestel:17:graph}}
 \label{sec:grafberbobot}
-Graf berbobot adalah graf di mana setiap sisi memiliki bobot atau nilai numerik yang menyatakan karakteristik tertentu seperti jarak, biaya, atau kapasitas. Graf berbobot direpresentasikan sebagai $G = (V,E,w)$, di mana $w:E\rightarrow R$ adalah fungsi yang memberikan bobot pada setiap sisi.
+Graf berbobot (lihat Gambar \ref{fig:graf}) adalah graf di mana setiap sisi memiliki bobot atau nilai numerik yang menyatakan karakteristik tertentu seperti jarak, biaya, atau kapasitas. Graf berbobot direpresentasikan sebagai $G = (V,E,w)$, di mana $w:E\rightarrow R$ adalah fungsi yang memberikan bobot pada setiap sisi.
 \\
 Graf berbobot sering digunakan dalam berbagai aplikasi seperti algoritma pencarian jalur terpendek, optimasi jaringan, dan model transportasi. Dalam beberapa kasus, graf berbobot dapat berarah atau tidak berarah, tergantung pada apakah bobot tersebut memiliki arah tertentu atau tidak.
-
-\begin{figure}[H] 
-    \centering  
-    \includegraphics[width=0.7\textwidth]{graf-kasus}  
-    \caption{Graf Berbobot}
-    \label{fig:grafberbobot} 
-\end{figure}
-
-\subsection{Graf Tidak Berbobot ~\cite{Diestel:17:graph}}
-\label{sec:graftidakberbobot}
-Graf tidak berbobot adalah graf di mana semua sisi dianggap memiliki bobot yang sama, biasanya bernilai satu atau dianggap tidak berbobot sama sekali. Graf jenis ini sering digunakan dalam analisis struktur jaringan, di mana hanya penting untuk mengetahui adanya hubungan antar simpul tanpa mempertimbangkan seberapa kuat atau penting hubungan tersebut.
+\\
+Graf tidak berbobot (lihat Gambar \ref{fig:graftidakberbobot}) adalah graf di mana semua sisi dianggap memiliki bobot yang sama, biasanya bernilai satu atau dianggap tidak berbobot sama sekali. Graf jenis ini sering digunakan dalam analisis struktur jaringan, di mana hanya penting untuk mengetahui adanya hubungan antar simpul tanpa mempertimbangkan seberapa kuat atau penting hubungan tersebut.
 \\
 Dalam graf tak berbobot, algoritma seperti BFS (Breadth-First Search) dan DFS (Depth-First Search) sangat berguna untuk menemukan keterhubungan, jalur terpendek dalam jumlah langkah, serta untuk eksplorasi struktur graf lainnya.
 
@@ -306,15 +288,15 @@ Dalam graf tak berbobot, algoritma seperti BFS (Breadth-First Search) dan DFS (D
     \centering  
     \includegraphics[width=0.7\textwidth]{graf-tidak-berbobot}  
     \caption{Graf Tidak Berbobot}
-    \label{fig:graf} 
+    \label{fig:graftidakberbobot} 
 \end{figure}
-\newpage
+
 \section{Algoritma Shortest Path}
 \label{sec:algoritmasp}
 Ada berbagai jenis algoritma \textit{shortest path} yang dirancang untuk menemukan lintasan terpendek antara dua titik dalam sebuah graf. Algoritma ini memainkan peran penting dalam berbagai aplikasi, seperti sistem navigasi, perencanaan jaringan, analisis data geografis, dan pemecahan masalah rute optimal.
 \\
 Setiap algoritma memiliki pendekatan, kelebihan, dan keterbatasan masing-masing, yang menjadikannya lebih sesuai untuk situasi tertentu. Sebagai contoh, algoritma seperti \textit{Dijkstra} sangat cocok untuk graf dengan bobot positif, sementara \textit{Floyd-Warshall} lebih sesuai untuk menemukan lintasan terpendek pada semua pasangan titik dalam graf kecil. Di sisi lain, algoritma \textit{A*} dirancang khusus untuk mempercepat pencarian lintasan dengan memanfaatkan heuristik. Berikut pembahasan secara detail tiga algoritma \textit{shortest path} yang digunakan, yaitu \textit{Dijkstra}, \textit{Floyd-Warshall}, dan \textit{A*}.
-
+\newpage
 \subsection{Algoritma Dijkstra ~\cite{Cormen:09:intro}}
 \label{sec:dijkstra}
 Algoritma Dijkstra merupakan sebuah algoritma untuk menyelesaikan masalah \textit{single-source shortest path}, yaitu menemukan jalur terpendek dari satu titik asal ke semua titik lainnya dalam sebuah graf berarah dengan bobot tepi non-negatif. Algoritma ini menggunakan sebuah struktur \textit{min-priority queue} (antrean prioritas minimum) yang menyimpan titik-titik dengan prioritas sesuai dengan perkiraan jarak terpendek dari titik asal.
@@ -424,7 +406,7 @@ Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Dijkstra dengan l
             E               & 5                     & A - C - E     \\ \hline
         \end{tabular}
     \end{table}
-    
+    \newpage
     \item Iterasi 4
     \begin{itemize}
         \item Ambil simpul E (5) dari PQ
@@ -463,7 +445,7 @@ Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Dijkstra dengan l
         \end{tabular}
     \end{table}
 \end{enumerate}
-\newpage
+
 \subsection{Algoritma Floyd-Warshall ~\cite{Cormen:09:intro}}
 \label{floydwarshall}
 Algoritma Floyd-Warshall merupakan sebuah algoritma untuk menyelesaikan masalah jalur terpendek untuk semua pasangan titik dalam graf berarah dengan menggunakan pendekatan pemrograman dinamis. Algoritma ini sangat berguna untuk graf yang memiliki bobot sisi negatif, selama tidak terdapat siklus dengan bobot negatif dalam graf tersebut. Pendekatan ini menghitung jalur terpendek antara semua pasangan titik dengan menggunakan tabel bobot antar titik dan mengulanginya secara bertahap untuk mencapai solusi optimal.
@@ -579,7 +561,6 @@ Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Floyd-Warshall de
         \end{tabular}
     \end{table}
 
-    \newpage
     \item Iterasi 4 dengan D sebagai perantara (k) / k = D
     \begin{itemize}
         \item Tidak ada jalur lebih pendek yang ditemukan melalui D sehingga tidak ada perubahan.

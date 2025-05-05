@@ -1,12 +1,41 @@
 \chapter{Perancangan}
 \label{chap:perancangan}
 
-\section{Rancangan Diagram Kelas}
+\section{Perancangan Kelas}
 \label{sec:rancangandiagramkelas}
 
-\begin{figure}[h] 
+\begin{figure}[H] 
     \centering  
     \includegraphics[width=1\textwidth]{class-diagram-2}  
-    \caption{Rancangan Diagram Kelas}
+    \caption{Perancangan Kelas}
     \label{fig:rancangandiagramkelas} 
 \end{figure}
+
+\noindent
+Perancangan kelas dilakukan untuk merepresentasikan struktur perangkat lunak setelah dilakukan pengembangan terhadap peran KIRI. Perubahan ini difokuskan pada penerapan Strategy Pattern guna meningkatkan fleksibilitas sistem dalam menggunakan berbagai algoritma pencarian jalur terpendek. Gambar \ref{fig:rancangandiagramkelas} menunjukkan struktur kelas setelah pengembangan dilakukan.
+\\
+Sebelumnya, algoritma shortest path diimplementasikan secara langsung dalam sistem menggunakan algoritma Dijkstra. Oleh karena itu, dilakukan perubahan desain dengan menerapkan Strategy Pattern dengan dibuatnya kelas abstrak ShortestPathStrategy yang menjadi dasar dari semua algoritma shortest path. Kelas-kelas seperti Dijkstra, FloydWarshall, dan AStar kemudian diimplementasikan sebagai turunan dari ShortestPathStrategy. Dengan struktur ini, ketiga algoritma tersebut dapat saling dipertukarkan tanpa memengaruhi bagian lain dari sistem, karena semuanya mengikuti superclass-nya, yaitu ShortestPathStrategy. Strategi ini memudahkan sistem dalam memilih dan menggunakan algoritma pencarian jalur terpendek yang sesuai dengan kebutuhan tertentu. Selain itu, Struktur kelas seperti GraphNode, GraphEdge, dan Graph tetap dipertahankan, namun kini berfungsi mendukung berbagai algoritma.
+\\
+Kelas ShortestPathStrategy memiliki atribut-atribut yang sebelumnya terdapat pada Dijkstra, yaitu graph, startNode, finishNode, multiplierWalking, dan penaltyTransfer. Atribut-atribut tersebut akan diturunkan dan digunakan oleh seluruh algoritma shortest path. Selain itu, kelas ShortestPathStrategy juga memiliki method-method yang di-override dari kelas-kelas algoritma shortest path.
+\\
+Dengan perancangan ini, perangkat lunak KIRI kini memiliki arsitektur yang lebih modular dan akan lebih mudah apabila akan dikembangkan lebih lanjut, baik dari sisi algoritma maupun fungsionalitas lain.
+
+
+\section{Perancangan Antarmuka}
+\label{sec:rancanganui}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.1\textwidth, height=1\textheight, keepaspectratio]{rancangan-ui}
+    \caption{Rancangan Antarmuka}
+    \label{fig:rancanganui}
+\end{figure}
+
+\noindent
+Dilakukan sedikit perubahan pada halaman antarmuka dari perangkat lunak KIRI, yaitu dengan menambahkan sebuah \textit{dropdown} baru untuk memilih algoritma yang akan digunakan, seperti pada gambar \ref{fig:rancanganui}. Pada \textit{dropdown} tersebut akan terdiri dari 3 buah algoritma \textit{shortest path} yang sudah diimplementasikan sebelumnya, yaitu Dijkstra, Floyd-Warshall, dan A-Star. 
+
+\newpage
+\section{Perancangan Protokol}
+Dilakukan sedikit modifikasi pada protokol API untuk memberikan fleksibilitas pengguna dalam memilih algoritma jalur terpendek yang akan digunakan, seperti Dijkstra, A*, dan Floyd-Warshall. Modifikasi dilakukan pada bagian \textit{front-end} (Tirtayasa) dan juga \textit{back-end} (NewMenjangan). Perubahan ini hanya menambah satu parameter bau tanpa mengubah struktur data utama sehingga modifikasi dapat dilakukan tanpa mempengaruhi fungsi sistem lainnya secara signifikan.
+\\
+Pada bagian \textit{front-end} perubahan utama terdapat pada antarmuka seperti yang sudah dijelaskan pada sub-bab \ref{sec:rancanganui}. Oleh karena itu, perlu dilakukan juga modifikasi pada protokol API, yaitu akan dilakukan modifikasi pada kelas-kelas yang berkaitan dalam pengiriman data ke bagian \textit{back-end}. Modifikasi tersebut bertujuan agar parameter baru, yaitu algoritma dapat dikirimkan ke bagian \textit{back-end} dengan baik. Pada kelas-kelas tersebut akan ditambahkan paramater baru, yaitu parameter yang akan mengirimkan algoritma yang dipilih. Pada bagian \textit{back-end}, parameter / data algoritma tersebut akan diterima dalam bentuk string. Kemudian dari data string tersebut akan dimanfaatkan sistem untuk memilih algoritma apa yang akan dijalankan untuk melakukan pencarian jalur terpendek.

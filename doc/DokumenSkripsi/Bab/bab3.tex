@@ -111,6 +111,7 @@ Kelas ini berfungsi untuk menginisialisasi dan menjalankan server HTTP yang mend
 \end{itemize}
 
 \subsubsection{ServiceListener}
+\label{subss:servicelistener}
 Kelas ini bertanggung jawab untuk menangani permintaan layanan pada server KIRI. Class ini menerima permintaan HTTP untuk mencari rute dan transportasi terdekat berdasarkan parameter yang diberikan. Pada kelas ini, terdapat 6 konstanta dan 1 atribut. Selain itu, terdapat sebuah konstruktor dan \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Konstanta}
@@ -352,7 +353,7 @@ Kelas Track merepresentasikan sebuah jalur transportasi umum, yaitu jalur angkot
         \item \texttt{penalty}
         \\ Menyimpan nilai penalti yang akan digunakan untuk memengaruhi biaya jalur saat algoritma pencarian jalur dijalankan.
     \end{itemize}
-    \newpage
+
     \item \textbf{Konstruktor}
     \begin{itemize}
         \item \texttt{public Track(String fullyQualifiedTrackId)}
@@ -471,6 +472,7 @@ Kelas ini adalah kelas yang merepresentasikan sebuah graf, yaitu kumpulan dari \
 \end{itemize}
 
 \subsubsection{Dijkstra}
+\label{subss:dijkstra}
 Kelas ini adalah implementasi dari algoritma Dijkstra yang digunakan untuk mencari jarak terpendek antara dua titik dalam sebuah graf. Algoritma ini bekerja dengan mencari rute dengan bobot terendah atau rute dengan jarak minimum antara node awal dan node tujuan. Pada kelas ini, terdapat 1 konstanta dan 10 atribut. Selain itu, terdapat konstruktor dan \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
     \item \textbf{Konstanta}

@@ -14,7 +14,7 @@
 % Perhatian: Abaikan warning tentang textasteriskcentered!!
 %
 
-
+\begin{comment}
 \begin{lstlisting}[language=Java, caption=MyCode.c]
 
 // This does not make algorithmic sense, 
@@ -42,5 +42,44 @@ void myFunction( int input, float* output ) {
 
 \end{lstlisting}
 
-\lstinputlisting[language=Java, caption=MyCode.java]{./Lampiran/MyCode.java} 
 
+\lstinputlisting[language=Java, caption=MyCode.java]{./Lampiran/MyCode.java} 
+\end{comment}
+
+\lstinputlisting[language=Java, caption=Dijkstra.java, label={code:dijkstra}]{./Lampiran/Dijkstra.java}
+
+\lstinputlisting[language=Java, caption=AStar.java, label={code:astar}]{./Lampiran/AStar.java}
+
+\lstinputlisting[language=Java, caption=FloydWarshall.java, label={code:floydwarshall}]{./Lampiran/FloydWarshall.java}
+
+\lstinputlisting[language=Java, caption=ShorestPathStrategy.java, label={code:sps}]{./Lampiran/ShorestPathStrategy.java}
+
+\lstinputlisting[language=Java, caption=Worker.java, label={code:worker}]{./Lampiran/Worker.java}
+
+\lstinputlisting[language=Java, caption=ServiceListener.java, label={code:sl}]{./Lampiran/ServiceListener.java}
+
+\lstinputlisting[language=PHP, caption=main.php, label={code:mainphp}]{./Lampiran/main.php}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else,
+    finally, for, function, if, in, instanceof, new, return, switch, this,
+    throw, try, typeof, var, let, const, while, with, yield, await, async},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]//,
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{gray}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]",
+  morestring=[b]`,
+}
+
+\lstinputlisting[language=JavaScript, caption=main.js, label={code:mainjs}]{./Lampiran/main.js}
+
+\lstinputlisting[language=JavaScript, caption=protocol.js, label={code:protocol}]{./Lampiran/protocol.js}
+
+\lstinputlisting[language=PHP, caption=Api.php, label={code:api}]{./Lampiran/Api.php}
