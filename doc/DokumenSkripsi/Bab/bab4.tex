@@ -36,6 +36,29 @@ Dilakukan sedikit perubahan pada halaman antarmuka dari perangkat lunak KIRI, ya
 
 \newpage
 \section{Perancangan Protokol}
-Dilakukan sedikit modifikasi pada protokol API untuk memberikan fleksibilitas pengguna dalam memilih algoritma jalur terpendek yang akan digunakan, seperti Dijkstra, A*, dan Floyd-Warshall. Modifikasi dilakukan pada bagian \textit{front-end} (Tirtayasa) dan juga \textit{back-end} (NewMenjangan). Perubahan ini hanya menambah satu parameter bau tanpa mengubah struktur data utama sehingga modifikasi dapat dilakukan tanpa mempengaruhi fungsi sistem lainnya secara signifikan.
-\\
+Dilakukan sedikit modifikasi pada protokol API untuk memberikan fleksibilitas pengguna dalam memilih algoritma jalur terpendek yang akan digunakan, seperti Dijkstra, A*, dan Floyd-Warshall. Modifikasi dilakukan pada bagian \textit{front-end} (Tirtayasa) dan juga \textit{back-end} (NewMenjangan). Perubahan ini hanya menambah satu parameter baru tanpa mengubah struktur data utama sehingga modifikasi dapat dilakukan tanpa mempengaruhi fungsi sistem lainnya secara signifikan.
+
+\subsubsection{Tirtayasa}
+Pada bagian ini akan dilakukan modifikasi pada protokol API, yaitu akan dilakukan modifikasi pada kode-kode program yang berkaitan dalam pengiriman data ke bagian \textit{back-end}. Berikut merupakan kode-kode program yang akan modifikasi.
+\begin{itemize}
+    \item \textbf{main.js}
+    \\ Pada kode ini modifikasi yang akan dilakukan adalah penambahan parameter baru pada \textit{function} \texttt{checkCoordinatesThenRoute} ketika akan memanfaatkan \textit{function} \texttt{findroute} akan ditambahkan sebuah parameter baru yang akan mengirimkan algoritma yang dipilih.
+
+    \item \textbf{protocol.js}
+    \\ Pada kode ini modifikasi yang akan dilakukan adalah penambahan parameter baru pada saat mendefinisikan \textit{function} \texttt{findroute} yaitu parameter untuk algoritma yang dipilih.
+
+    \item \textbf{Api.php}
+    \\ Pada kode ini modifikasi yang akan dilakukan adalah penambahan parameter baru pada \textit{function} \texttt{\_findroute} yaitu parameter untuk algoritma yang dipilih.
+\end{itemize}
+
+\subsubsection{NewMenjangan}
+Pada bagian ini akan dilakukan modifikasi pada kelas yang akan menerima parameter-parameter yang dikirimkan dari bagian Tirtayasa. Berikut merupakan kelas yang akan modifikasi.
+
+\begin{itemize}
+    \item \textbf{ServiceListener.java}
+    \\ Pada kelas ini modifikasi yang akan dilakukan adalah penambahan parameter baru, yaitu parameter untuk algoritma yang dipilih.
+\end{itemize}
+
+\begin{comment}
 Pada bagian \textit{front-end} perubahan utama terdapat pada antarmuka seperti yang sudah dijelaskan pada sub-bab \ref{sec:rancanganui}. Oleh karena itu, perlu dilakukan juga modifikasi pada protokol API, yaitu akan dilakukan modifikasi pada kelas-kelas yang berkaitan dalam pengiriman data ke bagian \textit{back-end}. Modifikasi tersebut bertujuan agar parameter baru, yaitu algoritma dapat dikirimkan ke bagian \textit{back-end} dengan baik. Pada kelas-kelas tersebut akan ditambahkan paramater baru, yaitu parameter yang akan mengirimkan algoritma yang dipilih. Pada bagian \textit{back-end}, parameter / data algoritma tersebut akan diterima dalam bentuk string. Kemudian dari data string tersebut akan dimanfaatkan sistem untuk memilih algoritma apa yang akan dijalankan untuk melakukan pencarian jalur terpendek.
+\end{comment}

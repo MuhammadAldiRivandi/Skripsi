@@ -234,7 +234,11 @@
 % - hilangkan tanda << & >>, dan isi sesuai dengan data anda
 % - langsung mulai setelah '{' awal, jangan mulai menulis di baris bawahnya
 %=============================================================================
-\abstrakINA{<<Tuliskan abstrak anda di sini, dalam bahasa Indonesia>>}
+\abstrakINA{Perangkat lunak KIRI merupakan aplikasi pencari rute transportasi publik yang arsitekturnya dibagi menjadi dua, yaitu Tirtayasa dan NewMenjangan. Saat ini Perangkat Lunak KIRI hanya memanfaatkan algoritma Dijkstra untuk perhitungan jalur terpendek. Namun, penggunaan satu algoritma secara langsung tanpa modularisasi akan menyulitkan proses pemeliharaan dan pengembangan lebih lanjut, terutama apabila ingin menambahkan algoritma lainnya. Penelitian ini bertujuan untuk mengembangkan perangkat lunak KIRI dengan menerapkan strategy pattern sebagai pendekatan modularisasi algoritma shortest path. Dengan penerapan strategy pattern, penambahan algoritma shortest path lainnya dapat dilakukan secara dinamis tanpa mengubah struktur kode utama.
+\\
+Pada penelitian ini akan ditambahkan atau diimplementasikan dua algoritma shortest path lainnya, yaitu Floyd-Warshall dan A-Star, yang dikembangkan dan diintegrasikan ke dalam backend KIRI sebagai strategi alternatif. Algoritma Floyd-Warshall dipilih karena kemampuannya dalam menghitung semua pasangan titik, sedangkan A-Star digunakan karena keunggulannya dalam efisiensi pencarian pada graf berbobot yang besar dan memiliki nilai heuristik lokasi.
+\\
+Hasil pengujian menunjukkan bahwa modularisasi dengan strategy pattern meningkatkan fleksibilitas dalam pengelolaan algoritma pencarian jalur terpendek, serta memudahkan penambahan atau penggantian algoritma apabila akan dilakukan pemeliharaan atau pengambangan lebih lanjut. Selain itu, masing-masing algoritma menunjukkan performa yang berbeda sesuai dengan karakteristik graf dan skenario pencarian yang diuji, sehingga memberikan opsi lebih bagi pengguna dan pengembang sistem.}
 \abstrakENG{<<Tuliskan abstrak anda di sini, dalam bahasa Inggris>>} 
 %=============================================================================
 
@@ -336,4 +340,8 @@
 \renewcommand{\vtemplateauthor}{lionov}
 \pgfplotsset{compat=newest}
 \setlist{nosep}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{amsmath}
 %=============================================================================

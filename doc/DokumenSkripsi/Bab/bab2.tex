@@ -299,7 +299,7 @@ Setiap algoritma memiliki pendekatan, kelebihan, dan keterbatasan masing-masing,
 \newpage
 \subsection{Algoritma Dijkstra ~\cite{Cormen:09:intro}}
 \label{sec:dijkstra}
-Algoritma Dijkstra merupakan sebuah algoritma untuk menyelesaikan masalah \textit{single-source shortest path}, yaitu menemukan jalur terpendek dari satu titik asal ke semua titik lainnya dalam sebuah graf berarah dengan bobot tepi non-negatif. Algoritma ini menggunakan sebuah struktur \textit{min-priority queue} (antrean prioritas minimum) yang menyimpan titik-titik dengan prioritas sesuai dengan perkiraan jarak terpendek dari titik asal.
+Algoritma Dijkstra merupakan sebuah algoritma untuk menyelesaikan masalah \textit{single-source shortest path}, yaitu menemukan jalur terpendek dari satu titik asal ke semua titik lainnya dalam sebuah graf berarah dengan bobot tepi non-negatif. Algoritma ini menggunakan sebuah struktur \textit{min-priority queue} yang menyimpan titik-titik dengan prioritas sesuai dengan perkiraan jarak terpendek dari titik asal. Algoritma ini memiliki kompleksitas waktu $O((V+E)$ $log$ $V)$.
 \begin{algorithm}[H]
     \caption{Dijkstra($G, w, s$)}
     \label{alg:dijkstra}
