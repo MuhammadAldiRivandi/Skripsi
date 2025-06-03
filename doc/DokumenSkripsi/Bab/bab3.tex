@@ -1,6 +1,6 @@
 \chapter{Analisis}
 \label{chap:analisis}
-
+Bab ini akan membahas analisis-analisis yang dilakukan dalam pengembangan perangkat lunak KIRI. Pada bab ini akan terdapat dua subbab utama, yang pertama, yaitu analisis sistem kini yang akan membahas kelas-kelas yang terdapat pada sistem backend KIRI bernama NewMenjangan. Kemudian yang kedua, yaitu analisis sistem usulan yang akan membahas usulan yang akan dilakukan dalam pengembangan KIRI, seperti implementasi \textit{strategy pattern} serta implementasi algoritma Floyd-Warshall dan A-Star.
 \section{Analisis Sistem Kini}
 \label{sec:sistemkini}
 Analisis akan dilakukan terhadap sistem backend dari aplikasi KIRI yang bernama NewMenjangan. Sistem ini bertanggung jawab untuk menangani berbagai fungsi backend yang mendukung layanan utama KIRI, termasuk pengolahan data, komunikasi dengan komponen lain, dan pengelolaan algoritma terkait penelusuran rute. Gambar \ref{fig:strukturkelas}, merupakan struktur kelas saat ini dari aplikasi KIRI yang digambarkan dalam diagram kelas. Saat ini, algoritma yang diterapkan adalah algoritma Dijkstra, yang digunakan untuk menemukan jalur terpendek dalam graf berbobot. Analisis ini mencakup tinjauan menyeluruh terhadap struktur kelas NewMenjangan dan juga pemodelan graf pada aplikasi KIRI.
@@ -45,7 +45,7 @@ Kelas ini berfungsi sebagai pusat kendali dari backend KIRI. Melalui kelas ini, 
 
         \item \texttt{pullData()}
         \\ \textit{Method} ini bertugas untuk menarik data dari sumber SQL dan sumber eksternal lainnya. Jika terjadi perubahan pada file konfigurasi \texttt{tracks.conf}, data yang ada akan ditimpa dengan data baru yang diperbarui. Selain itu, proses pembaruan ini akan dicatat dalam log untuk pemantauan perubahan data yang terjadi. \textit{Method} akan mengembalikan nilai \texttt{true} apabila penarikan data berhasil dan \texttt{false} apabila gagal.
-
+\newpage
         \item \texttt{fileEquals(File file1, File file2)}
         \\ \textit{Method} ini dirancang untuk membandingkan dua file secara biner untuk menentukan kesamaan di antara keduanya. Jika kedua file memiliki panjang yang berbeda, maka file tersebut secara otomatis dianggap tidak identik. Selain itu, jika ditemukan perbedaan byte pada posisi tertentu selama proses pembandingan, posisi perbedaan tersebut akan dicatat dalam log. \textit{Method} akan mengembalikan nilai \texttt{true} apabila file \textit{identical} dan \texttt{false} apabila tidak.
         
@@ -125,7 +125,7 @@ Kelas ini bertanggung jawab untuk menangani permintaan layanan pada server KIRI.
         \item \texttt{worker}
         \\ Merupakan \textit{instance} dari \textit{class} \texttt{Worker}, yang bertanggung jawab untuk menemukan rute dan transportasi 
     \end{itemize}
-
+\newpage
     \item \textbf{Method}
     \begin{itemize}
         \item \texttt{handle(String target, Request baseRequest, HttpServletRequest request,\\ HttpServletResponse response)}
@@ -164,7 +164,7 @@ Kelas ini bertanggung jawab untuk menangani permintaan routing (pencarian rute) 
         \item \texttt{public Worker(String homeDirectory)}
         \\ Konstruktor ini membaca file konfigurasi utama yang disebut \texttt{MJNSERVE\_PROPERTIES} untuk memuat pengaturan yang dibutuhkan. Selanjutnya, data graf jalur diambil dari file konfigurasi tambahan, yaitu \texttt{TRACKS\_CONF}, untuk membangun struktur jalur yang akan digunakan. Setelah itu, \textit{method} \texttt{linkAngkots()} dijalankan untuk menghubungkan \textit{node-node} angkot, memastikan keterhubungan jalur transportasi dalam graf. Terakhir, metode \texttt{cleanUpMemory()} dipanggil untuk membersihkan memori sementara, sehingga efisiensi dan stabilitas sistem tetap terjaga.
     \end{itemize}
-
+\newpage
     \item \textbf{Method}
     \begin{itemize}
         \item \texttt{cleanUpMemory()}
@@ -182,7 +182,7 @@ Kelas ini bertanggung jawab untuk menangani permintaan routing (pencarian rute) 
         \item \texttt{getTotalProcessTime()}
         \\ \textit{Method} ini mengembalikan total waktu pemrosesan semua permintaan dalam detik.
         \item \texttt{readGraph(String filename)}
-        \\ \textit{Method} ini dirancang untuk membangun graf dengan membaca data dari file yang berisi informasi lintasan, node, dan koneksi antar node. Proses dimulai dengan membaca file untuk mengambil detail lintasan, node, serta hubungan koneksi di antara keduanya. Graf kemudian dibuat untuk merepresentasikan struktur jaringan yang akan digunakan dalam proses pencarian rute. \textit{Method} ini mengembalikan nilai \texttt{true} apabila berhasil dan \texttt{false} apabila gagal.
+        \\ \textit{Method} ini dirancang untuk membangun graf dengan membaca data dari file yang berisi informasi lintasan, node, dan koneksi antar node. Proses dimulai dengan membaca file untuk mengambil detail lintasan, node, serta hubungan koneksi di antara keduanya. Graf kemudian dibuat untuk proses pencarian rute. \textit{Method} ini mengembalikan nilai \texttt{true} apabila berhasil dan \texttt{false} apabila gagal.
 
         \item \texttt{linkAngkots()}
         \\ \textit{Method} membangun \textit{K-D Tree} yang digunakan untuk mempermudah pencarian node terdekat. Metode ini juga menghubungkan node transfer yang berada dalam batas jarak transfer maksimum, sehingga memastikan konektivitas antar node sesuai dengan aturan jarak yang telah ditentukan.
@@ -230,7 +230,7 @@ Kelas ini adalah kelas \textit{custom exception} yang dibuat untuk menangani kes
         \item \texttt{serialVersionUID}
         \\ Menyimpan ID \textit{serial}. ID ini memastikan data yang disimpan atau dikirimkan tetap cocok dengan versi kelas yang digunakan saat objek tersebut dibaca kembali. Hal ini penting, terutama jika kelas ini mengalami perubahan struktur, agar versi yang berbeda tetap dapat dikenali atau mencegah kesalahan jika struktur sudah tidak cocok.
     \end{itemize}
-    
+\newpage
     \item \textbf{Konstruktor}
     \begin{itemize}
         \item DataPullerException(String message)
@@ -275,6 +275,7 @@ Kelas ini berfungsi untuk merepresentasikan posisi geografis dengan koordinat li
 
 \subsubsection{UnrolledLinkedList}
 Kelas ini merupakan struktur data khusus berbasis linked list yang berfungsi sebagai implementasi daftar berantai (linked list) yang memanfaatkan ArrayList sebagai penyimpanan internal. Pada kelas ini, terdapat 2 atribut. Selain itu, terdapat konstruktor dan \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
+\newpage
 \begin{itemize}
     \item \textbf{Atribut}
     \begin{itemize}
@@ -380,7 +381,7 @@ Kelas Track merepresentasikan sebuah jalur transportasi umum, yaitu jalur angkot
         \\ Mengembalikan jumlah node dalam jalur.
     \end{itemize}
 \end{itemize}
-
+\newpage
 \subsubsection{GraphEdge}
 Kelas ini mewakili sebuah \textit{edge} (sisi) dalam struktur data graf. \textit{Edge} ini digunakan dalam konteks perhitungan jalur atau algoritma graf lainnya. Pada kelas ini, terdapat 2 atribut. Selain itu, terdapat konstruktor dan \textit{method - method} diimplementasikan yang memiliki penjelasan sebagai berikut:
 \begin{itemize}
@@ -420,6 +421,7 @@ Pada kelas ini, terdapat 4 atribut. Selain itu, terdapat konstruktor dan \textit
         \\ Atribut ini menyimpan daftar dari semua \textit{edge} (sisi) atau jalur keluar dari node ini. Jalur keluar ini mengarah ke node lain, menciptakan koneksi dalam graf. \texttt{edges} diimplementasikan menggunakan UnrolledLinkedList.
         \item \texttt{track}
         \\ Atribut ini berfungsi sebagai referensi balik ke informasi rute (track) dari node. Dengan atribut ini, sistem dapat mengetahui rute atau \textit{track} mana yang terkait dengan node tersebut.
+\newpage
         \item \texttt{isTransferNode}
         \\ Atribut ini menunjukkan apakah \textit{node} tersebut adalah \textit{node} \textit{transfer}. Dalam konteks transportasi umum, sebuah \textit{node} \textit{transfer} memungkinkan pengguna untuk turun atau naik kendaraan umum dari node tersebut. Jika bernilai \textit{true}, berarti \textit{node} ini adalah \textit{node} \textit{transfer}.
     \end{itemize}
@@ -462,7 +464,7 @@ Kelas ini adalah kelas yang merepresentasikan sebuah graf, yaitu kumpulan dari \
         \item \texttt{Graph(int capacity)}
         \\ Konstruktor ini membuat objek \texttt{Graph} dengan kapasitas awal tertentu, sesuai dengan nilai \texttt{capacity} yang diberikan.
     \end{itemize}
-
+\newpage
     \item \textbf{Method}
     \begin{itemize}
         \item \texttt{rangeSearch(LatLon center, double distance)}
@@ -527,7 +529,7 @@ Kelas ini adalah implementasi dari algoritma Dijkstra yang digunakan untuk menca
 Merupakan sebuah \textit{static nested class} yang menyimpan data untuk setiap node, seperti \texttt{baseIndex}, \texttt{heapIndex}, \texttt{distance}, dan \texttt{parent}. Selain itu, diimplementasikan juga method \texttt{toString()} yang mengembalikan nilai string dari data-data tersebut yang telah diformat.
 
 \subsection{Pemodelan Graf}
-\begin{figure}[h] 
+\begin{figure}[H] 
     \centering  
     \includegraphics[width=1\textwidth]{pemodelan-graf}  
     \caption{Rute Ciroyom – Cicaheum}

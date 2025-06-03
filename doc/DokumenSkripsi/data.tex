@@ -80,7 +80,7 @@
 %\mode{sidangakhir} 	% untuk sidang 2 / sidang pada Skripsi 2(IF)
 %\mode{final} 			% untuk mencetak buku skripsi 
 %=============================================================================
-\mode{sidangakhir}
+\mode{final}
 
 %_____________________________________________________________________________
 %=============================================================================
@@ -205,7 +205,7 @@
 \namanpm{Muhammad Aldi Rivandi}{6182001029}
 \tanggal{<<tanggal>>}{<<bulan>>}{2025}         %isi bulan dengan angka
 \pembimbing{\PAN}{}    
-\penguji{<<penguji 1>>}{<<penguji 2>>} 
+\penguji{\RDL}{<<penguji 2>>} 
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -234,12 +234,16 @@
 % - hilangkan tanda << & >>, dan isi sesuai dengan data anda
 % - langsung mulai setelah '{' awal, jangan mulai menulis di baris bawahnya
 %=============================================================================
-\abstrakINA{Perangkat lunak KIRI merupakan aplikasi pencari rute transportasi publik yang arsitekturnya dibagi menjadi dua, yaitu Tirtayasa dan NewMenjangan. Saat ini Perangkat Lunak KIRI hanya memanfaatkan algoritma Dijkstra untuk perhitungan jalur terpendek. Namun, penggunaan satu algoritma secara langsung tanpa modularisasi akan menyulitkan proses pemeliharaan dan pengembangan lebih lanjut, terutama apabila ingin menambahkan algoritma lainnya. Penelitian ini bertujuan untuk mengembangkan perangkat lunak KIRI dengan menerapkan strategy pattern sebagai pendekatan modularisasi algoritma shortest path. Dengan penerapan strategy pattern, penambahan algoritma shortest path lainnya dapat dilakukan secara dinamis tanpa mengubah struktur kode utama.
+\abstrakINA{Perangkat lunak KIRI merupakan aplikasi pencari rute transportasi publik yang arsitekturnya dibagi menjadi dua, yaitu Tirtayasa (\textit{frontend}) dan NewMenjangan (\textit{backend}). Saat ini Perangkat Lunak KIRI hanya memanfaatkan algoritma Dijkstra untuk perhitungan jalur terpendek. Penelitian ini bertujuan untuk mengembangkan perangkat lunak KIRI dengan menerapkan strategy pattern sebagai pendekatan modularisasi algoritma shortest path. Dengan penerapan strategy pattern, penambahan algoritma shortest path lainnya dapat dilakukan secara dinamis tanpa mengubah struktur kode utama.
 \\
-Pada penelitian ini akan ditambahkan atau diimplementasikan dua algoritma shortest path lainnya, yaitu Floyd-Warshall dan A-Star, yang dikembangkan dan diintegrasikan ke dalam backend KIRI sebagai strategi alternatif. Algoritma Floyd-Warshall dipilih karena kemampuannya dalam menghitung semua pasangan titik, sedangkan A-Star digunakan karena keunggulannya dalam efisiensi pencarian pada graf berbobot yang besar dan memiliki nilai heuristik lokasi.
+Pada penelitian ini, akan ditambahkan atau diimplementasikan dua algoritma shortest path lainnya, yaitu Floyd-Warshall dan A-Star, yang dikembangkan dan diintegrasikan ke dalam backend KIRI sebagai strategi alternatif. Algoritma Floyd-Warshall dipilih karena kemampuannya dalam menghitung semua pasangan titik, sedangkan A-Star digunakan karena keunggulannya dalam efisiensi pencarian pada graf berbobot yang besar dan memiliki nilai heuristik lokasi.
 \\
 Hasil pengujian menunjukkan bahwa modularisasi dengan strategy pattern meningkatkan fleksibilitas dalam pengelolaan algoritma pencarian jalur terpendek, serta memudahkan penambahan atau penggantian algoritma apabila akan dilakukan pemeliharaan atau pengambangan lebih lanjut. Selain itu, masing-masing algoritma menunjukkan performa yang berbeda sesuai dengan karakteristik graf dan skenario pencarian yang diuji, sehingga memberikan opsi lebih bagi pengguna dan pengembang sistem.}
-\abstrakENG{<<Tuliskan abstrak anda di sini, dalam bahasa Inggris>>} 
+\abstrakENG{KIRI is a public transportation route-finding application whose architecture is divided into two components: Tirtayasa (\textit{frontend}) and NewMenjangan (\textit{backend}). Currently, the KIRI software only utilizes the Dijkstra algorithm for shortest path calculations. This research aims to enhance the KIRI software by implementing the strategy pattern as an approach to modularize the shortest path algorithms. By applying the strategy pattern, additional shortest path algorithms can be integrated dynamically without altering the core code structure.
+\\
+In this study, two additional shortest path algorithms Floyd-Warshall and A-Star are implemented and integrated into the KIRI backend as alternative strategies. The Floyd-Warshall algorithm is chosen for its ability to compute all-pairs shortest paths, while the A-Star algorithm is selected for its efficiency in large, weighted graphs with heuristic location values.
+\\
+The test results indicate that modularization using the strategy pattern improves the flexibility in managing shortest path algorithms and facilitates easier maintenance or future development involving algorithm addition or replacement. Furthermore, each algorithm demonstrates different performance characteristics depending on the graph type and search scenario, thereby offering more options for both users and system developers.} 
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -251,8 +255,8 @@ Hasil pengujian menunjukkan bahwa modularisasi dengan strategy pattern meningkat
 % - kunciENG: keywords in english
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-\kunciINA{<<Tuliskan di sini kata-kata kunci yang anda gunakan, dalam bahasa Indonesia>>}
-\kunciENG{<<Tuliskan di sini kata-kata kunci yang anda gunakan, dalam bahasa Inggris>>}
+\kunciINA{shortest path, strategy pattern, Dijkstra, Floyd-Warshall, A-Star, perangkat lunak KIRI, modularisasi}
+\kunciENG{shortest path, strategy pattern, Dijkstra, Floyd-Warshall, A-Star, KIRI software, modularization}
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -262,7 +266,7 @@ Hasil pengujian menunjukkan bahwa modularisasi dengan strategy pattern meningkat
 % Persembahan : kepada siapa anda mempersembahkan skripsi ini ...
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-\untuk{<<kepada siapa anda mempersembahkan skripsi ini\ldots?>>}
+\untuk{Tugas Akhir ini dipersembahkan untuk Tuhan Yang Masa Esa, keluarga, dosen-dosen, dan teman-teman mahasiswa}
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -273,7 +277,16 @@ Hasil pengujian menunjukkan bahwa modularisasi dengan strategy pattern meningkat
 % kasih kepada yang telah membantu anda bla bla bla ....  
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-\prakata{<<Tuliskan kata pengantar dari anda di sini \ldots>>} 
+\prakata{Puji syukur dipanjatkan kepada Tuhan Yang Maha Esa karena atas rahmat dan karunia beserta izinNya, penulis dapat menyelesaikan penulisan tugas akhir yang berjudul "Modularisasi Algoritma Shortest Path pada Perangkat Lunak KIRI Menggunakan Strategy Pattern". Penulis juga ingin mengucapkan terima kasih kepada pihak-pihak yang senantiasa memberikan dukungan serta bantuan selama pengerjaan tugas akhir ini. Penulis ingin mengucapkan terima kasih kepada:
+\begin{enumerate}
+    \item Orang tua dan keluarga yang senantiasa memberikan dukungan, doa, motivasi, dan semangat selama pengerjaan tugas akhir ini.
+    \item Bapak Pascal Alfadian Nugroho, M.Comp. selaku dosen pembimbing yang senantiasa memberikan bimbingan, motivasi, dan waktunya dari awal hingga selesai sehingga tugas akhir ini dapat diselesaikan dengan baik.
+    \item Ibu Rosa De Lima, M.T. dan ... selaku dosen penguji yang telah memberikan kritik dan saran yang membangun.
+    \item Teman-teman yang senantiasa memberikan dukungan dan semangat, baik teman-teman mahasiswa UNPAR ataupun teman-teman lainnya.
+    \item Seluruh dosen serta staf dari Teknik Informatika UNPAR yang senantiasa memberikan bantuan dalam berbagai hal dari awal perkuliahan.
+\end{enumerate}
+\noindent
+Penulis menyadari bahwa tugas akhir ini masih jauh dari sempurna. Oleh karena itu, penulis ingin mengucapkan permohonan maaf jika masih banyak kekurangan pada tugas akhir ini. Penulis berharap tugas akhir ini dapat bermanfaat bagi pembaca dan bagi pihak yang akan meneruskan penelitian ini.} 
 %=============================================================================
 
 %_____________________________________________________________________________

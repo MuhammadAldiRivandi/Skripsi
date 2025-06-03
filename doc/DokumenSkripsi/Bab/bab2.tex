@@ -1,7 +1,7 @@
 %versi 3 (22-07-2020)
 \chapter{Landasan Teori}
 \label{chap:teori}
-
+Bab ini akan membahas dasar-dasar teori dalam pengembangan perangkat lunak KIRI. Pembahasan akan dimulai dari perangkat lunak KIRI, \textit{design pattern} dan \textit{strategy pattern} beserta conton kode penerapan \textit{strategy pattern}, MySQL beserta pembahasan mengenai \textit{LineString}, penjelasan mengenai graf termasuk graf berarah dan graf tidak berarah serta graf berbobot dan graf tidak berbobot, dan algoritma \textit{shortest path} yang didalamnya akan dijelaskan juga algoritma-algoritma \textit{shortest path} yang diimplementasikan, yaitu Dijkstra, Floyd-Warshall, dan A-Star.
 \section{KIRI ~\cite{nugroho_natali:17:KIRI}}
 \label{sec:kiri}
 KIRI (lihat Gambar \ref{fig:tampilanawalkiri}) adalah aplikasi navigasi transportasi umum berbasis web yang menyediakan rute antara dua lokasi geografis menggunakan transportasi publik. KIRI dirancang untuk melayani kebutuhan pengguna angkot (angkutan kota) di Bandung serta TransJakarta dan Commuterline di DKI Jakarta. Salah satu keunggulan KIRI dibandingkan layanan seperti Google Maps atau Moovit adalah kemampuannya memahami karakteristik  transportasi publik, di mana penumpang dapat naik atau turun di sepanjang jalan tanpa terbatas pada halte tertentu.
@@ -11,6 +11,7 @@ KIRI (lihat Gambar \ref{fig:tampilanawalkiri}) adalah aplikasi navigasi transpor
 	\caption{Tampilan awal perangkat lunak KIRI}
 	\label{fig:tampilanawalkiri} 
 \end{figure}
+\newpage
 \noindent
 KIRI akan memberikan informasi mengenai langkah-langkah yang harus ditempuh oleh pengguna yang akan berpergian dari satu tempat ke tempat tujuannya, mulai dari seberapa jauh pengguna harus berjalan untuk menaiki angkot yang bersangkutan, di mana pengguna harus naik atau turun angkot tersebut, seberapa jauh lagi pengguna harus berjalan sampai ke lokasi tujuan, dan seberapa lama estimasi waktu perjalanan yang akan ditempuh (lihat Gambar \ref{fig:tampilankiri}).
 \begin{figure}[H] 
@@ -28,7 +29,7 @@ Selanjutnya, NewMenjangan, yang merupakan bagian \textit{backend} dari KIRI dan 
 \label{sec:designdanstrategypattern}
 \textit{Design Pattern} adalah solusi umum yang telah terbukti efektif untuk mengatasi masalah desain berulang dalam pengembangan perangkat lunak berorientasi objek. Solusi ini dirancang agar dapat digunakan kembali di berbagai konteks tanpa harus disesuaikan secara berlebihan. Sebagai contoh, pola desain membantu memecah masalah desain menjadi struktur yang lebih modular dan fleksibel, sehingga mempermudah pengembangan dan pemeliharaan perangkat lunak.
 \\
-Pada dasarnya, design pattern memiliki empat elemen utama. Pertama, nama pola yang memberikan cara singkat untuk menyebut masalah desain tertentu, solusinya, dan konsekuensi dari penerapannya. Kedua, masalah, yaitu deskripsi konteks atau situasi di mana pola desain ini relevan. Ketiga, solusi, berupa abstraksi dari elemen-elemen desain dan kolaborasinya tanpa menyebutkan implementasi konkret. Keempat, konsekuensi, yang mencakup hasil dari penerapan pola, termasuk dampak pada fleksibilitas, efisiensi, dan pengelolaan sistem.
+Pada dasarnya, design pattern memiliki empat elemen utama. Pertama, nama pola yang memberikan cara singkat untuk menyebut masalah desain tertentu, solusinya, dan konsekuensi dari penerapannya. Kedua, masalah, yaitu deskripsi konteks atau situasi di mana pola desain ini relevan. Ketiga, solusi yang berupa abstraksi dari elemen-elemen desain dan kolaborasinya tanpa menyebutkan implementasi konkret. Keempat, konsekuensi yang mencakup hasil dari penerapan pola, termasuk dampak pada fleksibilitas, efisiensi, dan pengelolaan sistem.
 \\
 Penggunaan \textit{design pattern} juga memungkinkan sistem menjadi lebih adaptif terhadap perubahan kebutuhan. Pola seperti \textit{Strategy} mempermudah pergantian algoritma di runtime, sedangkan \textit{Factory Method} membantu mengurangi ketergantungan pada implementasi spesifik dengan menyediakan cara fleksibel untuk membuat objek. Dengan demikian, design pattern mempermudah kolaborasi dan komunikasi antar tim pengembang.
 \\
@@ -101,7 +102,7 @@ Berikut merupakan struktur dari strategy pattern (Gambar \ref{fig:struktursp}).
         }
     }
 \end{lstlisting}
-
+\newpage
 \begin{lstlisting}[language=Java, caption=Main.java, basicstyle=\small\ttfamily]
     import java.util.*;
 
@@ -256,7 +257,7 @@ Graf ($G$) adalah struktur yang terdiri dari simpul (\textit{vertex}) dan sisi (
 Simpul-simpul dalam graf dapat memiliki derajat tertentu, yaitu jumlah sisi yang menghubunginya. Sebuah graf disebut terhubung jika terdapat jalur antara setiap pasangan simpul. Jalur ini adalah urutan simpul yang dihubungkan oleh sisi. Selain itu, siklus adalah jalur tertutup di mana simpul awal dan akhir adalah sama. Teori graf juga mencakup konsep seperti pohon (graf terhubung tanpa siklus), graf bipartit (simpul dibagi menjadi dua himpunan yang saling bebas sisi), dan subgraf (bagian dari graf yang tetap mempertahankan struktur graf).
 \\
 Graf digunakan dalam berbagai hal, seperti jaringan komputer, rute transportasi, dan analisis hubungan sosial. Teori graf menyediakan dasar matematis untuk mempelajari struktur ini dan memberikan cara untuk memodelkan dan menyelesaikan masalah kompleks di berbagai bidang.
-
+\newpage
 \subsection{Graf Berarah dan Graf Tidak Berarah~\cite{Diestel:17:graph}}
 \label{sec:grafberarah}
 Graf berarah (lihat Gambar \ref{fig:grafberarah}) adalah graf di mana setiap sisi memiliki arah tertentu. Dengan kata lain, setiap sisi dalam graf ini diwakili oleh pasangan terurut dari simpul (\textit{vertex}). Sebuah graf berarah didefinisikan sebagai pasangan $G=(V,E)$, di mana $V$ adalah himpunan simpul dan $E$ adalah himpunan sisi yang berbentuk pasangan terurut dari simpul. Setiap sisi $e$ memiliki simpul awal $init(e)$ dan simpul terminal $ter(e)$ yang menunjukkan arah perjalanan dari satu simpul ke simpul lainnya.
@@ -269,6 +270,7 @@ Graf berarah dapat memiliki berbagai karakteristik khusus. Jika terdapat lebih d
     \caption{Graf Berarah}
     \label{fig:grafberarah} 
 \end{figure}
+\newpage
 \noindent
 Graf tidak berarah (lihat Gambar \ref{fig:graf}) adalah jenis graf di mana setiap sisi hanya menghubungkan dua simpul tanpa adanya arah tertentu. Dalam graf ini, sisi diwakili sebagai pasangan tidak terurut \{$u,v$\} yang berarti bahwa pergerakan dari simpul $u$ ke $v$ sama dengan pergerakan dari $v$ ke $u$. Graf tidak berarah dapat direpresentasikan dalam bentuk matriks ketetanggaan (\textit{adjacency matrix}), di mana matriks ini bersifat simetris.
 \\
@@ -290,13 +292,13 @@ Dalam graf tak berbobot, algoritma seperti BFS (Breadth-First Search) dan DFS (D
     \caption{Graf Tidak Berbobot}
     \label{fig:graftidakberbobot} 
 \end{figure}
-
+\newpage
 \section{Algoritma Shortest Path}
 \label{sec:algoritmasp}
 Ada berbagai jenis algoritma \textit{shortest path} yang dirancang untuk menemukan lintasan terpendek antara dua titik dalam sebuah graf. Algoritma ini memainkan peran penting dalam berbagai aplikasi, seperti sistem navigasi, perencanaan jaringan, analisis data geografis, dan pemecahan masalah rute optimal.
 \\
 Setiap algoritma memiliki pendekatan, kelebihan, dan keterbatasan masing-masing, yang menjadikannya lebih sesuai untuk situasi tertentu. Sebagai contoh, algoritma seperti \textit{Dijkstra} sangat cocok untuk graf dengan bobot positif, sementara \textit{Floyd-Warshall} lebih sesuai untuk menemukan lintasan terpendek pada semua pasangan titik dalam graf kecil. Di sisi lain, algoritma \textit{A*} dirancang khusus untuk mempercepat pencarian lintasan dengan memanfaatkan heuristik. Berikut pembahasan secara detail tiga algoritma \textit{shortest path} yang digunakan, yaitu \textit{Dijkstra}, \textit{Floyd-Warshall}, dan \textit{A*}.
-\newpage
+
 \subsection{Algoritma Dijkstra ~\cite{Cormen:09:intro}}
 \label{sec:dijkstra}
 Algoritma Dijkstra merupakan sebuah algoritma untuk menyelesaikan masalah \textit{single-source shortest path}, yaitu menemukan jalur terpendek dari satu titik asal ke semua titik lainnya dalam sebuah graf berarah dengan bobot tepi non-negatif. Algoritma ini menggunakan sebuah struktur \textit{min-priority queue} yang menyimpan titik-titik dengan prioritas sesuai dengan perkiraan jarak terpendek dari titik asal. Algoritma ini memiliki kompleksitas waktu $O((V+E)$ $log$ $V)$.
@@ -385,7 +387,7 @@ Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Dijkstra dengan l
             E               & 5                     & A - C - E     \\ \hline
         \end{tabular}
     \end{table}
-
+\newpage
     \item Iterasi 3
     \begin{itemize}
         \item Ambil simpul B (4) dari PQ
@@ -406,7 +408,7 @@ Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Dijkstra dengan l
             E               & 5                     & A - C - E     \\ \hline
         \end{tabular}
     \end{table}
-    \newpage
+
     \item Iterasi 4
     \begin{itemize}
         \item Ambil simpul E (5) dari PQ
@@ -576,7 +578,7 @@ Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Floyd-Warshall de
         E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
         \end{tabular}
     \end{table}
-
+\newpage
     \item Iterasi 5 dengan E sebagai perantara (k) / k = E
     \begin{itemize}
         \item Titik E sudah merupakan titik terakhir atau titik tujuan sehingga tidak ada perubahan.
@@ -645,7 +647,7 @@ Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan A* dengan langkah
             \item \textit{Closed List}: \{A\}
         \end{itemize}
     \end{itemize}
-
+\newpage
     \item Iterasi 2
     \begin{itemize}
         \item Pilih titik C, karena memiliki total jarak terkecil pada \textit{Open List}

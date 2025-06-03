@@ -1,6 +1,6 @@
 \chapter{Implementasi dan Pengujian}
 \label{chap:implementasidanpengujian}
-
+Bab ini akan membahas hasil implementasi dalam pengembangan perangkat lunak KIRI berdasarkan rancangan yang telah dibuat pada Bab \ref{chap:perancangan}. Selain itu, akan dibahasa juga mengenai pengujian dari perangkat lunak KIRI yang sudah dikembangkan.
 \section{Implementasi}
 \label{sec:implementasi}
 Pada bagian ini akan dijelaskan mengenai lingkungan implementasi perangkat lunak yang telah dikembangkan beserta hasilnya. Bagian ini terbagi menjadi empat subbagian, yaitu lingkungan perangkat keras, lingkungan perangkat keras, hasil implementasi antarmuka, dan hasil implementasi antarmuka. Implementasi perangkat lunak ini didasarkan pada perancangan yang telah dijelaskan pada Bab \ref{chap:perancangan}.
@@ -73,6 +73,7 @@ Perubahan lainnya, yaitu memindahkan atribut-atribut utama seperti \texttt{graph
 
 \subsubsection{AStar.java}
 Kelas ini adalah implementasi dari algoritma A-Star, yang digunakan untuk mencari jarak terpendek antara dua titik dalam sebuah graf dengan mempertimbangkan heuristic (estimasi jarak ke tujuan). Algoritma ini bekerja dengan mencari rute optimal berdasarkan kombinasi antara jarak yang telah ditempuh (g) dan estimasi jarak yang tersisa (f = g + h). Kode program dari AStar.java bisa dilihat pada lampiran \ref{code:astar} dan berikut merupakan penjelasan dari kode tersebut.
+\newpage
 \begin{itemize}
     \item \textbf{Atribut}
     \begin{itemize}
@@ -106,7 +107,7 @@ Kelas ini adalah implementasi dari algoritma A-Star, yang digunakan untuk mencar
         \\ Method ini menghitung bobot perjalanan dari \texttt{currentNode} ke node tujuan melalui sebuah edge. Jika salah satu track merupakan jalur pejalan kaki, maka bobot dihitung berdasarkan \texttt{multiplierWalking}. Jika perpindahan kendaraan terjadi, maka bobot ditambah \texttt{penaltyTransfer}. Jika tetap berada dalam kendaraan yang sama, bobot dikalikan dengan penalti jalur tersebut. Method ini mengembalikan nilai \texttt{double} sebagai bobot perjalanan.
     \end{itemize}
 \end{itemize}
-
+\newpage
 \subsubsection{AStar.NodeInfo}
 Merupakan \textit{static nested clas}s yang menyimpan informasi-informasi berikut ini:
 \begin{itemize}
@@ -146,7 +147,7 @@ Kelas ini merupakan implementasi dari algoritma Floyd-Warshall, yaitu algoritma 
     \begin{itemize}
         \item \texttt{runAlgorithm(Set<String> trackTypeIdBlacklist)}
         \\ Method utama untuk menjalankan algoritma. Pertama-tama, semua nilai dalam matriks \texttt{dist} diinisialisasi dengan jarak langsung antar node berdasarkan edge yang tersedia, dan mempertimbangkan blacklist dari \texttt{trackTypeIdBlacklist}. Nilai \texttt{parent[i][j]} diatur sesuai asal hubungan. Kemudian, algoritma berjalan dalam tiga \textit{looping} (\texttt{k}, \texttt{i}, \texttt{j}) untuk mengevaluasi apakah melalui node \texttt{k} bisa memberikan jalur lebih pendek antara \texttt{i} dan \texttt{j}. Jika ya, nilai \texttt{dist[i][j]} dan \texttt{parent[i][j]} diperbarui. Method ini jarak terpendek dari \texttt{startNode} ke \texttt{finishNode}. Method ini diberi anotasi \texttt{@Override} karena method ini mengimplementasikan method dari kelas induk / \textit{superclass}.
-
+\newpage
         \item \texttt{calculateWeight(int fromIndex, GraphEdge edge)}
         \\ Menghitung bobot perjalanan antara dua node berdasarkan jenis track. Jika salah satu track adalah pejalan kaki, bobot dikalikan dengan \texttt{multiplierWalking}. Jika terdapat perpindahan antar kendaraan (track berbeda), penalti \texttt{penaltyTransfer} ditambahkan ke bobot. Jika berada dalam kendaraan yang sama, bobot dikalikan penalti jalur.
 
@@ -255,9 +256,9 @@ Sebelum dilakukan pengujian tersebut, akan dilakukan terlebih dahulu pengujian u
 \end{figure}
 
 \noindent
-Setelah dilakukan beberapa pengujian, jumlah data "tracks" yang dapat digunakan adalah lima record saja. Karena ketika jumlah data lebih dari lima record, pencarian jalur terpendek menggunakan algoritma Floyd-Warshall tidak berhasil dilakukan (lihat Gambar \ref{fig:error1}) yang disebabkan program mencoba menggunakan lebih banyak memori dari yang tersedia di heap \textit{Java Virtual Machine} (JVM) (lihat Gambar \ref{fig:error2}). Oleh karena itu, pada pengujian-pengujian yang akan dilakukan, jumlah data "tracks" yang akan digunakan adalah lima record, dengan data yang digunakan sebagai berikut (lihat Tabel \ref{tab:data}).
+Setelah dilakukan beberapa pengujian, jumlah data "tracks" yang dapat digunakan adalah lima record saja. Karena ketika jumlah data lebih dari lima record, pencarian jalur terpendek menggunakan algoritma Floyd-Warshall tidak berhasil dilakukan (lihat Gambar \ref{fig:error1}) yang disebabkan program mencoba menggunakan lebih banyak memori dari yang tersedia di heap \textit{Java Virtual Machine} (JVM) (lihat Gambar \ref{fig:error2}). Oleh karena itu, pada pengujian ini, jumlah data "tracks" yang akan digunakan adalah lima record, dengan data yang digunakan, yaitu Ciroyom - Antapani, Ciroyom - Ciburial, Ciumbuleuit - St. Hall (belok), Ciumbuleuit - St. Hall (lurus), dan Dago - Caringin.
 
-\renewcommand{\arraystretch}{1.8}
+\begin{comment}
 \begin{table}[H]
 \centering
 \caption{Data Pengujian}
@@ -274,6 +275,7 @@ dagocaringin        & Dago - Caringin             \\ \hline
 \end{tabular}
 }
 \end{table}
+\end{comment}
 
 \subsubsection{Pengujian 1: Algoritma Dijkstra}
 Hasil yang diharapkan dari pengujian menggunakan algoritma dijkstra ini adalah perangkat lunak KIRI dapat berjalan dengan tidak adanya error serta dapat ditemukannya jalur yang optimal. Pada pengujian ini menggunakan data sebagai berikut:
@@ -285,14 +287,14 @@ Hasil yang diharapkan dari pengujian menggunakan algoritma dijkstra ini adalah p
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{hasil-dijkstra-1}
+    \includegraphics[width=0.8\textwidth]{hasil-dijkstra-1}
     \caption{Hasil Pengujian Algoritma Dijkstra Jalur 1}
     \label{fig:hasildijkstra-1}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{hasil-dijkstra-2}
+    \includegraphics[width=0.8\textwidth]{hasil-dijkstra-2}
     \caption{Hasil Pengujian Algoritma Dijkstra Jalur 2}
     \label{fig:hasildijkstra-2}
 \end{figure}
@@ -309,14 +311,14 @@ Hasil yang diharapkan dari pengujian menggunakan algoritma Floyd-Warshall ini ad
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{hasil-floydwarshall-1}
+    \includegraphics[width=0.8\textwidth]{hasil-floydwarshall-1}
     \caption{Hasil Pengujian Algoritma Floyd-Warshall Jalur 1}
     \label{fig:hasilfloydwarshall-1}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{hasil-floydwarshall-2}
+    \includegraphics[width=0.8\textwidth]{hasil-floydwarshall-2}
     \caption{Hasil Pengujian Algoritma Floyd-Warshall Jalur 2}
     \label{fig:hasilfloydwarshall-2}
 \end{figure}
@@ -334,14 +336,14 @@ Hasil yang diharapkan dari pengujian menggunakan algoritma A-Star ini adalah per
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{hasil-astar-1}
+    \includegraphics[width=0.8\textwidth]{hasil-astar-1}
     \caption{Hasil Pengujian Algoritma A-Star Jalur 1}
     \label{fig:hasilastar1}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{hasil-astar-2}
+    \includegraphics[width=0.8\textwidth]{hasil-astar-2}
     \caption{Hasil Pengujian Algoritma A-Star Jalur 2}
     \label{fig:hasilastar2}
 \end{figure}
@@ -358,12 +360,32 @@ Pengujian akan dilakukan untuk mengukur waktu eksekusi untuk setiap algoritma ya
     \item Algoritma Floyd-Warshall: $O(V^3)$.
 \end{itemize}
 \noindent
-Pengujian ini akan dibagi menjadi dua bagian, bagian pertama hanya akan menggunakan lima record dari data "tracks" saja dan seluruh algoritma akan diuji, sedangkan pada bagian kedua akan digunakan seluruh record pada data "tracks" dan hanya algoritma Dijkstra dan A-Star saja yang akan diuji. Selain itu, untuk setiap algoritmanya akan diuji sebanyak tiga kali dan juga untuk setiap bagiannya akan terdapat tiga kasus yang berbeda.
+Pengujian ini akan dibagi menjadi dua bagian, bagian pertama hanya akan menggunakan lima record dari data "tracks" saja dan seluruh algoritma akan diuji, sedangkan pada bagian kedua akan digunakan seluruh record pada data "tracks" dan hanya algoritma Dijkstra dan A-Star saja yang akan diuji. Selain itu, untuk setiap algoritmanya akan diuji sebanyak tiga kali dan juga untuk setiap bagiannya akan terdapat tiga kasus yang berbeda. Rangkuman kasus-kasus dari pengujian yang akan dilakukan dapat dilihat pada tabel \ref{tab:rangkumankasus}.
+\\
+Pada pengujian ini, pengukuran waktu menggunakan \texttt{System.nanoTime()} sebelum proses pencarian jalur dimulai dan diakhiri dengan mencatat waktu akhir setelah seluruh proses pencarian dan pembentukan hasil selesai. Selisih antara waktu akhir dan waktu awal dihitung dan dikonversi dari nanodetik ke milidetik dengan membaginya sebesar 1.000.000. Pengukuran ini dilakukan pada kelas \texttt{Worker.java} yang kodenya bisa dilihat pada \ref{code:worker}.
+
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[H]
+\caption{Rangkuman Kasus Pengujian}
+{\large
+\label{tab:rangkumankasus}
+\begin{tabular}{|l|l|l|l|}
+\hline
+{\textbf{Pengujian}} & {\textbf{Titik Awal}} & {\textbf{Titik Akhir}} & {\textbf{Tracks}}                                                                                                                                     \\ \hline
+1.1                                      & 23 Paskal                                & UNPAR                                     & \begin{tabular}[c]{@{}l@{}}Ciroyom - Antapani\\ Ciroyom - Ciburial\\ Ciumbuleuit - St. Hall (belok)\\ Ciumbuleuit - St. Hall (lurus)\\ Dago - Caringin\end{tabular}      \\ \hline
+1.2                                      & Gedung Sate                              & Trans Studio Bandung                      & \begin{tabular}[c]{@{}l@{}}Cicadas - Elang (Kalapa - Cicadas)\\ Cicadas - Elang (Kalapa - Elang)\\ Dago - Caringin\\ Dago - Riung Bandung\\ Kalapa - Ledeng\end{tabular} \\ \hline
+1.3                                      & Alun-Alun Bandung                        & Festival Citylink                         & \begin{tabular}[c]{@{}l@{}}Cijerah - Ciwastra\\ Kalapa - Buah Batu\\ Kalapa - Cibaduyut\\ Kalapa - Karang Setra\\ Kalapa - Ledeng\end{tabular}                           \\ \hline
+2.1                                      & 23 Paskal                                & UNPAR                                     & Seluruh tracks digunakan                                                                                                                                                 \\ \hline
+2.2                                      & Gedung Sate                              & Trans Studio Bandung                      & Seluruh tracks digunakan                                                                                                                                                 \\ \hline
+2.3                                      & Alun-Alun Bandung                        & Festival Citylink                         & Seluruh tracks digunakan                                                                                                                                                 \\ \hline
+\end{tabular}
+}
+\end{table}
 
 \subsubsection{Pengujian 1.1}
-Pada pengujian ini titik awal yang digunakan, yaitu "23 Paskal" dan titik akhir, yaitu "UNPAR". Data yang digunakan bisa dilihat pada tabel \ref{tab:data1.1}.
+Pada pengujian ini titik awal yang digunakan, yaitu "23 Paskal" dan titik akhir, yaitu "UNPAR". Selain itu, pada pengujian ini data "tracks" yang digunakan, yaitu Ciroyom - Antapani, Ciroyom - Ciburial, Ciumbuleuit - St. Hall (belok), Ciumbuleuit - St. Hall (lurus), dan Dago - Caringin.
 
-\renewcommand{\arraystretch}{1.8}
+\begin{comment}
 \begin{table}[H]
 \centering
 \caption{Data Pengujian 1.1}
@@ -380,6 +402,7 @@ dagocaringin        & Dago - Caringin             \\ \hline
 \end{tabular}
 }
 \end{table}
+\end{comment}
 
 \renewcommand{\arraystretch}{1.8}
 \begin{table}[H]
@@ -387,20 +410,24 @@ dagocaringin        & Dago - Caringin             \\ \hline
 \caption{Hasil Pengujian 1.1}
 \label{tab:hasiluji1.1}
 {\large
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|l|r|r|r|r|} 
 \hline
-\textbf{Algoritma} & \textbf{Pengujian 1} & \textbf{Pengujian 2} & \textbf{Pengujian 3} \\ \hline
-Dijkstra           & 3.43 ms              & 4.29 ms             & 4.23 ms              \\ \hline
-A-Star            & 4.09 ms              & 3.96 ms              & 4.37 ms              \\ \hline
-Floyd-Warshall     & 26469.95 ms              & 25765.38 ms               & 27804.94 ms              \\ \hline
+{\textbf{Algoritma}} & {\textbf{Pengujian 1}} & {\textbf{Pengujian 2}} & {\textbf{Pengujian 3}} & \multicolumn{1}{l|}{\textbf{Average}} \\ 
+\hline
+Dijkstra       & 3.43 ms              & 4.29 ms              & 4.23 ms              & 3.98 ms          \\
+\hline
+A-Star         & 4.09 ms              & 3.96 ms              & 4.37 ms              & 4.14 ms          \\
+\hline
+Floyd-Warshall & 26469.95 ms          & 25765.38 ms          & 27804.94 ms          & 26680.09 ms \\
+\hline
 \end{tabular}
 }
 \end{table}
 
 \subsubsection{Pengujian 1.2}
-Pada pengujian ini titik awal yang digunakan, yaitu "Gedung Sate" dan titik akhir, yaitu "Trans Studio Bandung". Data yang digunakan bisa dilihat pada tabel \ref{tab:data1.2}.
+Pada pengujian ini titik awal yang digunakan, yaitu "Gedung Sate" dan titik akhir, yaitu "Trans Studio Bandung". Selain itu, pada pengujian ini data "tracks" yang digunakan, yaitu Cicadas - Elang (Kalapa - Cicadas), Cicadas - Elang (Kalapa - Elang), Dago - Caringin, Dago - Riung Bandung, dan Kalapa - Ledeng.
 
-\renewcommand{\arraystretch}{1.8}
+\begin{comment}
 \begin{table}[H]
 \centering
 \caption{Data Pengujian 1.2}
@@ -417,27 +444,27 @@ kalapaledeng        & Kalapa - Ledeng             \\ \hline
 \end{tabular}
 }
 \end{table}
+\end{comment}
 
-\renewcommand{\arraystretch}{1.8}
 \begin{table}[H]
 \centering
 \caption{Hasil Pengujian 1.2}
 \label{tab:hasiluji1.2}
 {\large
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|l|r|r|r|r|}
 \hline
-\textbf{Algoritma} & \textbf{Pengujian 1} & \textbf{Pengujian 2} & \textbf{Pengujian 3} \\ \hline
-Dijkstra           & 3.17 ms              & 3.66 ms             & 3.22 ms              \\ \hline
-A-Star            & 3.30 ms              & 3.19 ms              & 3.49 ms              \\ \hline
-Floyd-Warshall     & 31212.38 ms              & 30494.62 ms               & 30710.07 ms              \\ \hline
+\textbf{Algoritma} & \textbf{Pengujian 1} & \textbf{Pengujian 2} & \textbf{Pengujian 3} & \multicolumn{1}{l|}{\textbf{Average}}\\ \hline
+Dijkstra           & 3.17 ms              & 3.66 ms             & 3.22 ms       &       3.35 ms             \\ \hline
+A-Star            & 3.30 ms              & 3.19 ms              & 3.49 ms       &       3.32 ms             \\ \hline
+Floyd-Warshall     & 31212.38 ms              & 30494.62 ms               & 30710.07 ms     &   30804.69 ms            \\ \hline
 \end{tabular}
 }
 \end{table}
 
 \subsubsection{Pengujian 1.3}
-Pada pengujian ini titik awal yang digunakan, yaitu "Alun-Alun Bandung" dan titik akhir, yaitu "Festival Citylink". Data yang digunakan bisa dilihat pada tabel \ref{tab:data1.3}.
+Pada pengujian ini titik awal yang digunakan, yaitu "Alun-Alun Bandung" dan titik akhir, yaitu "Festival Citylink". Selain itu, pada pengujian ini data "tracks" yang digunakan, yaitu Cijerah - Ciwastra, Kalapa - Buah Batu, Kalapa - Cibaduyut, Kalapa - Karang Setra, dan Kalapa - Ledeng.
 
-\renewcommand{\arraystretch}{1.8}
+\begin{comment}
 \begin{table}[H]
 \centering
 \caption{Data Pengujian 1.3}
@@ -454,70 +481,70 @@ kalapaledeng        & Kalapa - Ledeng             \\ \hline
 \end{tabular}
 }
 \end{table}
+\end{comment}
 
-\renewcommand{\arraystretch}{1.8}
 \begin{table}[H]
 \centering
 \caption{Hasil Pengujian 1.3}
 \label{tab:hasiluji1.3}
 {\large
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|l|r|r|r|r|}
 \hline
-\textbf{Algoritma} & \textbf{Pengujian 1} & \textbf{Pengujian 2} & \textbf{Pengujian 3} \\ \hline
-Dijkstra           & 2.31 ms              & 2.18 ms             & 1.96 ms              \\ \hline
-A-Star            & 2.42 ms              & 2.29 ms              & 2.26 ms              \\ \hline
-Floyd-Warshall     & 8799.05 ms              & 6577.51 ms               & 8568.48 ms              \\ \hline
+\textbf{Algoritma} & \textbf{Pengujian 1} & \textbf{Pengujian 2} & \textbf{Pengujian 3} & \multicolumn{1}{l|}{\textbf{Average}}\\ \hline
+Dijkstra           & 2.31 ms              & 2.18 ms             & 1.96 ms      &    2.15 ms           \\ \hline
+A-Star            & 2.42 ms              & 2.29 ms              & 2.26 ms      &    2.32 ms        \\ \hline
+Floyd-Warshall     & 8799.05 ms              & 6577.51 ms               & 8568.48 ms      &     7981.68 ms        \\ \hline
 \end{tabular}
 }
 \end{table}
 
 \subsubsection{Pengujian 2.1}
-Pada pengujian ini titik awal yang digunakan, yaitu "23 Paskal" dan titik akhir, yaitu "UNPAR".
+Pada pengujian ini titik awal yang digunakan, yaitu "23 Paskal" dan titik akhir, yaitu "UNPAR". Selain itu, pada pengujian ini seluruh data "tracks" digunakan.
 
 \begin{table}[H]
 \centering
 \caption{Hasil Pengujian 2.1}
 \label{tab:hasiluji2.1}
 {\large
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|l|r|r|r|r|}
 \hline
-\textbf{Algoritma} & \textbf{Pengujian 1} & \textbf{Pengujian 2} & \textbf{Pengujian 3} \\ \hline
-Dijkstra           & 44.45 ms              & 46.98 ms             & 46.22 ms              \\ \hline
-A-Star            & 26.65 ms              & 30.02 ms              & 27.3 ms              \\ \hline
+\textbf{Algoritma} & \textbf{Pengujian 1} & \textbf{Pengujian 2} & \textbf{Pengujian 3} & {\textbf{Average}}\\ \hline
+Dijkstra           & 44.45 ms              & 46.98 ms             & 46.22 ms     &      45.88 ms         \\ \hline
+A-Star            & 26.65 ms              & 30.02 ms              & 27.30 ms      &      27.99 ms        \\ \hline
 \end{tabular}
 }
 \end{table}
 
 \subsubsection{Pengujian 2.2}
-Pada pengujian ini titik awal yang digunakan, yaitu "Gedung Sate" dan titik akhir, yaitu "Trans Studio Bandung".
+Pada pengujian ini titik awal yang digunakan, yaitu "Gedung Sate" dan titik akhir, yaitu "Trans Studio Bandung". Selain itu, pada pengujian ini seluruh data "tracks" digunakan.
 
 \begin{table}[H]
 \centering
 \caption{Hasil Pengujian 2.2}
 \label{tab:hasiluji2.2}
 {\large
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|l|r|r|r|r|}
 \hline
-\textbf{Algoritma} & \textbf{Pengujian 1} & \textbf{Pengujian 2} & \textbf{Pengujian 3} \\ \hline
-Dijkstra           & 83.23 ms              & 75.47 ms             & 80.42 ms              \\ \hline
-A-Star            & 28.45 ms              & 26.56 ms              & 27.61 ms              \\ \hline
+\textbf{Algoritma} & \textbf{Pengujian 1} & \textbf{Pengujian 2} & \textbf{Pengujian 3} & {\textbf{Average}}\\ \hline
+Dijkstra           & 83.23 ms              & 75.47 ms             & 80.42 ms       &       79.70 ms       \\ \hline
+A-Star            & 28.45 ms              & 26.56 ms              & 27.61 ms      &      27.54 ms       \\ \hline
 \end{tabular}
 }
 \end{table}
 
 \subsubsection{Pengujian 2.3}
-Pada pengujian ini titik awal yang digunakan, yaitu "Alun-Alun Bandung" dan titik akhir, yaitu "Festival Citylink".
+Pada pengujian ini titik awal yang digunakan, yaitu "Alun-Alun Bandung" dan titik akhir, yaitu "Festival Citylink". Selain itu, pada pengujian ini seluruh data "tracks" digunakan.
 
 \begin{table}[H]
 \centering
 \caption{Hasil Pengujian 2.3}
 \label{tab:hasiluji2.3}
 {\large
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|l|r|r|r|r|}
 \hline
-\textbf{Algoritma} & \textbf{Pengujian 1} & \textbf{Pengujian 2} & \textbf{Pengujian 3} \\ \hline
-Dijkstra           & 52.3 ms              & 51.21 ms             & 49.21 ms              \\ \hline
-A-Star            & 34.76 ms              & 31.64 ms              & 33.47 ms              \\ \hline
+\textbf{Algoritma} & \textbf{Pengujian 1} & \textbf{Pengujian 2} & \textbf{Pengujian 3} & \multicolumn{1}{l|}{\textbf{Average}}\\ \hline
+Dijkstra           & 52.30 ms              & 51.21 ms             & 49.21 ms      &     50.90 ms        \\ \hline
+A-Star            & 34.76 ms              & 31.64 ms              & 33.47 ms      &     33.29 ms        \\ \hline
 \end{tabular}
 }
 \end{table}
