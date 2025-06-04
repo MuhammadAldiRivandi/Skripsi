@@ -11,14 +11,11 @@ Bab ini akan membahas mengenai perancangan perangkat lunak berdasarkan hasil ana
     \label{fig:rancangandiagramkelas} 
 \end{figure}
 
-\noindent
-Perancangan kelas dilakukan untuk merepresentasikan struktur perangkat lunak setelah dilakukan pengembangan terhadap peran KIRI. Perubahan ini difokuskan pada penerapan Strategy Pattern guna meningkatkan fleksibilitas sistem dalam menggunakan berbagai algoritma pencarian jalur terpendek. Gambar \ref{fig:rancangandiagramkelas} menunjukkan struktur kelas setelah pengembangan dilakukan.
-\\
-Sebelumnya, algoritma shortest path diimplementasikan secara langsung dalam sistem menggunakan algoritma Dijkstra. Oleh karena itu, dilakukan perubahan desain dengan menerapkan Strategy Pattern dengan dibuatnya kelas abstrak ShortestPathStrategy yang menjadi dasar dari semua algoritma shortest path. Kelas-kelas seperti Dijkstra, FloydWarshall, dan AStar kemudian diimplementasikan sebagai turunan dari ShortestPathStrategy. Dengan struktur ini, ketiga algoritma tersebut dapat saling dipertukarkan tanpa memengaruhi bagian lain dari sistem, karena semuanya mengikuti superclass-nya, yaitu ShortestPathStrategy. Strategi ini memudahkan sistem dalam memilih dan menggunakan algoritma pencarian jalur terpendek yang sesuai dengan kebutuhan tertentu. Selain itu, Struktur kelas seperti GraphNode, GraphEdge, dan Graph tetap dipertahankan, namun kini berfungsi mendukung berbagai algoritma.
-\\
-Kelas ShortestPathStrategy memiliki atribut-atribut yang sebelumnya terdapat pada Dijkstra, yaitu graph, startNode, finishNode, multiplierWalking, dan penaltyTransfer. Atribut-atribut tersebut akan diturunkan dan digunakan oleh seluruh algoritma shortest path. Selain itu, kelas ShortestPathStrategy juga memiliki method-method yang di-override dari kelas-kelas algoritma shortest path.
-\\
-Dengan perancangan ini, perangkat lunak KIRI kini memiliki arsitektur yang lebih modular dan akan lebih mudah apabila akan dikembangkan lebih lanjut, baik dari sisi algoritma maupun fungsionalitas lain.
+Perancangan kelas dilakukan untuk merepresentasikan struktur perangkat lunak setelah dilakukan pengembangan terhadap peran KIRI. Perubahan ini difokuskan pada penerapan \textit{strategy pattern} untuk meningkatkan fleksibilitas sistem dalam menggunakan berbagai algoritma pencarian jalur terpendek. Gambar \ref{fig:rancangandiagramkelas} menunjukkan struktur kelas setelah pengembangan dilakukan.
+
+Sebelumnya, algoritma \textit{shortest path} diimplementasikan secara langsung dalam sistem menggunakan algoritma Dijkstra. Oleh karena itu, dilakukan perubahan desain dengan menerapkan \textit{strategy pattern} dengan dibuatnya kelas abstrak \texttt{ShortestPathStrategy} yang menjadi dasar dari semua algoritma \textit{shortest path}. Kelas-kelas seperti \texttt{Dijkstra}, \texttt{FloydWarshall}, dan \texttt{AStar} kemudian diimplementasikan sebagai turunan dari \texttt{ShortestPathStrategy}. Dengan struktur ini, ketiga algoritma tersebut dapat saling dipertukarkan tanpa memengaruhi bagian lain dari sistem, karena semuanya mengikuti \textit{superclass}-nya, yaitu \texttt{ShortestPathStrategy}. Strategi ini memudahkan sistem dalam memilih dan menggunakan algoritma pencarian jalur terpendek yang sesuai dengan kebutuhan tertentu. Selain itu, Struktur kelas seperti \texttt{GraphNode}, \texttt{GraphEdge}, dan \texttt{Graph} tetap dipertahankan, namun kini berfungsi mendukung berbagai algoritma.
+
+Kelas \texttt{ShortestPathStrategy} memiliki atribut-atribut yang sebelumnya terdapat pada \texttt{Dijkstra}, yaitu \texttt{graph}, \texttt{startNode}, \texttt{finishNode}, \texttt{multiplierWalking}, dan \texttt{penaltyTransfer}. Atribut-atribut tersebut akan diturunkan dan digunakan oleh kelas-kelas algoritma \textit{shortest path}. Selain itu, kelas \texttt{ShortestPathStrategy} juga memiliki \textit{method-method} yang di-override dari kelas-kelas algoritma \textit{shortest path} yang diimplementasikan. Dengan perancangan ini, perangkat lunak KIRI kini memiliki arsitektur yang lebih modular dan akan lebih mudah apabila akan dikembangkan lebih lanjut, baik dari sisi algoritma maupun fungsionalitas lain.
 
 
 \section{Perancangan Antarmuka}
@@ -35,10 +32,10 @@ Dengan perancangan ini, perangkat lunak KIRI kini memiliki arsitektur yang lebih
 Dilakukan sedikit perubahan pada halaman antarmuka dari perangkat lunak KIRI, yaitu dengan menambahkan sebuah \textit{dropdown} baru untuk memilih algoritma yang akan digunakan, seperti pada gambar \ref{fig:rancanganui}. Pada \textit{dropdown} tersebut akan terdiri dari 3 buah algoritma \textit{shortest path} yang sudah diimplementasikan sebelumnya, yaitu Dijkstra, Floyd-Warshall, dan A-Star. 
 \newpage
 \section{Perancangan Protokol}
-Dilakukan sedikit modifikasi pada protokol API untuk memberikan fleksibilitas pengguna dalam memilih algoritma jalur terpendek yang akan digunakan, seperti Dijkstra, A*, dan Floyd-Warshall. Modifikasi dilakukan pada bagian \textit{front-end} (Tirtayasa) dan juga \textit{back-end} (NewMenjangan). Perubahan ini hanya menambah satu parameter baru tanpa mengubah struktur data utama sehingga modifikasi dapat dilakukan tanpa mempengaruhi fungsi sistem lainnya secara signifikan.
+Dilakukan sedikit modifikasi pada protokol API untuk memberikan fleksibilitas pengguna dalam memilih algoritma jalur terpendek yang akan digunakan, seperti Dijkstra, A-Star, dan Floyd-Warshall. Modifikasi dilakukan pada bagian \textit{frontend} (Tirtayasa) dan juga \textit{backend} (NewMenjangan). Perubahan ini hanya menambah satu parameter baru tanpa mengubah struktur data utama sehingga modifikasi dapat dilakukan tanpa mempengaruhi fungsi sistem lainnya secara signifikan.
 
 \subsubsection{Tirtayasa}
-Pada bagian ini akan dilakukan modifikasi pada protokol API, yaitu akan dilakukan modifikasi pada kode-kode program yang berkaitan dalam pengiriman data ke bagian \textit{back-end}. Berikut merupakan kode-kode program yang akan modifikasi.
+Pada bagian ini akan dilakukan modifikasi pada protokol API, yaitu akan dilakukan modifikasi pada kode-kode program yang berkaitan dalam pengiriman data ke bagian \textit{backend}. Berikut merupakan kode-kode program yang akan modifikasi.
 \begin{itemize}
     \item \textbf{main.js}
     \\ Pada kode ini modifikasi yang akan dilakukan adalah penambahan parameter baru pada \textit{function} \texttt{checkCoordinatesThenRoute} ketika akan memanfaatkan \textit{function} \texttt{findroute} akan ditambahkan sebuah parameter baru yang akan mengirimkan algoritma yang dipilih.

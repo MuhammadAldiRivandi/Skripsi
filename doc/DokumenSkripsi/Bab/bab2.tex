@@ -7,12 +7,11 @@ Bab ini akan membahas dasar-dasar teori dalam pengembangan perangkat lunak KIRI.
 KIRI (lihat Gambar \ref{fig:tampilanawalkiri}) adalah aplikasi navigasi transportasi umum berbasis web yang menyediakan rute antara dua lokasi geografis menggunakan transportasi publik. KIRI dirancang untuk melayani kebutuhan pengguna angkot (angkutan kota) di Bandung serta TransJakarta dan Commuterline di DKI Jakarta. Salah satu keunggulan KIRI dibandingkan layanan seperti Google Maps atau Moovit adalah kemampuannya memahami karakteristik  transportasi publik, di mana penumpang dapat naik atau turun di sepanjang jalan tanpa terbatas pada halte tertentu.
 \begin{figure}[H] 
 	\centering  
-	\includegraphics[width=1\textwidth]{KIRI}  
+	\includegraphics[width=0.9\textwidth]{KIRI}  
 	\caption{Tampilan awal perangkat lunak KIRI}
 	\label{fig:tampilanawalkiri} 
 \end{figure}
 \newpage
-\noindent
 KIRI akan memberikan informasi mengenai langkah-langkah yang harus ditempuh oleh pengguna yang akan berpergian dari satu tempat ke tempat tujuannya, mulai dari seberapa jauh pengguna harus berjalan untuk menaiki angkot yang bersangkutan, di mana pengguna harus naik atau turun angkot tersebut, seberapa jauh lagi pengguna harus berjalan sampai ke lokasi tujuan, dan seberapa lama estimasi waktu perjalanan yang akan ditempuh (lihat Gambar \ref{fig:tampilankiri}).
 \begin{figure}[H] 
 	\centering  
@@ -20,29 +19,29 @@ KIRI akan memberikan informasi mengenai langkah-langkah yang harus ditempuh oleh
 	\caption{Tampilan perangkat lunak KIRI, setelah menerima masukan}
 	\label{fig:tampilankiri} 
 \end{figure}
-\noindent
-Arsitektur aplikasi KIRI terbagi menjadi dua bagian utama. Yang pertama, yaitu Tirtayasa yang merupakan bagian \textit{frontend} dari KIRI, dan bertanggung jawab sebagai antarmuka pengguna untuk browser web. Komponen ini mengubah nama tempat yang dimasukkan pengguna menjadi koordinat geografis dengan menggunakan bantuan Google Maps. Tirtayasa sendiri dibangun menggunakan PHP dan Framework CodeIgniter 4.
-\\
+
+Arsitektur aplikasi KIRI terbagi menjadi dua bagian utama. Yang pertama, yaitu Tirtayasa yang merupakan bagian \textit{frontend} dari KIRI, dan bertanggung jawab sebagai antarmuka pengguna untuk browser web. Komponen ini mengubah nama tempat yang dimasukkan pengguna menjadi koordinat geografis dengan menggunakan bantuan Google Maps. Tirtayasa sendiri dibangun menggunakan PHP dan \textit{framework} CodeIgniter 3.
+
 Selanjutnya, NewMenjangan, yang merupakan bagian \textit{backend} dari KIRI dan dibangun dengan bahasa pemrogrman Java serta digunakan untuk memproses permintaan navigasi. Komponen ini memuat semua jalur transportasi umum dalam bentuk graf dan menggunakan algoritma Dijkstra untuk menghitung rute optimal. Algoritma ini dipercepat dengan penggunaan struktur data heap, yang membuatnya efisien untuk jalur yang kompleks.
 
 \section{Design Pattern dan Strategy Pattern ~\cite{Gamma:94:design}}
 \label{sec:designdanstrategypattern}
-\textit{Design Pattern} adalah solusi umum yang telah terbukti efektif untuk mengatasi masalah desain berulang dalam pengembangan perangkat lunak berorientasi objek. Solusi ini dirancang agar dapat digunakan kembali di berbagai konteks tanpa harus disesuaikan secara berlebihan. Sebagai contoh, pola desain membantu memecah masalah desain menjadi struktur yang lebih modular dan fleksibel, sehingga mempermudah pengembangan dan pemeliharaan perangkat lunak.
-\\
-Pada dasarnya, design pattern memiliki empat elemen utama. Pertama, nama pola yang memberikan cara singkat untuk menyebut masalah desain tertentu, solusinya, dan konsekuensi dari penerapannya. Kedua, masalah, yaitu deskripsi konteks atau situasi di mana pola desain ini relevan. Ketiga, solusi yang berupa abstraksi dari elemen-elemen desain dan kolaborasinya tanpa menyebutkan implementasi konkret. Keempat, konsekuensi yang mencakup hasil dari penerapan pola, termasuk dampak pada fleksibilitas, efisiensi, dan pengelolaan sistem.
-\\
-Penggunaan \textit{design pattern} juga memungkinkan sistem menjadi lebih adaptif terhadap perubahan kebutuhan. Pola seperti \textit{Strategy} mempermudah pergantian algoritma di runtime, sedangkan \textit{Factory Method} membantu mengurangi ketergantungan pada implementasi spesifik dengan menyediakan cara fleksibel untuk membuat objek. Dengan demikian, design pattern mempermudah kolaborasi dan komunikasi antar tim pengembang.
-\\
-Strategy Pattern merupakan salah satu pola desain perilaku yang dirancang untuk mendefinisikan serangkaian algoritma, mengenkapsulasi setiap algoritma, dan memungkinkan algoritma-algoritma tersebut untuk saling dipertukarkan. Pola ini memungkinkan algoritma untuk bervariasi. Dengan demikian, klien tidak perlu mengetahui detail implementasi dari algoritma yang digunakan, melainkan cukup berinteraksi melalui antarmuka umum yang disediakan oleh objek strategi.
-\\
-Pola ini sangat berguna ketika terdapat kebutuhan untuk mendukung berbagai varian algoritma dalam menyelesaikan tugas yang sama. Strategy Pattern memindahkan setiap algoritma ke dalam kelas terpisah, yang disebut sebagai \textit{concrete strategy}. Klien dapat memilih dan menentukan strategi yang sesuai ke dalam konteks pada waktu eksekusi, sehingga memberikan fleksibilitas yang tinggi dalam proses pengembangan perangkat lunak.
-\\
-Manfaat utama dari strategy pattern adalah kemampuannya untuk menghilangkan kompleksitas yang diakibatkan oleh penggunaan pernyataan kondisional yang rumit dalam kode, serta kemudahan dalam menambahkan atau mengganti algoritma tanpa perlu memodifikasi kode klien atau konteks. Namun, penerapan pola ini juga memiliki kelemahan, seperti meningkatnya jumlah kelas dalam sistem dan potensi timbulnya \textit{overhead} komunikasi antara konteks dan strategi. Oleh karena itu, penerapan strategy pattern sebaiknya dipertimbangkan dengan cermat, terutama dalam situasi di mana variasi algoritma memang diperlukan untuk memenuhi kebutuhan sistem.
+\textit{Design Pattern} adalah sebuah solusi untuk mengatasi masalah desain berulang dalam pengembangan perangkat lunak berorientasi objek. Solusi ini dirancang agar dapat digunakan kembali di berbagai konteks tanpa harus disesuaikan secara berlebihan. Sebagai contoh, \textit{design Pattern} membantu memecah masalah desain menjadi struktur yang lebih modular dan fleksibel, sehingga mempermudah pengembangan dan pemeliharaan perangkat lunak.
+
+Pada dasarnya, \textit{design pattern} memiliki empat elemen utama. Elemen-elemen tersebut diantaranya, yaitu, yang pertama adalah nama pola yang memberikan cara singkat untuk menyebut masalah desain tertentu. Kedua, masalah, yaitu deskripsi konteks atau situasi di mana \textit{design pattern} ini relevan. Ketiga, solusi yang berupa abstraksi dari elemen-elemen desain dan kolaborasinya tanpa menyebutkan implementasi konkret. Keempat, konsekuensi yang mencakup hasil dari penerapan pola, termasuk dampak pada fleksibilitas, efisiensi, dan pengelolaan sistem.
+
+Penggunaan \textit{design pattern} juga memungkinkan sistem menjadi lebih adaptif terhadap perubahan kebutuhan. Pola seperti \textit{Strategy} atau \textit{strategy pattern} mempermudah pergantian algoritma di \textit{runtime}, sedangkan \textit{Factory Method} membantu mengurangi ketergantungan pada implementasi spesifik dengan menyediakan cara fleksibel untuk membuat objek. Dengan demikian, \textit{design pattern} mempermudah kolaborasi dan komunikasi antar tim pengembang.
+
+\textit{Strategy pattern} merupakan salah satu pola desain perilaku yang dirancang untuk mendefinisikan serangkaian algoritma, mengenkapsulasi setiap algoritma, dan memungkinkan algoritma-algoritma tersebut untuk saling dipertukarkan. Pola ini memungkinkan algoritma untuk bervariasi. Dengan demikian, klien tidak perlu mengetahui detail implementasi dari algoritma yang digunakan, melainkan cukup berinteraksi melalui antarmuka umum yang disediakan oleh objek strategi.
+
+Pola ini sangat berguna ketika terdapat kebutuhan untuk mendukung berbagai varian algoritma dalam menyelesaikan tugas yang sama. \textit{Strategy pattern} memindahkan setiap algoritma ke dalam kelas terpisah, yang disebut sebagai \textit{concrete strategy}. Sistem dapat memilih dan menentukan strategi yang sesuai ke dalam konteks pada waktu eksekusi, sehingga memberikan fleksibilitas yang tinggi dalam proses pengembangan perangkat lunak.
+
+Manfaat utama dari \textit{strategy pattern} adalah kemampuannya untuk menghilangkan kompleksitas yang diakibatkan oleh penggunaan pernyataan kondisional yang rumit dalam kode, serta kemudahan dalam menambahkan atau mengganti algoritma tanpa perlu memodifikasi kode klien atau konteks. Namun, penerapan pola ini juga memiliki kelemahan, seperti meningkatnya jumlah kelas dalam sistem dan potensi timbulnya \textit{overhead} komunikasi antara konteks dan strategi. Oleh karena itu, penerapan \textit{strategy pattern} sebaiknya dipertimbangkan dengan cermat, terutama dalam situasi di mana variasi algoritma memang diperlukan untuk memenuhi kebutuhan sistem.
 \\
 Berikut merupakan struktur dari strategy pattern (Gambar \ref{fig:struktursp}).
 \begin{figure}[h] 
 	\centering  
-	\includegraphics[width=1.1\textwidth]{struktur-sp}  
+	\includegraphics[width=1\textwidth]{struktur-sp}  
 	\caption{Struktur Strategy Pattern}
 	\label{fig:struktursp} 
 \end{figure}
@@ -102,7 +101,7 @@ Berikut merupakan struktur dari strategy pattern (Gambar \ref{fig:struktursp}).
         }
     }
 \end{lstlisting}
-\newpage
+
 \begin{lstlisting}[language=Java, caption=Main.java, basicstyle=\small\ttfamily]
     import java.util.*;
 
@@ -126,10 +125,10 @@ Berikut merupakan struktur dari strategy pattern (Gambar \ref{fig:struktursp}).
 
 \section{MySQL ~\cite{oracle:24:mysql8.4}}
 \label{sec:mysql}
-MySQL merupakan sistem manajemen basis data relasional (\textit{Relational Database Management System}/RDBMS) bersifat open source yang dikembangkan oleh \textit{Oracle Corporation}. SQL, yang merupakan singkatan dari \textit{Structured Query Language}, adalah bahasa pemrograman yang digunakan untuk mengambil, memperbarui, menghapus, serta memanipulasi data pada basis data relasional.
-\\
+MySQL merupakan sistem manajemen basis data relasional (\textit{Relational Database Management System}/RDBMS) bersifat \textit{open source} yang dikembangkan oleh Oracle Corporation. SQL, yang merupakan singkatan dari \textit{Structured Query Language}, adalah bahasa pemrograman yang digunakan untuk mengambil, memperbarui, menghapus, serta memanipulasi data pada basis data relasional.
+
 Sebagai basis data relasional, MySQL menyimpan data dalam bentuk tabel yang terdiri atas baris dan kolom, yang disusun dalam suatu skema. Skema ini bertugas mendefinisikan bagaimana data diorganisasi dan disimpan, serta menjelaskan hubungan antara tabel-tabel yang ada di dalamnya.
-\\
+
 Dalam MySQL, terdapat berbagai sintaks yang digunakan untuk mendukung pengelolaan basis data. Sintaks-sintaks tersebut mencakup operasi penting, seperti pembuatan tabel, penyisipan data, pembaruan data, penghapusan data, hingga pengambilan data. Setiap sintaks dirancang untuk mempermudah pengguna dalam mengelola data secara efektif dan efisien sesuai kebutuhan sistem. Berikut merupakan sintaks-sintaks dasar yang umum digunakan dalam MySQL.
 \begin{itemize}
     \item \textbf{\textit{CREATE DATABASE}}
@@ -165,7 +164,7 @@ Dalam MySQL, terdapat berbagai sintaks yang digunakan untuk mendukung pengelolaa
     SELECT column1, column2, ...
     FROM table_name;
     \end{lstlisting}
-    Sintaks tersebut digunakan untuk memilih atau mengambil data dari sebuah tabel dalam database. \texttt{column1, column2} dan seterusnya diisi dengan nama kolom dari sebuah tabel yang datanya akan diambil dan \texttt{table\_name} diisi dengan nama tabel dimana kolom tersebut berada.
+    Sintaks tersebut digunakan untuk memilih atau mengambil data dari sebuah tabel dalam database. \texttt{column1, column2} dan seterusnya diisi dengan nama kolom dari sebuah tabel yang datanya akan diambil dan \texttt{table\_name} diisi dengan nama tabel kolom tersebut berada.
 
     \item \textbf{\textit{WHERE}}
     \begin{lstlisting}[language=SQL]
@@ -173,31 +172,30 @@ Dalam MySQL, terdapat berbagai sintaks yang digunakan untuk mendukung pengelolaa
     FROM table_name
     WHERE condition;
     \end{lstlisting}
-    Sintaks tersebut digunakan untuk memilih atau mengambil data dari sebuah tabel dalam database dengan sebuah kondisi tertentu yang bertujuan untuk memfilter data yang akan diambil. \texttt{column1, column2} dan seterusnya diisi dengan nama kolom dari sebuah tabel yang datanya akan diambil, \texttt{table\_name} diisi dengan nama tabel dimana kolom tersebut berada, dan \texttt{condition} diisi dengan kondisi dari data yang akan diambil atau filter seperti apa yang dingin dilakukan ketika mengambil data.
+    Sintaks tersebut digunakan untuk memilih atau mengambil data dari sebuah tabel dalam database dengan sebuah kondisi tertentu yang bertujuan untuk memfilter data yang akan diambil. \texttt{column1, column2} dan seterusnya diisi dengan nama kolom dari sebuah tabel yang datanya akan diambil, \texttt{table\_name} diisi dengan nama tabel di mana kolom tersebut berada, dan \texttt{condition} diisi dengan kondisi dari data yang akan diambil atau filter seperti apa yang ingin dilakukan ketika mengambil data.
 
     \item \textbf{\textit{INSERT INTO}}
     \begin{lstlisting}[language=SQL]
     INSERT INTO table_name (column1, column2, column3, ...)
     VALUES (value1, value2, value3, ...);
     \end{lstlisting}
-    Sintaks tersebut digunakan untuk memasukan atau menambahkan data baru kedalam kolom dari sebuah tabel yang telah ada. \texttt{tabel\_name} diisi nama tabel yang akan ditambahkan data baru, \texttt{column1, column2, column3} dan seterusnya diisi dengan nama kolom yang akan ditambahkan data baru, dan \texttt{value} diisi dengan nilai atau value dari data baru yang akan ditambahkan.
+    Sintaks tersebut digunakan untuk menambahkan data baru kedalam kolom dari sebuah tabel yang telah ada. \texttt{tabel\_name} diisi nama tabel yang akan ditambahkan data baru, \texttt{column1, column2, column3} dan seterusnya diisi dengan nama kolom yang akan ditambahkan data baru, dan \texttt{value} diisi dengan nilai atau \textit{value} dari data baru yang akan ditambahkan.
 
     \item \textbf{\textit{DELETE}}
     \begin{lstlisting}[language=SQL]
     DELETE FROM table_name
     WHERE condition;
     \end{lstlisting}
-     Sintaks tersebut digunakan untuk menghapus data baru kedalam kolom dari sebuah tabel yang telah ada. \texttt{tabel\_name} diisi nama tabel yang akan ditambahkan data baru, \texttt{column1, column2, column3} dan seterusnya diisi dengan nama kolom yang akan ditambahkan data baru, dan \texttt{value1, value2, value3} dan seterusnya diisi dengan nilai atau value dari data baru yang akan ditambahkan.
+     Sintaks tersebut digunakan untuk menghapus data dari sebuah tabel dengan kondisi tertentu. \texttt{tabel\_name} diisi nama tabel yang datanya akan dihapus, dan \texttt{condition} diisi dengan kondisi data dari yang akan dihapus filter seperti apa yang ingin dilakukan ketika menghapus data.
 \end{itemize}
 
 \subsection{LineString ~\cite{oracle:24:mysql8.4}}
 \label{subs:linestring}
-\textit{LineString} adalah tipe data geometris dalam MySQL yang mewakili jalur atau lintasan yang terdiri dari satu atau lebih segmen garis yang terhubung. Tipe data ini digunakan dalam Sistem Informasi Geografis (GIS) untuk merepresentasikan lintasan seperti jalan, sungai, atau rute perjalanan. Setiap \textit{LineString} terdiri dari urutan titik (point) yang memiliki koordinat (x, y) dan minimal memiliki dua titik untuk membentuk garis.
-\\
-Untuk memanipulasi dan menganalisis \textit{LineString}, MySQL menyediakan sejumlah fungsi bawaan. Sebelum fungsi tersebut digunakan, objek \textit{LineString} biasanya dikonversi ke bentuk geometris menggunakan fungsi ST\_GeomFromText(). Fungsi ini menerima teks representasi geometris, seperti $LineString(x1 y1, x2 y2, ...)$ dan mengubahnya menjadi objek geometris yang dapat diproses oleh fungsi GIS lainnya.
-Berikut adalah beberapa fungsi penting yang dapat digunakan untuk bekerja dengan \textit{LineString}:
+\textit{LineString} adalah tipe data geometris dalam MySQL yang mewakili jalur atau lintasan yang terdiri dari satu atau lebih segmen garis yang terhubung. Tipe data ini digunakan dalam Sistem Informasi Geografis atau \textit{Geographic Information System} (GIS) untuk merepresentasikan lintasan seperti jalan, sungai, atau rute perjalanan. Setiap \textit{LineString} terdiri dari urutan titik (\textit{point}) yang memiliki koordinat (x, y) dan minimal memiliki dua titik untuk membentuk garis.
+
+Untuk memanipulasi dan menganalisis \textit{LineString}, MySQL menyediakan sejumlah fungsi bawaan. Sebelum fungsi tersebut digunakan, objek \textit{LineString} biasanya dikonversi ke bentuk geometris menggunakan fungsi \texttt{ST\_GeomFromText()}. Fungsi ini menerima teks representasi geometris, seperti $LineString(x1 y1, x2 y2, ...)$ dan mengubahnya menjadi objek geometris yang dapat diproses oleh fungsi lainnya. Berikut adalah beberapa fungsi dalam \textit{LineString}:
 \begin{itemize}
-    \item ST\_EndPoint(ls)
+    \item \texttt{ST\_EndPoint(ls)}
     \\ Mengembalikan titik akhir dari \textit{LineString} $ls$. Contoh:
     \begin{lstlisting}[language=SQL]
     SET @ls = 'LineString(1 1, 2 2, 3 3)';
@@ -205,7 +203,7 @@ Berikut adalah beberapa fungsi penting yang dapat digunakan untuk bekerja dengan
     -- Hasil: 'POINT(3 3)'
     \end{lstlisting}
     
-    \item ST\_IsClosed(ls)
+    \item \texttt{ST\_IsClosed(ls)}
     \\ Mengecek apakah \textit{LineString} $ls$ membentuk lintasan tertutup (titik awal dan akhir sama). Contoh: 
     \begin{lstlisting}[language=SQL]
     SET @ls = 'LineString(1 1, 2 2, 3 3, 1 1)';
@@ -213,14 +211,14 @@ Berikut adalah beberapa fungsi penting yang dapat digunakan untuk bekerja dengan
     -- Hasil: 1 (TRUE)
     \end{lstlisting}
     
-    \item ST\_Length(ls)
+    \item \texttt{ST\_Length(ls)}
     \\ Menghitung panjang total \textit{LineString} $ls$. Contoh: \begin{lstlisting}[language=SQL]
     SET @ls = 'LineString(1 1, 2 2, 3 3)';
     SELECT ST_Length(ST_GeomFromText(@ls));
     -- Hasil: 2.828427
     \end{lstlisting}
 
-    \item ST\_NumPoints(ls)
+    \item \texttt{ST\_NumPoints(ls)}
     \\ Mengembalikan jumlah titik yang membentuk \textit{LineString} $ls$. Contoh: 
     \begin{lstlisting}[language=SQL]
     SET @ls = 'LineString(1 1, 2 2, 3 3)';
@@ -228,14 +226,14 @@ Berikut adalah beberapa fungsi penting yang dapat digunakan untuk bekerja dengan
     -- Hasil: 3
     \end{lstlisting}
     
-    \item ST\_Point(ls, N)
+    \item \texttt{ST\_Point(ls, N)}
     \\ Mengembalikan titik ke-$N$ pada \textit{LineString} $ls$. Contoh: \begin{lstlisting}[language=SQL]
     SET @ls = 'LineString(1 1, 2 2, 3 3)';
     SELECT ST_AsText(ST_PointN(ST_GeomFromText(@ls), 2));
     -- Hasil: 'POINT(2 2)'
     \end{lstlisting}
     
-    \item ST\_StartPoint(ls)
+    \item \texttt{ST\_StartPoint(ls)}
     \\ Mengembalikan titik awal dari \textit{LineString} $ls$. Contoh: \begin{lstlisting}[language=SQL]
     SET @ls = 'LineString(1 1, 2 2, 3 3)';
     SELECT ST_AsText(ST_StartPoint(ST_GeomFromText(@ls)));
@@ -246,23 +244,21 @@ Berikut adalah beberapa fungsi penting yang dapat digunakan untuk bekerja dengan
 
 \section{Graf ~\cite{Diestel:17:graph}}
 \label{sec:graph}
-Graf ($G$) adalah struktur yang terdiri dari simpul (\textit{vertex}) dan sisi (\textit{edge}), dimana sisi menghubungkan pasangan simpul (lihat Gambar \ref{fig:graf}). Sebuah graf direpresentasikan sebagai pasangan $G=(V,E)$, dengan $V$ sebagai himpunan simpul dan $E$ sebagai himpunan sisi. Sisi diwakili oleh pasangan simpul yang terhubung. Graf dapat bersifat terarah atau tidak terarah.
-\begin{figure}[h] 
+Graf ($G$) adalah struktur yang terdiri dari simpul (\textit{vertex}) dan sisi (\textit{edge}), di mana sisi menghubungkan pasangan simpul (lihat Gambar \ref{fig:graf}). Sebuah graf direpresentasikan sebagai pasangan $G=(V,E)$, dengan $V$ sebagai himpunan simpul dan $E$ sebagai himpunan sisi. Sisi diwakili oleh pasangan simpul yang terhubung. Graf dapat bersifat berarah atau tidak berarah dan juga berbobot atau tidak berbobot. Graf digunakan dalam berbagai hal, seperti jaringan komputer, rute transportasi, dan analisis hubungan sosial.
+\begin{figure}[H] 
     \centering  
-    \includegraphics[width=0.8\textwidth]{graf-kasus}  
+    \includegraphics[width=0.65\textwidth]{graf-kasus}  
     \caption{Graf}
     \label{fig:graf} 
 \end{figure}
-\noindent
-Simpul-simpul dalam graf dapat memiliki derajat tertentu, yaitu jumlah sisi yang menghubunginya. Sebuah graf disebut terhubung jika terdapat jalur antara setiap pasangan simpul. Jalur ini adalah urutan simpul yang dihubungkan oleh sisi. Selain itu, siklus adalah jalur tertutup di mana simpul awal dan akhir adalah sama. Teori graf juga mencakup konsep seperti pohon (graf terhubung tanpa siklus), graf bipartit (simpul dibagi menjadi dua himpunan yang saling bebas sisi), dan subgraf (bagian dari graf yang tetap mempertahankan struktur graf).
-\\
-Graf digunakan dalam berbagai hal, seperti jaringan komputer, rute transportasi, dan analisis hubungan sosial. Teori graf menyediakan dasar matematis untuk mempelajari struktur ini dan memberikan cara untuk memodelkan dan menyelesaikan masalah kompleks di berbagai bidang.
-\newpage
+
+Simpul-simpul dalam graf dapat memiliki derajat tertentu, yaitu jumlah sisi yang menghubungkannya. Sebuah graf disebut terhubung jika terdapat jalur antara setiap pasangan simpul. Jalur ini adalah urutan simpul yang dihubungkan oleh sisi. Teori graf juga mencakup konsep seperti pohon (graf terhubung tanpa siklus), graf bipartit (simpul dibagi menjadi dua himpunan yang saling bebas sisi), dan subgraf (bagian dari graf yang tetap mempertahankan struktur graf).
+
 \subsection{Graf Berarah dan Graf Tidak Berarah~\cite{Diestel:17:graph}}
 \label{sec:grafberarah}
-Graf berarah (lihat Gambar \ref{fig:grafberarah}) adalah graf di mana setiap sisi memiliki arah tertentu. Dengan kata lain, setiap sisi dalam graf ini diwakili oleh pasangan terurut dari simpul (\textit{vertex}). Sebuah graf berarah didefinisikan sebagai pasangan $G=(V,E)$, di mana $V$ adalah himpunan simpul dan $E$ adalah himpunan sisi yang berbentuk pasangan terurut dari simpul. Setiap sisi $e$ memiliki simpul awal $init(e)$ dan simpul terminal $ter(e)$ yang menunjukkan arah perjalanan dari satu simpul ke simpul lainnya.
-\\
-Graf berarah dapat memiliki berbagai karakteristik khusus. Jika terdapat lebih dari satu sisi dengan arah yang sama antara dua simpul yang sama, sisi tersebut disebut sisi paralel. Jika sebuah sisi memiliki awal dan terminal yang sama, maka sisi tersebut disebut loop. Selain itu, Jika suatu graf tidak berarah diberikan arah pada setiap sisinya, maka graf berarah yang dihasilkan disebut sebagai \textit{oriented graph}.
+Graf berarah (lihat Gambar \ref{fig:grafberarah}) adalah graf yang di mana setiap sisi memiliki arah tertentu. Dengan kata lain, setiap sisi dalam graf ini diwakili oleh pasangan terurut dari simpul (\textit{vertex}). Sebuah graf berarah didefinisikan sebagai pasangan $G=(V,E)$, di mana $V$ adalah himpunan simpul dan $E$ adalah himpunan sisi yang berbentuk pasangan terurut dari simpul. Setiap sisi $e$ memiliki simpul awal dan simpul terminal yang menunjukkan arah perjalanan dari satu simpul ke simpul lainnya.
+
+Graf berarah dapat memiliki berbagai karakteristik khusus yang membedakannya dari graf tidak berarah. Jika terdapat lebih dari satu sisi dengan arah yang sama antara dua simpul yang sama, sisi tersebut disebut sisi paralel. Jika sebuah sisi memiliki awal dan terminal yang sama, maka sisi tersebut disebut loop. Selain itu, Jika suatu graf tidak berarah diberikan arah pada setiap sisinya, maka graf berarah yang dihasilkan disebut sebagai \textit{oriented graph}.
 
 \begin{figure}[H] 
     \centering  
@@ -270,34 +266,34 @@ Graf berarah dapat memiliki berbagai karakteristik khusus. Jika terdapat lebih d
     \caption{Graf Berarah}
     \label{fig:grafberarah} 
 \end{figure}
-\newpage
-\noindent
+
 Graf tidak berarah (lihat Gambar \ref{fig:graf}) adalah jenis graf di mana setiap sisi hanya menghubungkan dua simpul tanpa adanya arah tertentu. Dalam graf ini, sisi diwakili sebagai pasangan tidak terurut \{$u,v$\} yang berarti bahwa pergerakan dari simpul $u$ ke $v$ sama dengan pergerakan dari $v$ ke $u$. Graf tidak berarah dapat direpresentasikan dalam bentuk matriks ketetanggaan (\textit{adjacency matrix}), di mana matriks ini bersifat simetris.
-\\
-Salah satu sifat penting dari graf tidak berarah adalah konsep keterhubungan. Sebuah graf dikatakan terhubung jika terdapat jalur antara setiap pasangan simpulnya. Jika terdapat simpul yang tidak dapat dijangkau dari simpul lain, maka graf tersebut disebut tidak terhubung. Graf tidak berarah juga memiliki properti siklus, yaitu jalur tertutup di mana simpul awal dan simpul akhir adalah sama.
+
+Salah satu sifat penting dari graf tidak berarah adalah konsep keterhubungan. Sebuah graf dikatakan terhubung jika terdapat jalur antara setiap pasangan simpulnya. Jika terdapat simpul yang tidak dapat dijangkau dari simpul lain, maka graf tersebut disebut tidak terhubung. Selain keterhubungan, graf tidak berarah juga memiliki properti siklus, yaitu jalur tertutup di mana simpul awal dan simpul akhir adalah sama.
 
 \subsection{Graf Berbobot dan Graf Tidak Berbobot ~\cite{Diestel:17:graph}}
 \label{sec:grafberbobot}
-Graf berbobot (lihat Gambar \ref{fig:graf}) adalah graf di mana setiap sisi memiliki bobot atau nilai numerik yang menyatakan karakteristik tertentu seperti jarak, biaya, atau kapasitas. Graf berbobot direpresentasikan sebagai $G = (V,E,w)$, di mana $w:E\rightarrow R$ adalah fungsi yang memberikan bobot pada setiap sisi.
-\\
-Graf berbobot sering digunakan dalam berbagai aplikasi seperti algoritma pencarian jalur terpendek, optimasi jaringan, dan model transportasi. Dalam beberapa kasus, graf berbobot dapat berarah atau tidak berarah, tergantung pada apakah bobot tersebut memiliki arah tertentu atau tidak.
-\\
-Graf tidak berbobot (lihat Gambar \ref{fig:graftidakberbobot}) adalah graf di mana semua sisi dianggap memiliki bobot yang sama, biasanya bernilai satu atau dianggap tidak berbobot sama sekali. Graf jenis ini sering digunakan dalam analisis struktur jaringan, di mana hanya penting untuk mengetahui adanya hubungan antar simpul tanpa mempertimbangkan seberapa kuat atau penting hubungan tersebut.
-\\
-Dalam graf tak berbobot, algoritma seperti BFS (Breadth-First Search) dan DFS (Depth-First Search) sangat berguna untuk menemukan keterhubungan, jalur terpendek dalam jumlah langkah, serta untuk eksplorasi struktur graf lainnya.
+Graf berbobot (\textit{weighted graph}) (lihat Gambar \ref{fig:graf}) adalah graf di mana setiap sisi memiliki bobot atau nilai numerik yang menyatakan karakteristik tertentu seperti jarak, biaya, atau kapasitas. Graf berbobot direpresentasikan sebagai $G = (V,E,w)$, di mana $w:E\rightarrow R$ adalah fungsi yang memberikan bobot pada setiap sisi.
 
+Graf berbobot sering digunakan dalam berbagai aplikasi seperti  algoritma pencarian jalur terpendek, optimasi jaringan, serta pemodelan sistem transportasi. Dalam beberapa kasus, graf berbobot dapat bersifat berarah jika bobot hanya berlaku dalam satu arah antara dua simpul, atau tidak berarah jika bobot berlaku dua arah secara simetris antara kedua simpul yang terhubung.
+\newpage
 \begin{figure}[H] 
     \centering  
     \includegraphics[width=0.7\textwidth]{graf-tidak-berbobot}  
     \caption{Graf Tidak Berbobot}
     \label{fig:graftidakberbobot} 
 \end{figure}
-\newpage
+Graf tidak berbobot (lihat Gambar \ref{fig:graftidakberbobot}) adalah graf di mana semua sisi dianggap memiliki bobot yang sama, biasanya bernilai satu atau dianggap tidak berbobot sama sekali. Graf jenis ini sering digunakan dalam analisis struktur jaringan, di mana hanya penting untuk mengetahui adanya hubungan antar simpul tanpa mempertimbangkan seberapa kuat atau penting hubungan tersebut.
+
+Dalam graf tak berbobot, algoritma seperti BFS (Breadth-First Search) dan DFS (Depth-First Search) sangat berguna untuk menemukan keterhubungan, jalur terpendek dalam jumlah langkah, serta untuk eksplorasi struktur graf lainnya.
+
+
+
 \section{Algoritma Shortest Path}
 \label{sec:algoritmasp}
-Ada berbagai jenis algoritma \textit{shortest path} yang dirancang untuk menemukan lintasan terpendek antara dua titik dalam sebuah graf. Algoritma ini memainkan peran penting dalam berbagai aplikasi, seperti sistem navigasi, perencanaan jaringan, analisis data geografis, dan pemecahan masalah rute optimal.
-\\
-Setiap algoritma memiliki pendekatan, kelebihan, dan keterbatasan masing-masing, yang menjadikannya lebih sesuai untuk situasi tertentu. Sebagai contoh, algoritma seperti \textit{Dijkstra} sangat cocok untuk graf dengan bobot positif, sementara \textit{Floyd-Warshall} lebih sesuai untuk menemukan lintasan terpendek pada semua pasangan titik dalam graf kecil. Di sisi lain, algoritma \textit{A*} dirancang khusus untuk mempercepat pencarian lintasan dengan memanfaatkan heuristik. Berikut pembahasan secara detail tiga algoritma \textit{shortest path} yang digunakan, yaitu \textit{Dijkstra}, \textit{Floyd-Warshall}, dan \textit{A*}.
+Terdapat berbagai jenis algoritma shortest path yang dirancang untuk menentukan lintasan terpendek antara dua simpul dalam suatu graf. Algoritma-algoritma ini memegang peranan penting dalam berbagai bidang aplikasi seperti sistem navigasi, perencanaan dan optimasi jaringan, analisis data geografis, serta pemecahan masalah rute optimal dalam logistik dan transportasi.
+
+Setiap algoritma memiliki pendekatan, kelebihan, dan keterbatasan yang menjadikannya lebih sesuai untuk situasi tertentu. Sebagai contoh, algoritma seperti Dijkstra sangat cocok untuk graf dengan bobot positif, sementara Floyd-Warshall lebih sesuai untuk menemukan lintasan terpendek pada semua pasangan titik dalam graf kecil. Di sisi lain, algoritma A-Star dirancang khusus untuk mempercepat pencarian lintasan dengan memanfaatkan heuristik. Berikut pembahasan secara detail tiga algoritma \textit{shortest path} yang digunakan, yaitu {Dijkstra}, A-Star, dan Floyd-Warshall.
 
 \subsection{Algoritma Dijkstra ~\cite{Cormen:09:intro}}
 \label{sec:dijkstra}
@@ -318,9 +314,9 @@ Algoritma Dijkstra merupakan sebuah algoritma untuk menyelesaikan masalah \texti
     \EndWhile
     \end{algorithmic}
 \end{algorithm}
-\noindent
-Pseudocode \ref{alg:dijkstra} merupakan pseudocode dari algoritma Dijkstra. Pada pseudocode terdapat beberapa atribut diantarnya, yaitu $G$ yang merepresentasikan graf, $w$ merupakan bobot yang menyatakan jarak atau biaya antar dan $s$ merepresentasikan simpul sumber yang merupakan titik awal pencarian. Selain itu, $S$ merepresentasikan kumpulan simpul yang sudah diproses yang diawal diinisialisasikan kosong, sedangkan $Q$ merepresentasikan kumpulan simpul yang belum diproses, kemudian $u$ merepresentasikan simpul yang sedang diproses dan $v$ merepresentasikan simpul tetangga dari $u$. Algoritma Dijkstra dimulai dengan menginisialisasi perkiraan jarak terpendek dari titik asal $s$ ke semua titik lain, kecuali $s$ itu sendiri yang diinisialisasi dengan jarak 0 dan juga semua simpul dimasukkan ke dalam \textit{min-priority queue} ($Q$), di mana prioritas ditentukan berdasarkan jarak terpendek yang diketahui. Selanjutnya, algoritma memproses simpul-simpul satu per satu dengan memilih simpul $u$ dari $Q$ yang memiliki jarak terpendek. Simpul tersebut kemudian ditambahkan ke dalam himpunan $S$.
-\\
+
+Pseudocode \ref{alg:dijkstra} merupakan pseudocode dari algoritma Dijkstra. Pada pseudocode terdapat beberapa atribut, diantarnya, yaitu $G$ yang merepresentasikan graf, $w$ merupakan bobot yang menyatakan jarak atau biaya antar dan $s$ merepresentasikan simpul sumber yang merupakan titik awal pencarian. Selain itu, $S$ merepresentasikan kumpulan simpul yang sudah diproses yang diawal diinisialisasikan kosong, sedangkan $Q$ merepresentasikan kumpulan simpul yang belum diproses, kemudian $u$ merepresentasikan simpul yang sedang diproses dan $v$ merepresentasikan simpul tetangga dari $u$. Algoritma Dijkstra dimulai dengan menginisialisasi perkiraan jarak terpendek dari titik asal $s$ ke semua titik lain, kecuali $s$ itu sendiri yang diinisialisasi dengan jarak 0 dan juga semua simpul dimasukkan ke dalam \textit{min-priority queue} ($Q$), di mana prioritas ditentukan berdasarkan jarak terpendek yang diketahui. Selanjutnya, algoritma memproses simpul-simpul satu per satu dengan memilih simpul $u$ dari $Q$ yang memiliki jarak terpendek. Simpul-simpul tersebut kemudian ditambahkan ke dalam himpunan $S$.
+
 Setelah simpul $u$ diproses, algoritma akan memeriksa semua tetangga $v$ dari $u$. Untuk setiap tetangga, algoritma melakukan proses \textit{relaksasi}, yaitu membandingkan jarak saat ini ke $v$ dengan jarak yang melewati $u$. Jika jalur melalui $u$ memberikan jarak yang lebih pendek, jarak ke $v$ diperbarui dengan jarak baru tersebut, dan simpul pendahulu $v$ diatur menjadi $u$. Proses ini memastikan bahwa jalur terpendek ditemukan secara bertahap melalui iterasi. Algoritma akan terus berjalan hingga semua simpul telah diproses atau antrean $Q$ kosong. Hasil akhir berupa jarak terpendek dari simpul sumber $s$ ke setiap simpul lain dalam graf.
 \\
 Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Dijkstra dengan langkah-langkah berikut.
@@ -342,7 +338,7 @@ Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Dijkstra dengan l
             E               & $\infty$              & -     \\ \hline
         \end{tabular}
     \end{table}
-    
+\newpage
     \item Iterasi 1
     \begin{itemize}
         \item Ambil simpul A (0) dari PQ
@@ -387,7 +383,7 @@ Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Dijkstra dengan l
             E               & 5                     & A - C - E     \\ \hline
         \end{tabular}
     \end{table}
-\newpage
+
     \item Iterasi 3
     \begin{itemize}
         \item Ambil simpul B (4) dari PQ
@@ -408,7 +404,7 @@ Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Dijkstra dengan l
             E               & 5                     & A - C - E     \\ \hline
         \end{tabular}
     \end{table}
-
+\newpage
     \item Iterasi 4
     \begin{itemize}
         \item Ambil simpul E (5) dari PQ
@@ -468,12 +464,12 @@ Algoritma Floyd-Warshall merupakan sebuah algoritma untuk menyelesaikan masalah 
         \State \textbf{return} $D^{(n)}$
     \end{algorithmic}
 \end{algorithm}
-\noindent
+
 Pseudocode \ref{alg:floydwarshall} merupakan pseudocode dari algoritma Floyd-Warshall. Pada pseudocode terdapat beberapa atribut diantarnya, yaitu $W$ yang merupakan sebuah matriks berbobot berukuran $n*n$ dan mewakili bobot dari setiap sisi pada graf, $D^{(0)}$ atau $D^{(k)}$ merupakan Matriks berukuran $n*n$ pada iterasi ke-$k$, $n$ merepresentasikan banyaknya simpul dalam graf, diperoleh dari jumlah baris dari matriks $W$. Selain itu, terdapat $d_{ij}^{(k)}$ yang merupakan elemen dari matriks $D^{(k)}$ yang menunjukkan jarak terpendek antara simpul $i$ dan $j$ pada iterasi ke-$k$. Algoritma Floyd-Warshall dimulai dengan menginisialisasi $n$ yang diinisialisasi dengan nilai baris pada matriks $W$ dan juga $D^{(0)}$ yang diinisialisasi dengan matriks $W$. 
-\\
+
 Selama $n$ iterasi, algoritma memperbarui matriks jarak terpendek dengan mempertimbangkan kemungkinan jalan melalui simpul antara $\{1,2,...,k\}$. Pada setiap langkah, algoritma memeriksa apakah jarak dari $i$ ke $j$ dapat diperpendek dengan melalui simpul $k$, dibandingkan dengan jarak langsung antara $i$ dan $j$. Proses ini menghasilkan solusi optimal, di mana $D^{(n)}$ mencakup semua jarak terpendek yang memungkinkan.Algoritma Floyd-Warshall memiliki kompleksitas waktu $O(n^3)$ karena terdiri dari tiga \textit{looping} untuk semua titik dalam graf.
 \\
-Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Floyd-Warshall dengan langkah-langkah berikut.
+Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Floyd-Warshall dengan langkah berikut.
 \begin{enumerate}
     \item Inisialisasi Matriks Jarak
     \begin{itemize}
@@ -522,7 +518,7 @@ Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Floyd-Warshall de
         E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
         \end{tabular}
     \end{table}
-
+\newpage
     \item Iterasi 3 dengan C sebagai perantara (k) / k = C
     \begin{itemize}
         \item A - B dapat melalui C
@@ -578,7 +574,7 @@ Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Floyd-Warshall de
         E & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 0        \\ \hline
         \end{tabular}
     \end{table}
-\newpage
+
     \item Iterasi 5 dengan E sebagai perantara (k) / k = E
     \begin{itemize}
         \item Titik E sudah merupakan titik terakhir atau titik tujuan sehingga tidak ada perubahan.
@@ -596,16 +592,16 @@ Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan Floyd-Warshall de
     \end{table}
     
 \end{enumerate}
-
-\subsection{Algoritma A* ~\cite{Russell:09:ai}}
+\newpage
+\subsection{Algoritma A-Star ~\cite{Russell:09:ai}}
 \label{a*}
-Algoritma A* adalah metode pencarian yang meminimalkan estimasi total biaya solusi dengan menggabungkan dua fungsi, yaitu $g(n)$ dan $h(n)$ Fungsi $g(n)$ menghitung biaya aktual dari titik awal hingga simpul $n$, sedangkan $h(n)$ memperkirakan biaya tersisa dari $n$ ke tujuan. Kombinasi ini menghasilkan $f(n) = g(n) + h(n)$, yang memberikan perkiraan total biaya solusi jika rute melalui simpul $n$. Algoritma ini biasanya dipilih karena dapat mencapai solusi yang optimal dan lengkap, terutama jika fungsi heuristik $h(n)$ memenuhi kriteria tertentu.
+Algoritma A-Star adalah metode pencarian yang meminimalkan estimasi total biaya solusi dengan menggabungkan dua fungsi, yaitu $g(n)$ dan $h(n)$ Fungsi $g(n)$ menghitung biaya aktual dari titik awal hingga simpul $n$, sedangkan $h(n)$ memperkirakan biaya tersisa dari $n$ ke tujuan. Kombinasi ini menghasilkan $f(n) = g(n) + h(n)$, yang memberikan perkiraan total biaya solusi jika rute melalui simpul $n$. Algoritma ini biasanya dipilih karena dapat mencapai solusi yang optimal dan lengkap, terutama jika fungsi heuristik $h(n)$ memenuhi kriteria tertentu.
+
+Kondisi utama yang diperlukan agar algortima A-Star memberikan solusi optimal adalah heuristik $h(n)$ yang bersifat \textit{admissible}, yaitu tidak pernah melebih-lebihkan biaya ke tujuan, dan \textit{consistent} atau \textit{monotonic}, di mana nilai $h$ tidak menurun di sepanjang jalur. Dengan adanya heuristik yang memenuhi syarat ini, algoritma A-Star dapat menghindari eksplorasi simpul-simpul yang tidak relevan, mengurangi waktu dan memori yang dibutuhkan.
+
+Terdapat kendala utama dari algoritma A-Star yaitu penggunaan memori yang besar karena algoritma ini perlu menyimpan semua simpul yang telah dihasilkan. Untuk mengatasi hal ini, terdapat varian A-Star seperti \textit{Iterative-Deepening A*} (IDA*) yang mengurangi kebutuhan memori tanpa mengorbankan optimalitas solusi, dengan biaya eksekusi yang sedikit lebih tinggi.
 \\
-Kondisi utama yang diperlukan agar algortima A* memberikan solusi optimal adalah heuristik $h(n)$ yang bersifat \textit{admissible}, yaitu tidak pernah melebih-lebihkan biaya ke tujuan, dan \textit{consistent} atau \textit{monotonic}, di mana nilai $h$ tidak menurun di sepanjang jalur. Dengan adanya heuristik yang memenuhi syarat ini, algoritma A* dapat menghindari eksplorasi simpul-simpul yang tidak relevan, mengurangi waktu dan memori yang dibutuhkan.
-\\
-Terdapat kendala utama dari algoritma A*, yaitu penggunaan memori yang besar karena algoritma ini perlu menyimpan semua simpul yang telah dihasilkan. Untuk mengatasi hal ini, terdapat varian A* seperti \textit{Iterative-Deepening A*} (IDA*) yang mengurangi kebutuhan memori tanpa mengorbankan optimalitas solusi, dengan biaya eksekusi yang sedikit lebih tinggi.
-\\
-Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan A* dengan langkah-langkah berikut.
+Graf pada gambar \ref{fig:graf} dapat diselesaikan menggunakan A-Star dengan langkah-langkah berikut.
 \begin{enumerate}
     \item Inisialisasi
     \begin{itemize}

@@ -4,7 +4,7 @@ Bab ini akan membahas kesimpulan dari hasil pengembangan perangkat lunak KIRI. S
 \section{Kesimpulan}
 Berdasarkan hasil penelitian dan implementasi serta pengujian yang telah dilakukan dalam pengembangan perangkat lunak KIRI, maka dapat disimpulkan hal-hal berikut.
 \begin{enumerate}
-    \item Pada Tugas Akhir ini, perubahan arsitektur kelas pada NewMenjangan untuk menerapkan Strategy Pattern berhasil dilakukan. Penerapan dilakukan dengan membentuk sebuah \textit{superclass} bernama \texttt{ShortestPathStrategy} sebagai antarmuka strategi. Kelas ini berfungsi sebagai abstraksi algoritma pencarian jalur, sehingga memungkinkan berbagai algoritma dapat diimplementasikan secara fleksibel sebagai turunan dari kelas-kelas algoritma pencarian jalur.
+    \item Pada Tugas Akhir ini, perubahan arsitektur kelas pada NewMenjangan untuk menerapkan \textit{strategy pattern} berhasil dilakukan. Penerapan dilakukan dengan membentuk sebuah \textit{superclass} bernama \texttt{ShortestPathStrategy} sebagai antarmuka strategi. Kelas ini berfungsi sebagai abstraksi algoritma pencarian jalur, sehingga memungkinkan berbagai algoritma dapat diimplementasikan secara fleksibel sebagai turunan dari kelas-kelas algoritma pencarian jalur.
     \item Implementasi algoritma A-Star dan Floyd-Warshall sebagai \textit{concrete strategy} telah berhasil dilakukan. Pada NewMenjangan dibuat dua kelas java baru, yaitu \texttt{AStar.java} dan \texttt{FloydWarshall.java} untuk mengimplementasikan kedua algoritma tersebut. Kedua kelas tersebut juga menjadi kelas turunan dari kelas \texttt{ShortestPathStrategy} dan dapat dipertukarkan sesuai kebutuhan sistem. Selain itu, dari hasil pengujian menunjukan bahwa kedua algoritma tersebut dapat berjalan dengan baik dan dapat menghasilkan jalur yang optimal setelah menerima masukan-masukan yang dibutuhkan.
 \end{enumerate}
 
@@ -12,5 +12,5 @@ Berdasarkan hasil penelitian dan implementasi serta pengujian yang telah dilakuk
 Berdasarkan hasil penelitian dan implementasi serta pengujian yang telah dilakukan dalam pengembangan perangkat lunak KIRI, berikut ini adalah beberapa saran yang dapat disampaikan.
 \begin{enumerate}
     \item Menerapkan algoritma \textit{shortest path} lainnya, selain Dijkstra, A-Star, dan Floyd-Warshall, guna memperluas cakupan analisis performa dan potensi peningkatan efisiensi dalam pencarian jalur terpendek, seperti algoritma Bellman-Ford, algoritma Johnson's, dan lain-lain.
-    \item Melakukan eksplorasi untuk pendekatan berbasis geometri sebagai alternatif pengganti representasi node, dengan tujuan meningkatkan akurasi dalam merepresentasikan posisi dan bentuk jalur secara geografis dan fleksibilitas dalam pemodelan jaringan jalur angkutan umum.
+    \item Melakukan eksplorasi untuk pendekatan berbasis geometri sebagai alternatif pengganti representasi \textit{node}, dengan tujuan untuk mengurangi jumlah \textit{node} yang terdapat pada graf-graf jalur sehingga jumlah node yang diproses ketika melakukan pencarian jalur terpendek menjadi lebih sedikit dan  dapat meningkatkan performa.
 \end{enumerate}

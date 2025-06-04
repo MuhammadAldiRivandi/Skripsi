@@ -49,6 +49,10 @@
 \usepackage{verbatim} 		%multiline comment
 \usepackage{pgfplots}
 \usepackage{enumitem}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{amsmath}
 %\overfullrule=3mm % memperlihatkan overfull 
 %=============================================================================
 
@@ -80,7 +84,7 @@
 %\mode{sidangakhir} 	% untuk sidang 2 / sidang pada Skripsi 2(IF)
 %\mode{final} 			% untuk mencetak buku skripsi 
 %=============================================================================
-\mode{final}
+\mode{sidangakhir}
 
 %_____________________________________________________________________________
 %=============================================================================
@@ -234,12 +238,12 @@
 % - hilangkan tanda << & >>, dan isi sesuai dengan data anda
 % - langsung mulai setelah '{' awal, jangan mulai menulis di baris bawahnya
 %=============================================================================
-\abstrakINA{Perangkat lunak KIRI merupakan aplikasi pencari rute transportasi publik yang arsitekturnya dibagi menjadi dua, yaitu Tirtayasa (\textit{frontend}) dan NewMenjangan (\textit{backend}). Saat ini Perangkat Lunak KIRI hanya memanfaatkan algoritma Dijkstra untuk perhitungan jalur terpendek. Penelitian ini bertujuan untuk mengembangkan perangkat lunak KIRI dengan menerapkan strategy pattern sebagai pendekatan modularisasi algoritma shortest path. Dengan penerapan strategy pattern, penambahan algoritma shortest path lainnya dapat dilakukan secara dinamis tanpa mengubah struktur kode utama.
+\abstrakINA{Perangkat lunak KIRI merupakan aplikasi pencari rute transportasi publik yang arsitekturnya dibagi menjadi dua, yaitu Tirtayasa (\textit{frontend}) dan NewMenjangan (\textit{backend}). Saat ini Perangkat Lunak KIRI hanya memanfaatkan algoritma Dijkstra untuk perhitungan jalur terpendek. Penelitian ini bertujuan untuk mengembangkan perangkat lunak KIRI dengan menerapkan strategy pattern sebagai pendekatan modularisasi algoritma \textit{shortest path}. Dengan penerapan \textit{strategy pattern}, penambahan algoritma \textit{shortest path} lainnya dapat dilakukan secara dinamis tanpa mengubah struktur kode utama.
 \\
-Pada penelitian ini, akan ditambahkan atau diimplementasikan dua algoritma shortest path lainnya, yaitu Floyd-Warshall dan A-Star, yang dikembangkan dan diintegrasikan ke dalam backend KIRI sebagai strategi alternatif. Algoritma Floyd-Warshall dipilih karena kemampuannya dalam menghitung semua pasangan titik, sedangkan A-Star digunakan karena keunggulannya dalam efisiensi pencarian pada graf berbobot yang besar dan memiliki nilai heuristik lokasi.
+Pada penelitian ini, akan ditambahkan atau diimplementasikan dua algoritma shortest path lainnya, yaitu Floyd-Warshall dan A-Star, yang dikembangkan dan diintegrasikan ke dalam \textit{backend} KIRI sebagai strategi alternatif. Algoritma Floyd-Warshall dipilih karena kemampuannya dalam menghitung semua pasangan titik, sedangkan A-Star digunakan karena keunggulannya dalam efisiensi pencarian pada graf berbobot yang besar dan memiliki nilai heuristik lokasi.
 \\
-Hasil pengujian menunjukkan bahwa modularisasi dengan strategy pattern meningkatkan fleksibilitas dalam pengelolaan algoritma pencarian jalur terpendek, serta memudahkan penambahan atau penggantian algoritma apabila akan dilakukan pemeliharaan atau pengambangan lebih lanjut. Selain itu, masing-masing algoritma menunjukkan performa yang berbeda sesuai dengan karakteristik graf dan skenario pencarian yang diuji, sehingga memberikan opsi lebih bagi pengguna dan pengembang sistem.}
-\abstrakENG{KIRI is a public transportation route-finding application whose architecture is divided into two components: Tirtayasa (\textit{frontend}) and NewMenjangan (\textit{backend}). Currently, the KIRI software only utilizes the Dijkstra algorithm for shortest path calculations. This research aims to enhance the KIRI software by implementing the strategy pattern as an approach to modularize the shortest path algorithms. By applying the strategy pattern, additional shortest path algorithms can be integrated dynamically without altering the core code structure.
+Hasil pengujian menunjukkan bahwa modularisasi dengan \textit{strategy pattern} meningkatkan fleksibilitas dalam pengelolaan algoritma pencarian jalur terpendek, serta memudahkan penambahan atau penggantian algoritma apabila akan dilakukan pemeliharaan atau pengambangan lebih lanjut. Selain itu, masing-masing algoritma menunjukkan performa yang berbeda sesuai dengan karakteristik graf dan skenario pencarian yang diuji, sehingga memberikan opsi lebih bagi pengguna dan pengembang sistem.}
+\abstrakENG{KIRI is a public transportation route-finding application whose architecture is divided into two components: Tirtayasa (frontend) and NewMenjangan (backend). Currently, the KIRI software only utilizes the Dijkstra algorithm for shortest path calculations. This research aims to enhance the KIRI software by implementing the strategy pattern as an approach to modularize the shortest path algorithms. By applying the strategy pattern, additional shortest path algorithms can be integrated dynamically without altering the core code structure.
 \\
 In this study, two additional shortest path algorithms Floyd-Warshall and A-Star are implemented and integrated into the KIRI backend as alternative strategies. The Floyd-Warshall algorithm is chosen for its ability to compute all-pairs shortest paths, while the A-Star algorithm is selected for its efficiency in large, weighted graphs with heuristic location values.
 \\
@@ -353,8 +357,4 @@ Penulis menyadari bahwa tugas akhir ini masih jauh dari sempurna. Oleh karena it
 \renewcommand{\vtemplateauthor}{lionov}
 \pgfplotsset{compat=newest}
 \setlist{nosep}
-\usepackage{algorithmicx}
-\usepackage{algpseudocode}
-\usepackage{algorithm}
-\usepackage{amsmath}
 %=============================================================================
